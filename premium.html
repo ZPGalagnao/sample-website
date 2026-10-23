@@ -1,0 +1,1111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Haligi Builders Premium</title>
+<meta name="description" content="Haligi Builders: design-and-build contractor for homes, commercial buildings and renovations. Explore our work in 3D, estimate your build cost, and book a free site visit.">
+<meta property="og:title" content="Haligi Builders — Design &amp; Build">
+<meta property="og:description" content="Explore our projects, estimate your build in a minute, and book a free site visit.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"Haligi Builders","telephone":"+63 917 123 4567","email":"hello@haligibuilders.ph","address":{"@type":"PostalAddress","streetAddress":"2F Unit 4, Rizal Avenue","addressLocality":"Your City","addressCountry":"PH"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"86"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+[hidden]{display:none!important}
+/* Layout: floating glass pill nav over a dark render-led hero, then airy light sections with bento cards; dark footer bookends the page */
+:root{
+  --bg:#F4F5F7; --surface:#FFFFFF; --surface-2:#ECEEF2; --ink:#0D1117; --muted:#5A6371; --line:#E1E4EA;
+  --accent:#F59E0B; --accent-strong:#B45309; --on-accent:#1A1206; --glow:rgba(245,158,11,.35);
+  --night:#0A0E14; --night-2:#121924; --night-line:rgba(255,255,255,.09); --night-ink:#F2F4F7; --night-muted:#A3ACB9;
+  --ok:#16A34A; --bad:#DC2626;
+  --display:"Sora",ui-sans-serif,system-ui,sans-serif; --body:"Manrope",ui-sans-serif,system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --r-lg:28px; --r-md:18px; --r-sm:12px; --ease:cubic-bezier(.22,.8,.2,1);
+  --shadow:0 1px 2px rgba(13,17,23,.04),0 12px 32px -12px rgba(13,17,23,.14);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A0D12; --surface:#11161D; --surface-2:#18202A; --ink:#EEF1F5; --muted:#9AA3B1; --line:#232A35;
+  --accent:#FBB13C; --accent-strong:#FBB13C; --glow:rgba(251,177,60,.25); --night:#06090D; --night-2:#0F151E;
+  --ok:#4ADE80; --bad:#F87171; --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 40px -16px rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A0D12; --surface:#11161D; --surface-2:#18202A; --ink:#EEF1F5; --muted:#9AA3B1; --line:#232A35;
+  --accent:#FBB13C; --accent-strong:#FBB13C; --glow:rgba(251,177,60,.25); --night:#06090D; --night-2:#0F151E;
+  --ok:#4ADE80; --bad:#F87171; --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 40px -16px rgba(0,0,0,.6); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.025em}
+h1{font-size:clamp(40px,6vw,76px);line-height:1.02;font-weight:600}
+h2{font-size:clamp(30px,4vw,50px);line-height:1.08;font-weight:600}
+h3{font-size:20px;line-height:1.25;font-weight:600;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+img{display:block}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:6px}
+.grad{background:linear-gradient(100deg,#FCD34D 0%,#F59E0B 45%,#FB923C 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--muted)}
+.eyebrow i{width:22px;height:22px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:var(--on-accent);font-style:normal;font-size:12px}
+.dark .eyebrow{background:rgba(255,255,255,.06);border-color:var(--night-line);color:var(--night-muted)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lead{font-size:clamp(17px,1.4vw,19px);color:var(--muted);max-width:54ch}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 24px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-color .25s;background:none;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn-accent{background:var(--accent);color:var(--on-accent);box-shadow:0 10px 30px -10px var(--glow)}
+.btn-accent:hover{box-shadow:0 16px 40px -10px var(--glow)}
+.btn-ghost{border-color:var(--line);background:var(--surface);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink)}
+.dark .btn-ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);color:var(--night-ink)}
+.dark .btn-ghost:hover{border-color:rgba(255,255,255,.5)}
+.btn .arr{transition:transform .25s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-sm{padding:10px 18px;font-size:14px}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
+.nav-shell{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;padding-block:14px;margin-bottom:-88px;pointer-events:none}
+.nav{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 8px 0 18px;border-radius:999px;background:rgba(12,16,22,.62);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.1);color:#F2F4F7;transition:background .3s,box-shadow .3s}
+.nav-shell.scrolled .nav{background:rgba(12,16,22,.86);box-shadow:0 18px 40px -18px rgba(0,0,0,.5)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;background:none;border:0;cursor:pointer;padding:0;color:inherit}
+.logo .mk{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#FCD34D,#F59E0B 60%,#EA580C);display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.logo small{display:block;font-family:var(--body);font-size:11px;font-weight:600;color:#A3ACB9;letter-spacing:.02em;margin-top:-3px}
+.nav-links{display:flex;gap:2px}
+.nav-links a,.nav-links button{padding:9px 14px;border-radius:999px;text-decoration:none;font-size:14.5px;font-weight:600;color:#C9D0DA;background:none;border:0;cursor:pointer;transition:color .2s,background .2s}
+.nav-links a:hover,.nav-links button:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-links .on{color:#fff;background:rgba(255,255,255,.12)}
+.nav-r{display:flex;align-items:center;gap:8px}
+.icon-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#fff;cursor:pointer}
+.menu-btn{display:none}
+@media (max-width:960px){
+  .nav-links{display:none;position:absolute;left:max(20px,env(safe-area-inset-left,0px));right:max(20px,env(safe-area-inset-right,0px));top:84px;flex-direction:column;padding:10px;border-radius:24px;background:rgba(12,16,22,.96);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(18px)}
+  .nav-links.open{display:flex}
+  .nav-links a,.nav-links button{padding:14px 16px;font-size:16px;text-align:left;border-radius:14px}
+  .menu-btn{display:grid}
+  .nav-r .btn{display:none}
+}
+
+/* dark hero shell */
+.dark{background:var(--night);color:var(--night-ink)}
+.dark .lead{color:var(--night-muted)}
+.dark .mono{color:var(--night-muted)}
+.hero{position:relative;overflow:hidden;padding-block:150px 90px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 500px at 85% 20%,rgba(245,158,11,.18),transparent 60%),radial-gradient(700px 500px at 0% 100%,rgba(56,104,160,.22),transparent 60%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 30%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 30%,transparent 75%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.hero h1{margin-top:22px}
+.hero .lead{margin-top:22px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.proof{display:flex;align-items:center;gap:14px;margin-top:36px;font-size:14px;color:var(--night-muted)}
+.faces{display:flex}
+.faces span{width:36px;height:36px;border-radius:50%;border:2px solid var(--night);margin-left:-10px;display:grid;place-items:center;font-size:12px;font-weight:800;color:#1A1206}
+.faces span:first-child{margin-left:0}
+.proof b{color:#fff}
+.stars{color:#FBBF24;letter-spacing:1px}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero{padding-block:130px 64px}}
+
+/* render frames */
+.shot{position:relative;border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(110deg,var(--surface-2) 30%,var(--line) 50%,var(--surface-2) 70%);background-size:300% 100%;animation:shim 1.6s linear infinite;max-width:100%}
+.dark .shot{background:linear-gradient(110deg,#141B25 30%,#1C2633 50%,#141B25 70%);background-size:300% 100%}
+.shot.ready{animation:none;background:var(--surface-2)}
+.shot img{width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.03);transition:opacity .8s var(--ease),transform 1.2s var(--ease)}
+.shot.ready img{opacity:1;transform:none}
+@keyframes shim{to{background-position:-150% 0}}
+.hero-shot{aspect-ratio:5/4;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.chip-float{position:absolute;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:18px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#0D1117;box-shadow:0 18px 40px -16px rgba(0,0,0,.45);font-size:13.5px;line-height:1.3;animation:floaty 6s ease-in-out infinite}
+.chip-float b{display:block;font-family:var(--display);font-size:20px;letter-spacing:-.02em}
+.chip-float .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#0D1117;color:#FBBF24;flex:none}
+.chip-float small{color:#5A6371}
+@keyframes floaty{50%{transform:translateY(-8px)}}
+
+/* sections */
+section{padding-block:110px}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:24px;margin-bottom:56px}
+.sec-head .l{max-width:640px;display:grid;gap:16px;justify-items:start}
+.sec-head p{color:var(--muted);max-width:44ch}
+.center{text-align:center;justify-items:center;margin-inline:auto}
+@media (max-width:700px){section{padding-block:80px}.sec-head{margin-bottom:40px}}
+
+/* trust strip */
+.strip{border-block:1px solid var(--night-line);background:var(--night);color:var(--night-muted);overflow:hidden}
+.strip .track{display:flex;gap:56px;width:max-content;padding-block:22px;animation:mq 36s linear infinite;font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:-.01em}
+.strip span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.strip span::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--accent);transform:rotate(45deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow)}
+.svc-card{position:relative;padding:30px;display:grid;gap:14px;align-content:start;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;overflow:hidden}
+.svc-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--accent) 60%,var(--line));box-shadow:0 30px 60px -30px var(--glow)}
+.svc-card p{color:var(--muted);font-size:15px}
+.ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E}
+:root[data-theme="dark"] .ico{background:rgba(251,177,60,.14);color:#FBB13C}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ico{background:rgba(251,177,60,.14);color:#FBB13C}}
+.ico svg{width:24px;height:24px}
+.svc-card .more{font-weight:700;font-size:14px;color:var(--accent-strong);display:inline-flex;gap:6px;align-items:center}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:26px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--line)}
+.stat b{display:block;font-family:var(--display);font-size:clamp(34px,3.6vw,48px);font-weight:600;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:10px;color:var(--muted);font-size:14px}
+@media (max-width:860px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* project cards */
+.pcard{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:16px;border-radius:var(--r-md)}
+.pcard .shot{aspect-ratio:4/3;border-radius:var(--r-md)}
+.pcard .shot img{transition:opacity .8s var(--ease),transform 1s var(--ease)}
+.pcard:hover .shot img,.pcard:focus-visible .shot img{transform:scale(1.06)}
+.pcard .tag{position:absolute;top:14px;left:14px;z-index:1;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);color:#0D1117;font-size:12px;font-weight:700}
+.pcard .open{position:absolute;right:14px;bottom:14px;z-index:1;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;transform:scale(.6);opacity:0;transition:all .35s var(--ease)}
+.pcard:hover .open,.pcard:focus-visible .open{transform:none;opacity:1}
+.pcard .meta{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.pcard .meta small{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+.pcard .meta .yr{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:4px}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px 28px}
+@media (max-width:960px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.pgrid{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chipb{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:14px;font-weight:600;transition:all .2s}
+.chipb:hover{border-color:var(--ink)}
+.chipb[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chipb .c{font-family:var(--mono);font-size:11px;opacity:.55;margin-left:6px}
+
+/* testimonial */
+.quote-card{padding:32px;display:grid;gap:22px;align-content:space-between}
+.quote-card blockquote{margin:0;font-family:var(--display);font-size:19px;line-height:1.5;letter-spacing:-.01em;font-weight:500}
+.who{display:flex;align-items:center;gap:12px}
+.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#1A1206;flex:none}
+.who small{display:block;color:var(--muted);font-size:13.5px}
+
+/* cta band */
+.cta-band{position:relative;overflow:hidden;border-radius:var(--r-lg);padding:64px;background:var(--night);color:var(--night-ink);display:grid;grid-template-columns:1.3fr auto;gap:32px;align-items:center}
+.cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 100% 0%,rgba(245,158,11,.35),transparent 60%),radial-gradient(500px 300px at 0% 100%,rgba(56,104,160,.3),transparent 60%)}
+.cta-band>*{position:relative}
+.cta-band p{color:var(--night-muted);margin-top:14px;max-width:48ch}
+@media (max-width:800px){.cta-band{grid-template-columns:1fr;padding:40px 28px}}
+
+/* forms */
+.field{display:grid;gap:8px;min-width:0}
+.field label{font-size:14px;font-weight:700}
+.field input,.field select,.field textarea{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px;transition:border-color .2s,box-shadow .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--glow)}
+.field .err{font-size:13px;color:var(--bad)}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--bad)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:600px){.two{grid-template-columns:1fr}}
+.done{display:grid;gap:14px;justify-items:start}
+.done .ok{width:56px;height:56px;border-radius:50%;background:var(--ok);display:grid;place-items:center;color:#fff}
+
+/* contact */
+.way{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--line);text-decoration:none;transition:transform .3s var(--ease),border-color .3s}
+.way:hover{transform:translateY(-3px);border-color:var(--accent)}
+.way .ico{width:48px;height:48px;border-radius:14px;flex:none}
+.way div{min-width:0}
+.way small{display:block;color:var(--muted);font-size:13px}
+.way strong{display:block;font-size:17px;word-break:break-word}
+.way .go{margin-left:auto;color:var(--muted)}
+.map{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:340px;background:#0F1620;border:1px solid var(--line)}
+.map>svg{position:absolute;inset:0;width:100%;height:100%}
+.map .pin{position:absolute;left:50%;top:44%;transform:translate(-50%,-100%)}
+.map .pin::after{content:"";position:absolute;left:50%;top:100%;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:50%;background:var(--glow);animation:pulse 2.4s ease-out infinite;z-index:-1}
+@keyframes pulse{0%{transform:scale(.2);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.map .card-on{position:absolute;left:16px;right:16px;bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 18px;border-radius:18px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);color:#0D1117}
+.map .card-on small{color:#5A6371;display:block}
+
+/* footer */
+footer{background:var(--night);color:var(--night-muted);font-size:14.5px;padding-block:80px 32px}
+.fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:40px}
+footer h4{color:#fff;font-family:var(--body);font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+footer a,footer button{display:block;color:var(--night-muted);text-decoration:none;background:none;border:0;padding:4px 0;cursor:pointer;text-align:left}
+footer a:hover,footer button:hover{color:#fff}
+.fbase{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;padding-top:24px;border-top:1px solid var(--night-line);font-size:13px}
+.socials{display:flex;gap:8px;margin-top:20px}
+.socials a{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--night-line);color:#fff;padding:0}
+.socials a:hover{border-color:var(--accent);color:var(--accent)}
+@media (max-width:860px){.fgrid{grid-template-columns:1fr 1fr}}
+
+/* floating contact */
+.fab{position:fixed;right:max(20px,calc(20px + env(safe-area-inset-right,0px)));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;flex-direction:column;gap:12px}
+.fab a{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(0,0,0,.4);text-decoration:none;transition:transform .25s var(--ease)}
+.fab a:hover{transform:scale(1.08)}
+.fab .m{background:#0866FF;color:#fff}
+.fab .c{background:var(--accent);color:var(--on-accent)}
+.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;padding:12px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:600;font-size:14px;box-shadow:var(--shadow)}
+
+/* motion: content stays visible; only slides into place */
+.rv{transition:transform .9s var(--ease)}
+.rv.pre{transform:translateY(36px)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.shot img{opacity:1;transform:none}}
+.shot.fallback{animation:none;background:linear-gradient(135deg,#1E3A52,#0F1620)}
+
+.fab svg{width:24px;height:24px}
+.way .go svg{width:18px;height:18px}
+.cf-l{left:-18px;bottom:40px}.cf-r{right:-14px;top:36px;animation-delay:-3s}
+@media (max-width:600px){.cf-l{left:10px;bottom:12px}.cf-r{right:10px;top:12px}.chip-float{padding:8px 12px;gap:8px}.chip-float b{font-size:16px}.chip-float .ic{width:30px;height:30px;border-radius:9px}.chip-float .ic svg{width:16px;height:16px}}
+.chip-float .ic svg{width:20px;height:20px}
+
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--accent);color:var(--on-accent);padding:10px 14px;border-radius:10px}
+.skip:focus{left:16px}
+.progress{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:3px;z-index:70;background:linear-gradient(90deg,#FCD34D,#F59E0B,#EA580C);width:0}
+/* 3D hero */
+.hero3d{padding-block:130px 0}
+.h3-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center}
+.stage{position:relative;aspect-ratio:5/4;max-width:100%;border-radius:32px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 50px 100px -40px rgba(0,0,0,.8);background:#141B25}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.stage canvas:active{cursor:grabbing}
+.stage .shot{position:absolute;inset:0;border-radius:0}
+.hint{position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(10,14,20,.6);backdrop-filter:blur(10px);color:#E5E9EF;font-size:13px;font-weight:600;pointer-events:none}
+.tod{position:absolute;top:16px;right:16px;display:flex;padding:4px;border-radius:999px;background:rgba(10,14,20,.6);backdrop-filter:blur(10px)}
+.tod button{border:0;background:none;color:#C9D0DA;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer}
+.tod button[aria-pressed="true"]{background:#fff;color:#0D1117}
+.ctrl{position:absolute;left:16px;right:16px;bottom:16px;padding:16px 18px;border-radius:20px;background:rgba(10,14,20,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);color:#fff;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:center}
+.ctrl .play{grid-row:span 2;width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:#1A1206;cursor:pointer;display:grid;place-items:center}
+.ctrl .row{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+.ctrl .row b{font-family:var(--display);font-size:15px}
+.ctrl .row span{color:#A3ACB9;font-family:var(--mono);font-size:12px}
+.ctrl input{width:100%;accent-color:#F59E0B;margin:0}
+.stages{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:#7D8796;grid-column:2;text-transform:uppercase;letter-spacing:.05em}
+.stages i{font-style:normal}
+.stages i.on{color:#FBBF24}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;border-top:1px solid var(--night-line)}
+.kpis div{padding:30px 24px;border-right:1px solid var(--night-line)}
+.kpis div:last-child{border-right:0}
+.kpis b{display:block;font-family:var(--display);font-size:clamp(32px,3.6vw,48px);font-weight:600;letter-spacing:-.04em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.kpis span{display:block;margin-top:10px;color:var(--night-muted);font-size:14px}
+@media (max-width:1020px){.h3-grid{grid-template-columns:1fr}.stage{aspect-ratio:4/3}}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis div:nth-child(2){border-right:0}.kpis div:nth-child(-n+2){border-bottom:1px solid var(--night-line)}.stage{aspect-ratio:1/1}.hint{display:none}.stages{display:none}.ctrl{padding:12px 14px}.trk-btn{padding:8px 12px;font-size:11px}}
+/* services tabs */
+.tabs{display:grid;grid-template-columns:300px 1fr;gap:24px}
+.tablist{display:grid;gap:8px;align-content:start}
+.tablist button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;border:1px solid transparent;font-weight:700;transition:background .25s,border-color .25s}
+.tablist button .ico{width:42px;height:42px;border-radius:12px}
+.tablist button .ico svg{width:20px;height:20px}
+.tablist button:hover{background:var(--surface)}
+.tablist button[aria-selected="true"]{background:var(--surface);border-color:var(--line);box-shadow:var(--shadow)}
+.tablist button:focus-visible{outline:2.5px solid var(--accent)}
+.panel{display:grid;grid-template-columns:1.1fr 1fr;border-radius:var(--r-lg);overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);min-width:0}
+.panel .shot{border-radius:0;min-height:420px}
+.panel .txt{padding:36px;display:grid;gap:16px;align-content:start;min-width:0}
+.panel .txt p{color:var(--muted)}
+.ticks{display:grid;gap:10px;padding:0;margin:0;list-style:none}
+.ticks li{display:flex;gap:12px;align-items:center;font-weight:600;font-size:15px}
+.ticks li::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1206' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center/12px no-repeat}
+.kv{display:flex;flex-wrap:wrap;gap:8px}
+.kv span{font-family:var(--mono);font-size:12px;padding:6px 12px;border-radius:999px;background:var(--surface-2)}
+.fadein{animation:fi .5s var(--ease)}
+@keyframes fi{from{transform:translateY(10px)}}
+@media (max-width:1020px){.tabs{grid-template-columns:1fr}.tablist{grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto;padding-bottom:6px}.panel{grid-template-columns:1fr}.panel .shot{min-height:0;aspect-ratio:16/10}}
+@media (max-width:600px){.panel .txt{padding:24px}}
+/* process */
+.steps{position:relative;display:grid;grid-template-columns:repeat(5,1fr)}
+.steps::before{content:"";position:absolute;left:0;right:0;top:31px;height:2px;background:var(--night-line)}
+.steps .fill{position:absolute;left:0;top:31px;height:2px;width:var(--p,0%);background:linear-gradient(90deg,#FCD34D,#F59E0B);box-shadow:0 0 16px #F59E0B}
+.step{position:relative;padding-right:24px;display:grid;gap:10px;align-content:start}
+.step .n{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;background:var(--night-2);border:1px solid var(--night-line);font-family:var(--display);font-weight:600;font-size:20px;color:var(--night-muted);transition:all .4s var(--ease)}
+.step.lit .n{background:var(--accent);color:#1A1206;border-color:var(--accent);box-shadow:0 10px 30px -8px var(--glow)}
+.step small{font-family:var(--mono);font-size:12px;color:#FBBF24;margin-top:8px}
+.step h3{color:#fff}
+.step p{color:var(--night-muted);font-size:15px}
+@media (max-width:900px){.steps{grid-template-columns:1fr;gap:32px}.steps::before{left:31px;right:auto;top:0;bottom:0;width:2px;height:auto}.steps .fill{left:31px;top:0;width:2px;height:var(--p,0%)}.step{grid-template-columns:64px 1fr;column-gap:20px;padding-right:0}.step>:not(.n){grid-column:2}.step .n{grid-row:1/span 3}.step small{margin-top:0}}
+/* portfolio */
+.pf-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;margin-bottom:36px}
+.search{display:flex;align-items:center;gap:10px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.search input{border:0;background:none;color:var(--ink);font:inherit;font-size:14px;padding:11px 0;outline:none;width:200px;max-width:100%}
+.masonry{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.tile{all:unset;box-sizing:border-box;cursor:pointer;position:relative;grid-column:span 4;border-radius:var(--r-md);overflow:hidden;aspect-ratio:4/3;max-width:100%}
+.tile.wide{grid-column:span 8;aspect-ratio:auto;grid-row:span 2}
+.tile .shot{position:absolute;inset:0;border-radius:0}
+.tile .shot img{transition:opacity .8s var(--ease),transform 1.2s var(--ease)}
+.tile:hover .shot img,.tile:focus-visible .shot img{transform:scale(1.07)}
+.tile .ov{position:absolute;left:0;right:0;bottom:0;padding:48px 22px 22px;background:linear-gradient(rgba(5,8,12,0),rgba(5,8,12,.88) 55%);color:#fff;display:grid;gap:4px;z-index:1}
+.tile .ov .mono{color:#FBBF24}
+.tile .ov small{color:rgba(255,255,255,.75);font-size:13.5px}
+.tile .open{position:absolute;top:16px;right:16px;z-index:1;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#1A1206;display:grid;place-items:center;transform:scale(.6);opacity:0;transition:all .35s var(--ease)}
+.tile:hover .open,.tile:focus-visible .open{transform:none;opacity:1}
+.empty{grid-column:1/-1;padding:48px;text-align:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:var(--r-md)}
+@media (max-width:960px){.tile,.tile.wide{grid-column:span 6;grid-row:auto;aspect-ratio:4/3}}
+@media (max-width:600px){.tile,.tile.wide{grid-column:1/-1}}
+/* before/after */
+.ba{position:relative;aspect-ratio:16/10;max-width:100%;overflow:hidden;border-radius:var(--r-lg);user-select:none;background:#141B25}
+.ba .shot{position:absolute;inset:0;border-radius:0}
+.ba .after{clip-path:inset(0 0 0 var(--x,50%))}
+.ba .handle{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3px;background:#fff;transform:translateX(-1.5px);pointer-events:none;z-index:2;box-shadow:0 0 20px rgba(0,0,0,.4)}
+.ba .handle::after{content:"";position:absolute;top:50%;left:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230D1117' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6-6 6 6 6M15 6l6 6-6 6'/%3E%3C/svg%3E") center/22px no-repeat;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;z-index:3}
+.ba .tl,.ba .tr{position:absolute;top:16px;z-index:2;padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:700;pointer-events:none}
+.ba .tl{left:16px;background:rgba(10,14,20,.7);color:#fff}
+.ba .tr{right:16px;background:var(--accent);color:#1A1206}
+.ba-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:56px;align-items:center}
+.ba-wrap .copy{display:grid;gap:18px;justify-items:start}
+.ba-wrap .copy p{color:var(--muted)}
+@media (max-width:960px){.ba-wrap{grid-template-columns:1fr}}
+/* modal */
+.modal{position:fixed;inset:0;z-index:90;background:rgba(5,8,12,.88);backdrop-filter:blur(8px);display:grid;place-items:center;padding:calc(20px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));animation:mf .3s}
+@keyframes mf{from{background:rgba(5,8,12,0)}}
+.m-in{width:min(1140px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:1.45fr 1fr;background:var(--surface);border-radius:var(--r-lg);animation:mp .45s var(--ease)}
+@keyframes mp{from{transform:translateY(20px) scale(.98)}}
+.m-media{min-width:0;padding:14px;background:#0A0E14}
+.m-media .ba{aspect-ratio:4/3;border-radius:20px}
+.m-info{padding:32px;display:grid;gap:16px;align-content:start;min-width:0}
+.m-info p{color:var(--muted)}
+.x{justify-self:end;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;font-size:18px}
+.specs{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.specs div{padding:14px;border-radius:14px;background:var(--surface-2)}
+.specs dt{font-size:12.5px;color:var(--muted)}
+.specs dd{margin:2px 0 0;font-weight:800;font-family:var(--display);font-size:17px;font-variant-numeric:tabular-nums}
+@media (max-width:840px){.m-in{grid-template-columns:1fr}}
+/* estimator */
+.est{display:grid;grid-template-columns:1.25fr .95fr;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.est-form{padding:40px;display:grid;gap:28px;min-width:0;align-content:start}
+.est-bar{display:flex;gap:6px}
+.est-bar i{flex:1;height:5px;border-radius:9px;background:var(--surface-2);transition:background .4s}
+.est-bar i.on{background:linear-gradient(90deg,#FCD34D,#F59E0B)}
+.q{border:0;padding:0;margin:0;min-width:0;display:grid;gap:14px}
+.q legend{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:-.02em;margin-bottom:14px;padding:0}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;margin:0}
+.opt label{display:grid;gap:4px;height:100%;padding:16px 18px;border-radius:16px;border:1.5px solid var(--line);cursor:pointer;transition:all .2s;font-weight:700}
+.opt label small{font-weight:500;color:var(--muted);font-size:13px}
+.opt input:checked+label{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface));box-shadow:0 0 0 4px var(--glow)}
+.opt input:focus-visible+label{outline:2.5px solid var(--accent);outline-offset:2px}
+.range{display:grid;gap:10px}
+.range .r1{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.range output{font-family:var(--display);font-size:40px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.range input{width:100%;accent-color:#F59E0B}
+.range .tk{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.est-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.est-out{position:relative;padding:40px;background:var(--night);color:var(--night-ink);display:grid;gap:20px;align-content:start;min-width:0;overflow:hidden}
+.est-out::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 100% 0%,rgba(245,158,11,.25),transparent 60%)}
+.est-out>*{position:relative}
+.est-out .mono{color:var(--night-muted)}
+.bignum{font-family:var(--display);font-size:clamp(30px,3.6vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums;word-break:break-word}
+.est-out .shot{aspect-ratio:16/10;border-radius:16px}
+.bd{margin:0;display:grid}
+.bd div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--night-line);font-size:14px}
+.bd dt{color:var(--night-muted)}
+.bd dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.note{font-size:12.5px;color:var(--night-muted)}
+@media (max-width:960px){.est{grid-template-columns:1fr}.est-out{order:-1}}
+@media (max-width:600px){.est-form,.est-out{padding:24px}}
+/* reviews */
+.rev{display:grid;grid-template-columns:.8fr 1.4fr;gap:56px;align-items:center}
+.score b{display:block;font-family:var(--display);font-size:120px;font-weight:600;letter-spacing:-.06em;line-height:.9}
+.rq{min-height:260px}
+.rq blockquote{margin:16px 0 0;font-family:var(--display);font-size:clamp(22px,2.4vw,32px);line-height:1.35;letter-spacing:-.02em;font-weight:500}
+.rnav{display:flex;align-items:center;gap:12px;margin-top:32px}
+.rnav .arrow{width:50px;height:50px;border-radius:50%;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:18px}
+.dots{display:flex;gap:6px}
+.dots button{width:28px;height:5px;border-radius:9px;border:0;padding:0;background:var(--line);cursor:pointer}
+.dots button[aria-current="true"]{background:var(--accent);width:44px}
+@media (max-width:900px){.rev{grid-template-columns:1fr;gap:28px}.score b{font-size:88px}}
+/* faq */
+.faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+.faq details{border-radius:18px;background:var(--surface);border:1px solid var(--line);margin-bottom:12px;transition:box-shadow .3s}
+.faq details[open]{box-shadow:var(--shadow)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:700;font-size:17px}
+.faq summary::-webkit-details-marker{display:none}
+.faq .pm{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);transition:transform .35s var(--ease),background .3s;font-size:18px}
+.faq details[open] .pm{transform:rotate(45deg);background:var(--accent);color:#1A1206}
+.faq details p{padding:0 24px 22px;color:var(--muted)}
+@media (max-width:900px){.faq{grid-template-columns:1fr}}
+.cgrid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px}
+.cgrid .ways{display:grid;gap:14px;align-content:start}
+@media (max-width:900px){.cgrid{grid-template-columns:1fr}}
+/* tracking demo */
+.trk-btn{position:fixed;left:max(20px,calc(20px + env(safe-area-inset-left,0px)));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(10,14,20,.88);backdrop-filter:blur(10px);color:#fff;font-family:var(--mono);font-size:12px;cursor:pointer}
+.trk-btn i{width:8px;height:8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 0 #4ADE80;animation:blip 2s infinite}
+@keyframes blip{70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+.trk{position:fixed;left:max(20px,calc(20px + env(safe-area-inset-left,0px)));bottom:calc(72px + env(safe-area-inset-bottom,0px));z-index:40;width:min(360px,calc(100vw - 40px));max-height:50vh;overflow:auto;border-radius:20px;background:var(--surface);border:1px solid var(--line);box-shadow:0 30px 60px -20px rgba(0,0,0,.4)}
+.trk h4{padding:16px 18px;border-bottom:1px solid var(--line);font-family:var(--body);font-size:14px;letter-spacing:0}
+.trk ol{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:12px}
+.trk li{display:flex;justify-content:space-between;gap:8px;padding:9px 18px;border-bottom:1px solid var(--line)}
+.trk li span:last-child{color:var(--muted)}
+.trk p{padding:12px 18px;font-size:12.5px;color:var(--muted)}
+.trk .empty-t{color:var(--muted)}
+
+body{margin:0}img{max-width:100%}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* HaligiRender — procedural architectural renders with three.js (r128).
+   Replace generated images with real project photos when building the client's site. */
+const HR = (() => {
+  const T = window.THREE;
+  const ok = (() => { try { const c = document.createElement('canvas'); return !!(T && (c.getContext('webgl2') || c.getContext('webgl'))); } catch (e) { return false; } })();
+  const lin = h => new T.Color(h).convertSRGBToLinear();
+  const MC = {};
+  const M = (hex, o = {}) => {
+    const k = hex + JSON.stringify(o);
+    if (!MC[k]) {
+      MC[k] = new T.MeshStandardMaterial({ color: lin(hex), roughness: o.r ?? 0.85, metalness: o.m ?? 0, transparent: !!o.op, opacity: o.op ?? 1, flatShading: !!o.flat });
+      if (o.em) { MC[k].emissive = lin(o.em); MC[k].emissiveIntensity = o.ei ?? 1; }
+    }
+    return MC[k];
+  };
+  const P = {
+    wall: '#EEEBE5', wall2: '#D8D3CA', dark: '#26292E', slab: '#3A3F46', wood: '#9C6B47', glass: '#7FA3BC',
+    concrete: '#B9B5AD', block: '#A9A49B', roof: '#3B4047', roofRed: '#6E3F30', grass: '#5E8541', ground: '#ADA697',
+    road: '#4E5257', side: '#C9C3B7', accent: '#F5A524', steel: '#C3C8CD', soil: '#9A8466'
+  };
+  const UB = ok ? new T.BoxGeometry(1, 1, 1) : null;
+  function B(w, h, d, m, x, y, z, g) { const me = new T.Mesh(UB, m); me.scale.set(w, h, d); me.position.set(x, y + h / 2, z); me.castShadow = true; me.receiveShadow = true; g.add(me); return me; }
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+  function glassMat(night) { return night ? M(P.glass, { r: 0.2, m: 0.3, em: '#FFC979', ei: 0.75 }) : M('#8FB0C6', { r: 0.12, m: 0.35 }); }
+
+  function windowsRow(g, x0, w, y, z, fh, n, night, side) {
+    const gw = (w - 0.8) / n;
+    for (let i = 0; i < n; i++) {
+      const cx = x0 - w / 2 + 0.4 + gw * (i + 0.5);
+      if (side) { B(0.08, fh * 0.6, gw - 0.5, M(P.dark), z, y + fh * 0.18, cx, g); B(0.1, fh * 0.56, gw - 0.62, glassMat(night && (i % 3 !== 1)), z + Math.sign(z) * 0.02, y + fh * 0.2, cx, g); }
+      else { B(gw - 0.5, fh * 0.6, 0.08, M(P.dark), cx, y + fh * 0.18, z, g); B(gw - 0.62, fh * 0.56, 0.1, glassMat(night && ((i + Math.round(y)) % 3 !== 1)), cx, y + fh * 0.2, z + 0.02, g); }
+    }
+  }
+
+  function gable(g, w, d, y, h, color) {
+    const s = new T.Shape(); s.moveTo(-w / 2, 0); s.lineTo(w / 2, 0); s.lineTo(0, h); s.lineTo(-w / 2, 0);
+    const geo = new T.ExtrudeGeometry(s, { depth: d, bevelEnabled: false });
+    const me = new T.Mesh(geo, M(color, { r: 0.7 })); me.position.set(0, y, -d / 2); me.castShadow = true; me.receiveShadow = true; g.add(me);
+  }
+  function shed(g, w, d, y, h, color) {
+    const s = new T.Shape(); s.moveTo(-w / 2, 0); s.lineTo(w / 2, 0); s.lineTo(w / 2, h); s.lineTo(-w / 2, 0.3); s.lineTo(-w / 2, 0);
+    const geo = new T.ExtrudeGeometry(s, { depth: d, bevelEnabled: false });
+    const me = new T.Mesh(geo, M(color, { r: 0.6, m: 0.2 })); me.position.set(0, y, -d / 2); me.castShadow = true; g.add(me);
+  }
+
+  function frameFloor(g, w, d, y, fh, s, top) {
+    const nx = Math.max(2, Math.round(w / 4) + 1), nz = Math.max(2, Math.round(d / 4) + 1);
+    const ch = fh * clamp(s * 2, 0.15, 1);
+    for (let i = 0; i < nx; i++) for (let j = 0; j < nz; j++) {
+      const x = -w / 2 + 0.2 + i * (w - 0.4) / (nx - 1), z = -d / 2 + 0.2 + j * (d - 0.4) / (nz - 1);
+      B(0.38, ch, 0.38, M(P.concrete), x, y, z, g);
+      if (top && s < 1) for (let r = 0; r < 4; r++) B(0.04, 0.9, 0.04, M('#5A4A3E'), x - 0.1 + (r % 2) * 0.2, y + ch, z - 0.1 + (r > 1) * 0.2, g);
+    }
+    B(w, 0.25, d, M(P.concrete), 0, y - 0.25, 0, g);
+    if (s >= 0.5) { // hollow-block walls going up
+      const wh = fh * clamp((s - 0.5) * 2, 0.2, 0.95);
+      B(w - 0.4, wh, 0.2, M(P.block), 0, y, -d / 2 + 0.1, g);
+      B(0.2, wh, d - 0.4, M(P.block), -w / 2 + 0.1, y, 0, g);
+      B(0.2, wh * 0.7, d - 0.4, M(P.block), w / 2 - 0.1, y, 0, g);
+      B((w - 0.4) * 0.45, wh, 0.2, M(P.block), -w * 0.25, y, d / 2 - 0.1, g);
+    }
+  }
+
+  function finishedFloor(g, o, i, y) {
+    const { w, d, fh, type, night } = o;
+    if (type === 'modern') {
+      const shift = i % 2 ? w * 0.1 : 0, ww = i % 2 ? w * 0.82 : w;
+      B(ww, fh, d, M(P.wall), shift, y, 0, g);
+      windowsRow(g, shift, ww * 0.72, y, d / 2 + 0.01, fh, Math.max(2, Math.round(ww / 3.4)), night);
+      B(ww * 0.24, fh * 0.92, 0.18, M(P.wood, { r: 0.6 }), shift + ww / 2 - ww * 0.12 - 0.2, y + 0.05, d / 2 + 0.08, g);
+      windowsRow(g, 0, d * 0.6, y, ww / 2 + shift + 0.01, fh, 2, night, true);
+      B(ww + 0.8, 0.24, d + 0.8, M(P.slab), shift, y + fh, 0, g);
+      if (i > 0) { B(ww * 0.6, 1.0, 0.06, M('#BFD6E4', { r: 0.1, op: 0.35 }), shift - ww * 0.15, y + 0.05, d / 2 + 0.75, g); B(ww * 0.6, 0.12, 1.2, M(P.slab), shift - ww * 0.15, y - 0.12, d / 2 + 0.4, g); }
+      if (i === 0) B(1.4, fh * 0.75, 0.12, M(P.wood, { r: 0.5 }), -ww / 2 + 1.6, y, d / 2 + 0.06, g);
+    } else if (type === 'house') {
+      B(w, fh, d, M(i ? P.wall : P.wall2), 0, y, 0, g);
+      windowsRow(g, 0, w * 0.8, y, d / 2 + 0.01, fh, Math.max(2, Math.round(w / 3.2)), night);
+      windowsRow(g, 0, d * 0.5, y, w / 2 + 0.01, fh, 1, night, true);
+      if (i === 0) { B(1.3, fh * 0.75, 0.14, M(P.wood, { r: 0.5 }), 0, y, d / 2 + 0.06, g); B(3.2, 0.18, 1.6, M(P.slab), 0, y + fh * 0.82, d / 2 + 0.8, g); }
+      B(w + 0.3, 0.2, d + 0.3, M(P.wall2), 0, y + fh - 0.1, 0, g);
+    } else if (type === 'shop' && i === 0) {
+      B(w, fh, d, M(P.dark), 0, y, 0, g);
+      B(w - 0.6, fh * 0.78, 0.1, glassMat(true), 0, y + 0.1, d / 2 + 0.02, g);
+      for (let k = 1; k < 5; k++) B(0.12, fh * 0.78, 0.14, M(P.dark), -w / 2 + 0.3 + k * (w - 0.6) / 5, y + 0.1, d / 2 + 0.05, g);
+      B(w + 0.4, 0.5, 1.6, M(o.accent || P.accent, { r: 0.5 }), 0, y + fh * 0.86, d / 2 + 0.8, g);
+    } else if (type === 'tower') {
+      B(w, fh - 0.3, d, glassMat(night && i % 2 === 0), 0, y + 0.15, 0, g);
+      B(w + 0.3, 0.3, d + 0.3, M(P.slab), 0, y, 0, g);
+      for (let k = 0; k <= Math.round(w / 2.4); k++) B(0.12, fh, 0.14, M('#5C646D', { m: 0.4, r: 0.4 }), -w / 2 + k * w / Math.round(w / 2.4), y, d / 2 + 0.08, g);
+    } else if (type === 'warehouse') {
+      B(w, fh, d, M('#D5D8DA', { r: 0.55, m: 0.2 }), 0, y, 0, g);
+      for (let k = 0; k < 3; k++) { const x = -w / 2 + 3 + k * 4.6; B(3.6, fh * 0.6, 0.1, M('#6F777F', { m: 0.3, r: 0.5 }), x + 1.8, y, d / 2 + 0.03, g); B(3.6, 0.3, 0.12, M(o.accent || P.accent), x + 1.8, y + fh * 0.6, d / 2 + 0.04, g); }
+      windowsRow(g, w / 2 - 5, 8, y + fh * 0.45, d / 2 + 0.01, fh * 0.5, 3, night);
+    } else { // apartment / upper floors of shop
+      B(w, fh, d, M(i % 2 ? P.wall : '#E4E0D8'), 0, y, 0, g);
+      windowsRow(g, 0, w * 0.9, y, d / 2 + 0.01, fh, Math.max(2, Math.round(w / 2.8)), night);
+      windowsRow(g, 0, d * 0.6, y, w / 2 + 0.01, fh, 2, night, true);
+      B(w + 0.2, 0.22, 1.3, M(P.slab), 0, y - 0.1, d / 2 + 0.6, g);
+      B(w * 0.98, 0.9, 0.05, M('#BFD6E4', { r: 0.1, op: 0.35 }), 0, y + 0.1, d / 2 + 1.2, g);
+      B(0.4, fh, 0.6, M(o.accent2 || P.wood, { r: 0.6 }), -w / 2 + 0.2, y, d / 2 + 0.3, g);
+    }
+  }
+
+  function tree(g, x, z, s = 1, c = '#5F8A4E') {
+    B(0.3 * s, 1.6 * s, 0.3 * s, M('#6B4F38'), x, 0, z, g);
+    const f = new T.Mesh(new T.IcosahedronGeometry(1.5 * s, 0), M(c, { flat: true, r: 0.9 })); f.position.set(x, 2.6 * s, z); f.castShadow = true; g.add(f);
+    const f2 = new T.Mesh(new T.IcosahedronGeometry(1.0 * s, 0), M(c, { flat: true, r: 0.9 })); f2.position.set(x + 0.6 * s, 3.4 * s, z - 0.3); f2.castShadow = true; g.add(f2);
+  }
+  function car(g, x, z, c, rot = 0) {
+    const cg = new T.Group(); cg.position.set(x, 0, z); cg.rotation.y = rot;
+    B(4.2, 0.8, 1.8, M(c, { r: 0.35, m: 0.4 }), 0, 0.35, 0, cg); B(2.4, 0.7, 1.6, M('#2C3A47', { r: 0.15, m: 0.5 }), -0.2, 1.15, 0, cg);
+    [[-1.3, 0.9], [1.3, 0.9], [-1.3, -0.9], [1.3, -0.9]].forEach(([a, b]) => { const wh = new T.Mesh(new T.CylinderGeometry(0.38, 0.38, 0.3, 14), M('#1B1D20')); wh.rotation.x = Math.PI / 2; wh.position.set(a, 0.38, b); cg.add(wh); });
+    g.add(cg);
+  }
+  function crane(g, x, z, H, L) {
+    const c = new T.Group(); c.position.set(x, 0, z);
+    const y = M(P.accent, { r: 0.5, m: 0.2 });
+    for (let k = 0; k < 4; k++) B(0.12, H, 0.12, y, (k % 2 - 0.5) * 0.9, 0, (k > 1 ? 0.45 : -0.45), c);
+    for (let h = 1; h < H; h += 1.6) { B(0.9, 0.08, 0.08, y, 0, h, 0.45, c); B(0.9, 0.08, 0.08, y, 0, h, -0.45, c); }
+    B(L, 0.7, 0.7, y, L / 2 - 4, H, 0, c); B(1.6, 1.4, 1.4, M(P.dark), 0, H - 1.4, 0.9, c);
+    B(2.4, 1.6, 1.4, M(P.concrete), -3.4, H - 1.2, 0, c); B(0.8, 3, 0.8, y, 0, H + 0.7, 0, c);
+    const hx = L * 0.62; B(0.04, H * 0.42, 0.04, M(P.dark), hx, H - H * 0.42, 0, c); B(0.7, 0.5, 0.5, M(P.accent), hx, H - H * 0.42 - 0.5, 0, c);
+    g.add(c);
+  }
+  function scaffold(g, w, h, z) {
+    const m = M(P.steel, { m: 0.5, r: 0.4 });
+    for (let x = -w / 2 - 0.5; x <= w / 2 + 0.6; x += 2) { B(0.08, h, 0.08, m, x, 0, z, g); B(0.08, h, 0.08, m, x, 0, z + 1.1, g); }
+    for (let y = 1.8; y < h; y += 2) { B(w + 1.2, 0.08, 0.08, m, 0, y, z, g); B(w + 1.2, 0.08, 0.08, m, 0, y, z + 1.1, g); B(w + 1, 0.06, 1, M(P.wood, { r: 0.9 }), 0, y - 0.1, z + 0.55, g); }
+  }
+
+  const norm = o => Object.assign({ type: 'modern', floors: 2, w: 12, d: 9, fh: 3.2, progress: 1, time: 'day', props: true }, o);
+  function scene(o) {
+    const night = o.time === 'dusk'; o.night = night;
+    const sc = new T.Scene();
+    const sky = document.createElement('canvas'); sky.width = 4; sky.height = 256; const sx = sky.getContext('2d'); const gr = sx.createLinearGradient(0, 0, 0, 256);
+    const stops = { day: ['#7FA6C2', '#C9DAE4', '#EEF1EE'], dusk: ['#1D2A44', '#7D6680', '#F0AE7E'], studio: ['#0C1117', '#141C26', '#1D2835'] }[o.time] || ['#7FA6C2', '#C9DAE4', '#EEF1EE'];
+    gr.addColorStop(0, stops[0]); gr.addColorStop(0.55, stops[1]); gr.addColorStop(1, stops[2]); sx.fillStyle = gr; sx.fillRect(0, 0, 4, 256);
+    const tex = new T.CanvasTexture(sky); tex.encoding = T.sRGBEncoding; sc.background = o.transparent ? null : tex;
+    sc.fog = new T.Fog(lin(stops[2]), 70, 190);
+    const hemi = new T.HemisphereLight(lin(night ? '#8A90B8' : '#DCE8F2'), lin('#7A6E5E'), night ? 0.4 : 0.5); sc.add(hemi);
+    const sun = new T.DirectionalLight(lin(night ? '#FFB27A' : '#FFF4E2'), night ? 1.4 : 2.9);
+    sun.position.set(night ? -30 : -24, night ? 14 : 34, night ? 18 : 20); sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048); const sh = sun.shadow.camera; sh.left = -40; sh.right = 40; sh.top = 40; sh.bottom = -40; sh.near = 1; sh.far = 140; sun.shadow.bias = -0.0004; sun.shadow.radius = 3;
+    sc.add(sun);
+    const g = new T.Group(); sc.add(g);
+    // ground
+    const gm = new T.Mesh(new T.PlaneGeometry(500, 500), M(o.time === 'studio' ? '#202A35' : P.ground, { r: 1 })); gm.rotation.x = -Math.PI / 2; gm.receiveShadow = true; g.add(gm);
+    const lotW = o.w + 10, lotD = o.d + 12, building = o.progress < 1;
+    const lot = new T.Mesh(new T.PlaneGeometry(lotW, lotD), M(building ? P.soil : P.grass, { r: 1 })); lot.rotation.x = -Math.PI / 2; lot.position.set(0, 0.01, 1); lot.receiveShadow = true; g.add(lot);
+    const road = new T.Mesh(new T.PlaneGeometry(400, 8), M(P.road, { r: 0.95 })); road.rotation.x = -Math.PI / 2; road.position.set(0, 0.02, lotD / 2 + 6); road.receiveShadow = true; g.add(road);
+    for (let x = -60; x < 60; x += 6) { const ln = new T.Mesh(new T.PlaneGeometry(3, 0.2), M('#E9E4D8')); ln.rotation.x = -Math.PI / 2; ln.position.set(x, 0.03, lotD / 2 + 6); g.add(ln); }
+    B(400, 0.18, 2, M(P.side), 0, 0, lotD / 2 + 1.5, g);
+    if (!building) { B(3.4, 0.06, lotD / 2 - o.d / 2 + 1, M('#B4AEA2', { r: 1 }), o.w / 2 - 2, 0, o.d / 2 + (lotD / 2 - o.d / 2) / 2 + 0.6, g); }
+    // building
+    const b = new T.Group(); g.add(b); o._b = b;
+    buildInto(b, o);
+    // props
+    if (o.props) {
+      if (!building) {
+        tree(g, -o.w / 2 - 3.5, o.d / 2 + 2, 1.1); tree(g, o.w / 2 + 4, -o.d / 2 + 1, 1.3, '#6E9455'); tree(g, -o.w / 2 - 2, -o.d / 2 - 2, 0.9, '#557F48');
+        car(g, o.w / 2 - 2, o.d / 2 + 3.4, o.carColor || '#B8C2CC', Math.PI / 2);
+        if (o.type !== 'warehouse') for (let k = 0; k < 6; k++) B(0.5, 0.5, 0.5, M('#6E9455', { flat: true }), -o.w / 2 + 1 + k * 1.2, 0, o.d / 2 + 0.8, g);
+      } else {
+        for (let x = -lotW / 2; x < lotW / 2; x += 2.4) { if (Math.abs(x - 2) < 2) continue; B(2.3, 2.2, 0.08, M(x % 4.8 < 2.4 ? '#E8E4DA' : P.accent, { r: 0.7 }), x + 1.2, 0, lotD / 2 + 0.6, g); }
+        const pile = new T.Mesh(new T.ConeGeometry(1.6, 1.4, 10), M('#C9B48C', { flat: true })); pile.position.set(-o.w / 2 - 2.8, 0.7, o.d / 2 + 2); pile.castShadow = true; g.add(pile);
+        for (let k = 0; k < 3; k++) B(1.4, 0.8, 1.2, M(P.block), o.w / 2 + 2.5, k * 0.0, o.d / 2 + 1 + k * 1.5, g);
+        car(g, o.w / 2 + 3, o.d / 2 + 4.6, '#E0B030', Math.PI / 2);
+      }
+    }
+    return sc;
+  }
+
+  function buildInto(b, o) {
+    while (b.children.length) b.remove(b.children[0]);
+    const { floors, fh, w, d } = o;
+    const done = clamp(o.progress, 0, 1) * floors;
+    let h = 0;
+    for (let i = 0; i < floors; i++) {
+      const s = clamp(done - i, 0, 1); if (s <= 0) break;
+      const y = i * fh;
+      if (o.progress >= 1 || s >= 1 && done - i > 1.6) finishedFloor(b, o, i, y); else frameFloor(b, w, d, y + 0.25, fh, s, s < 1 || i === Math.floor(done) - 1);
+      h = y + fh * s;
+    }
+    if (o.progress >= 1) {
+      const top = floors * fh;
+      if (o.type === 'house') gable(b, o.w + 1.2, o.d + 1.2, top, Math.min(4, o.w * 0.28), o.roofColor || P.roofRed);
+      else if (o.type === 'warehouse') shed(b, o.w + 0.8, o.d + 0.8, top, 2.2, '#8E959C');
+      else if (o.type !== 'modern') { B(w + 0.4, 0.5, d + 0.4, M(P.slab), 0, top, 0, b); B(w * 0.3, 1.6, d * 0.35, M(P.wall2), -w * 0.2, top + 0.5, -d * 0.1, b); }
+      else B(w * 0.4, 0.9, d * 0.5, M(P.wall2), -w * 0.25, floors * fh + 0.24, -d * 0.2, b);
+    } else {
+      scaffold(b, w, Math.max(h, 3), d / 2 + 0.6);
+      crane(b, -w / 2 - 4.5, -d / 2 - 2.5, floors * fh + 9, w + 16);
+    }
+    o._h = floors * fh + (o.type === 'house' ? 3 : 1);
+  }
+
+  function frame(o, cam, aspect) {
+    const az = o.az ?? 0.62, el = o.el ?? 0.2;
+    const size = Math.max(o.w * 1.15, o._h * 1.15, o.d);
+    const dist = size / Math.tan((cam.fov / 2) * Math.PI / 180) * 0.66 * Math.max(1, 1.33 / aspect) * (o.zoom ?? 1);
+    const ty = o._h * 0.4 - (o.lift || 0);
+    cam.position.set(Math.sin(az) * Math.cos(el) * dist, ty + Math.sin(el) * dist, Math.cos(az) * Math.cos(el) * dist);
+    cam.lookAt(0, ty, 0);
+    return { dist, ty };
+  }
+
+  let R = null;
+  function renderer(canvas, alpha) {
+    const opt = { antialias: true, preserveDrawingBuffer: !canvas, alpha: !!alpha }; if (canvas) opt.canvas = canvas; const r = new T.WebGLRenderer(opt);
+    r.outputEncoding = T.sRGBEncoding; r.toneMapping = T.ACESFilmicToneMapping; r.toneMappingExposure = 0.82;
+    r.shadowMap.enabled = true; r.shadowMap.type = T.PCFSoftShadowMap;
+    return r;
+  }
+  function dispose(sc) { sc.traverse(m => { if (m.geometry && m.geometry !== UB) m.geometry.dispose(); }); if (sc.background && sc.background.dispose) sc.background.dispose(); }
+
+  function snap(o, W = 960, H = 720) {
+    if (!ok) return null;
+    o = norm(o); if (!R) R = renderer(null);
+    R.setPixelRatio(1); R.setSize(W, H, false);
+    const sc = scene(o); const cam = new T.PerspectiveCamera(30, W / H, 0.5, 600); frame(o, cam, W / H);
+    R.render(sc, cam); const url = R.domElement.toDataURL('image/jpeg', 0.86); dispose(sc); return url;
+  }
+
+  // queue snapshots so the page stays responsive
+  const Q = []; let busy = false;
+  function queue(o, cb, W, H) { Q.push([o, cb, W, H]); if (!busy) pump(); }
+  function pump() { busy = true; const job = Q.shift(); if (!job) { busy = false; return; } const [o, cb, W, H] = job; try { cb(snap(o, W, H)); } catch (e) { cb(null); } setTimeout(pump, 16); }
+
+  function live(canvas, o) {
+    if (!ok) return null;
+    o = norm(o);
+    const r = renderer(canvas, o.transparent); r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    let sc = scene(o); const cam = new T.PerspectiveCamera(30, 1, 0.5, 600);
+    let az = o.az ?? 0.62, el = o.el ?? 0.2, drag = null, auto = !o.still, vaz = 0, raf;
+    const size = () => { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return; r.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
+    const ro = new ResizeObserver(size); ro.observe(canvas); size();
+    let vis = true; const io = new IntersectionObserver(es => { vis = es[0].isIntersecting; }); io.observe(canvas);
+    canvas.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, az, el }; canvas.setPointerCapture(e.pointerId); auto = false; });
+    canvas.addEventListener('pointermove', e => { if (!drag) return; const nz = drag.az - (e.clientX - drag.x) * 0.008; vaz = nz - az; az = nz; el = clamp(drag.el + (e.clientY - drag.y) * 0.004, 0.04, 0.7); });
+    const up = () => { drag = null; }; canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function loop() {
+      if (!drag) { if (auto && !reduce) az += 0.0016; else { az += vaz; vaz *= 0.92; } }
+      if (vis && !document.hidden) { o.az = az; o.el = el; frame(o, cam, cam.aspect); r.render(sc, cam); }
+      raf = requestAnimationFrame(loop);
+    }
+    loop();
+    return {
+      setProgress(p) { o.progress = p; dispose(sc); sc = scene(o); },
+      setTime(t) { o.time = t; dispose(sc); sc = scene(o); },
+      resume() { auto = true; },
+      stop() { cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); }
+    };
+  }
+  return { ok, snap, queue, live };
+})();
+
+/* ---------- shared content (swap with the client's real details) ---------- */
+const BIZ = { name: 'Haligi Builders', phone: '0917 123 4567', tel: '+639171234567', email: 'hello@haligibuilders.ph', msgr: 'https://m.me/haligibuilders', addr: '2F Unit 4, Rizal Avenue, Your City', hours: 'Mon–Sat, 8:00 AM – 5:00 PM', maps: 'https://www.google.com/maps/search/?api=1&query=Rizal+Avenue' };
+const I = {
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg>',
+  hammer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m14 6 4 4"/><path d="M12.5 4.5 15 2l7 7-2.5 2.5"/><path d="M13 8 3.5 17.5a2.1 2.1 0 0 0 3 3L16 11"/></svg>',
+  building: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-3v19"/><path d="M12 8h8v13"/><path d="M2 21h20"/><path d="M8 7v.01M8 11v.01M8 15v.01M16 12v.01M16 16v.01"/></svg>',
+  brush: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12v5H4z"/><path d="M16 6.5h3v5h-7v3"/><path d="M11 14.5h2V21h-2z"/></svg>',
+  doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg>',
+  truck: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h13v10H1z"/><path d="M14 9h4l4 4v3h-8z"/><circle cx="5.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>',
+  msg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9-2.5-2.7-5 2.7 5.5-5.8 2.6 2.7 4.9-2.7-5.5 5.8z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg>',
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>',
+  camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+  arrow: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>',
+  check: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>',
+  fb: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4A22 22 0 0 0 14.3 4c-2.4 0-4 1.5-4 4.1v2.7H7.6V14h2.7v8z"/></svg>',
+  ig: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+  tt: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2 1.7 3.4 3.5 3.7v3a7 7 0 0 1-3.5-1.1v6.2A5.8 5.8 0 1 1 10.7 9v3.1a2.8 2.8 0 1 0 2.8 2.8V3z"/></svg>',
+  logo: '<svg width="18" height="18" viewBox="0 0 24 24"><rect x="5" y="6" width="3.6" height="13" rx="1" fill="#1A1206"/><rect x="15.4" y="6" width="3.6" height="13" rx="1" fill="#1A1206"/><rect x="3.5" y="4" width="17" height="3" rx="1" fill="#1A1206"/></svg>'
+};
+const SERVICES = [
+  { id: 'house', icon: 'home', name: 'House construction', short: 'Bungalows and 2–3 storey homes, from foundation to turnover.', r: { type: 'modern', floors: 2, w: 13, d: 10, az: .5 },
+    body: ['We build homes from the ground up. Our engineers check the soil and lot, our architect partners finish the plans, and one project lead runs your site from excavation to the final walkthrough.', 'You get a fixed schedule with milestone billing, so you only pay for work that is done and checked.'],
+    incl: ['Site inspection and lot survey', 'Structural and architectural plans', 'Foundation, columns, slabs and roofing', 'Electrical, plumbing and finishing', 'Weekly photo updates'], spec: [['Typical size', '60–300 sqm'], ['Duration', '4–9 months'], ['Payment', 'Milestone billing'], ['Warranty', '1 year']] },
+  { id: 'renovation', icon: 'hammer', name: 'Renovation & extension', short: 'Second floors, room additions and full remodels done safely.', r: { type: 'house', floors: 2, w: 11, d: 9, progress: .72, az: .7 },
+    body: ['Renovations need careful planning because families often still live in the house. We schedule noisy work around your routine and keep dust contained.', 'Before adding a second floor, our engineer checks that the existing columns and footings can carry the new load.'],
+    incl: ['Structural assessment of the existing house', 'Second-floor additions and extensions', 'Kitchen and bathroom remodels', 'Roof repair and replacement', 'Daily site clean-up'], spec: [['Typical size', '15–120 sqm'], ['Duration', '3–16 weeks'], ['Payment', 'Milestone billing'], ['Warranty', '1 year']] },
+  { id: 'commercial', icon: 'building', name: 'Commercial buildings', short: 'Shops, apartments and offices planned around your opening date.', r: { type: 'shop', floors: 3, w: 14, d: 10, az: .45 },
+    body: ['For business owners, every week of delay is lost income. We plan commercial projects backwards from your opening date and track progress against it.', 'We handle fire-safety requirements and occupancy permits so you can open without surprises.'],
+    incl: ['Retail and mixed-use buildings', 'Apartments and dormitories', 'Small offices and warehouses', 'Fire safety and occupancy permits', 'Turnover with as-built plans'], spec: [['Typical size', '100–1,500 sqm'], ['Duration', '5–14 months'], ['Payment', 'Progress billing'], ['Warranty', '1 year']] },
+  { id: 'finishing', icon: 'brush', name: 'Interior fit-out', short: 'Tiles, ceilings, cabinets and lighting finished neatly.', r: { type: 'shop', floors: 2, w: 12, d: 10, time: 'dusk', accent: '#2F8F83', az: .55 },
+    body: ['Finishing is what you see every day, so it has to be neat. Our finishing crew handles tile layout, ceilings, paint and built-in cabinets.', 'We show you material samples first and lay out tiles before setting them, so the result matches what you picked.'],
+    incl: ['Floor and wall tiling', 'Gypsum and PVC ceilings', 'Interior and exterior painting', 'Built-in cabinets and closets', 'Doors, windows and fixtures'], spec: [['Typical size', 'Per area'], ['Duration', '2–8 weeks'], ['Payment', 'Per phase'], ['Warranty', '6 months']] },
+  { id: 'permits', icon: 'doc', name: 'Design & permits', short: 'Signed plans and building-permit processing handled for you.', r: { type: 'apartment', floors: 4, w: 16, d: 10, progress: .55, az: .55 },
+    body: ['A building permit needs signed and sealed plans and several clearances. We prepare the documents and follow up with the building official for you.', 'If you only need plans and permits, you can hire us for this service alone.'],
+    incl: ['Architectural design with 3D views', 'Structural, electrical and plumbing plans', 'Bill of materials and cost estimate', 'Building permit filing and follow-up', 'Occupancy permit support'], spec: [['Deliverable', 'Signed & sealed plans'], ['Duration', '3–6 weeks'], ['Payment', '50% / 50%'], ['Includes', 'Permit follow-up']] },
+  { id: 'supply', icon: 'truck', name: 'Materials supply', short: 'Cement, rebar, hollow blocks and lumber delivered to site.', r: { type: 'warehouse', floors: 1, fh: 7, w: 20, d: 14, az: .5 },
+    body: ['We buy materials in volume and pass the savings to our clients and to builders who need a reliable supplier.', 'Orders arrive on our own trucks with a delivery receipt you can check against your bill of materials.'],
+    incl: ['Cement, sand and gravel', 'Rebar and steel', 'Hollow blocks', 'Lumber and plywood', 'Roofing sheets'], spec: [['Minimum order', '₱10,000'], ['Delivery', '1–2 days'], ['Payment', 'COD or bank transfer'], ['Coverage', 'Your City and nearby']] }
+];
+const PROJECTS = [
+  { t: 'Two-storey family home', cat: 'Residential', loc: 'San Isidro', yr: 2025, area: 186, dur: '7 months', cost: '₱6.2M – ₱6.8M', svc: 'house', d: 'Four bedrooms on a 200 sqm lot, with a roof deck and a two-car garage.', r: { type: 'modern', floors: 2, w: 13, d: 10, az: .55, carColor: '#1F2937' } },
+  { t: 'Corner retail building', cat: 'Commercial', loc: 'Poblacion', yr: 2025, area: 420, dur: '10 months', cost: '₱15M – ₱17M', svc: 'commercial', d: 'Ground-floor shops with offices on the two upper floors.', r: { type: 'shop', floors: 3, w: 15, d: 10, az: .4 } },
+  { t: 'Second-floor addition', cat: 'Renovation', loc: 'Mabini St.', yr: 2024, area: 72, dur: '16 weeks', cost: '₱1.9M – ₱2.2M', svc: 'renovation', d: 'Added two bedrooms and a bath over a bungalow after reinforcing the columns.', r: { type: 'house', floors: 2, w: 11, d: 9, az: .75, roofColor: '#3F4A52' } },
+  { t: 'Six-door apartment', cat: 'Commercial', loc: 'Bagong Silang', yr: 2024, area: 510, dur: '11 months', cost: '₱16M – ₱18M', svc: 'commercial', d: 'Rental units with separate meters and a shared parking area.', r: { type: 'apartment', floors: 3, w: 20, d: 9, time: 'dusk', az: .5 } },
+  { t: 'Modern bungalow', cat: 'Residential', loc: 'Riverside', yr: 2023, area: 110, dur: '5 months', cost: '₱3.4M – ₱3.8M', svc: 'house', d: 'Three bedrooms, high ceilings and a covered lanai.', r: { type: 'modern', floors: 1, w: 16, d: 10, az: .6, carColor: '#9CA3AF' } },
+  { t: 'Hardware warehouse', cat: 'Commercial', loc: 'National Hwy', yr: 2023, area: 640, dur: '8 months', cost: '₱13M – ₱15M', svc: 'supply', d: 'Steel-frame warehouse with a mezzanine office and loading bay.', r: { type: 'warehouse', floors: 1, fh: 7, w: 22, d: 14, az: .5 } },
+  { t: 'Ancestral house restoration', cat: 'Renovation', loc: 'Centro', yr: 2025, area: 150, dur: '5 months', cost: '₱3.0M – ₱3.6M', svc: 'renovation', d: 'Repaired the roof frame and floors and rewired the house while keeping its original look.', r: { type: 'house', floors: 2, w: 12, d: 10, az: .35, roofColor: '#5A3A2A', time: 'dusk' } },
+  { t: 'Three-storey townhouse', cat: 'Residential', loc: 'Hillside', yr: 2026, area: 210, dur: 'In progress', cost: '₱7.4M – ₱8.0M', svc: 'house', d: 'Narrow-lot townhouse with a roof deck. Structure complete, finishing ongoing.', r: { type: 'modern', floors: 3, w: 10, d: 10, progress: .74, az: .6 } },
+  { t: 'Clinic fit-out', cat: 'Fit-out', loc: 'Poblacion', yr: 2026, area: 95, dur: '9 weeks', cost: '₱1.6M – ₱1.9M', svc: 'finishing', d: 'Converted a ground-floor shop into a two-room clinic with a waiting area.', r: { type: 'shop', floors: 2, w: 12, d: 10, accent: '#2F8F83', az: .5 } },
+  { t: 'Café and roof deck', cat: 'Fit-out', loc: 'Plaza Rizal', yr: 2025, area: 130, dur: '10 weeks', cost: '₱2.4M – ₱2.8M', svc: 'finishing', d: 'Coffee shop fit-out with a steel stair to a roof-deck seating area.', r: { type: 'shop', floors: 2, w: 12, d: 9, accent: '#C2410C', time: 'dusk', az: .65 } },
+  { t: 'Four-storey office', cat: 'Commercial', loc: 'Business District', yr: 2026, area: 880, dur: '13 months', cost: '₱28M – ₱31M', svc: 'commercial', d: 'Glass-fronted office building with a ground-floor bank branch.', r: { type: 'tower', floors: 6, w: 14, d: 12, az: .5 } },
+  { t: 'Student dormitory', cat: 'Commercial', loc: 'University Ave', yr: 2024, area: 760, dur: '12 months', cost: '₱22M – ₱25M', svc: 'commercial', d: 'Four-storey dormitory with 40 rooms near the campus.', r: { type: 'apartment', floors: 4, w: 18, d: 10, az: .45 } }
+];
+const REVIEWS = [
+  ['They finished our house a week early, and the weekly photo reports meant we never had to worry, even while working abroad.', 'Maricel D.', 'Homeowner, San Isidro', '#FCD34D'],
+  ['The quotation matched the final bill. No surprise charges, which is rare. We are building our second branch with them.', 'Joel T.', 'Owner, hardware store', '#93C5FD'],
+  ['We lived in the house during the renovation. The crew cleaned up every afternoon and kept noisy work to weekday hours.', 'Ana & Rico P.', 'Second-floor addition', '#86EFAC'],
+  ['Permits were handled for us. We signed the papers and they followed up with the building official.', 'Dr. Liza M.', 'Clinic fit-out', '#FDA4AF']
+];
+
+/* ---------- renders: paint every <div class="shot" data-r='{...}'> ---------- */
+function paintShot(el, opts, W, H) {
+  const img = el.querySelector('img') || el.appendChild(document.createElement('img'));
+  if (!img.alt) img.alt = el.dataset.alt || '';
+  const done = url => { if (url) { img.onload = () => el.classList.add('ready'); img.src = url; } else { el.classList.add('ready', 'fallback'); } };
+  if (typeof HR === 'undefined' || !HR.ok) return done(null);
+  HR.queue(opts, done, W || 960, H || 720);
+}
+function paintAll(root = document) {
+  root.querySelectorAll('.shot[data-r]:not([data-painted])').forEach(el => {
+    el.dataset.painted = 1; const o = JSON.parse(el.dataset.r);
+    paintShot(el, o, +el.dataset.w || 960, +el.dataset.h || 720);
+  });
+}
+const shot = (o, alt, cls = '', w, h) => `<div class="shot ${cls}" data-r='${JSON.stringify(o)}' ${w ? `data-w="${w}" data-h="${h}"` : ''}><img alt="${alt}"></div>`;
+
+/* ---------- small helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+function toast(t) { let el = $('#toast'); if (!el) { el = document.createElement('div'); el.id = 'toast'; el.className = 'toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); } el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, 2400); }
+function copy(text, label) { const ok = () => toast(label + ' copied'); try { navigator.clipboard.writeText(text).then(ok, () => toast(label + ': ' + text)); } catch (e) { toast(label + ': ' + text); } }
+function initNav() {
+  const shell = $('.nav-shell'), links = $('#links'), mb = $('#menuBtn');
+  if (mb) mb.addEventListener('click', () => mb.setAttribute('aria-expanded', links.classList.toggle('open')));
+  if (links) links.addEventListener('click', e => { if (e.target.closest('a,button')) { links.classList.remove('open'); mb && mb.setAttribute('aria-expanded', false); } });
+  const on = () => shell && shell.classList.toggle('scrolled', scrollY > 20); addEventListener('scroll', on, { passive: true }); on();
+}
+function initReveal(root = document) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -6% 0px' });
+  $$('.rv', root).forEach(el => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); io.observe(el); } });
+}
+function countUp(root = document) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  $$('[data-count]', root).forEach(el => {
+    const end = +el.dataset.count, dec = +el.dataset.dec || 0, suf = el.dataset.suffix || '', t0 = performance.now() + 300;
+    (function tick(t) { const k = Math.min(1, Math.max(0, (t - t0) / 1500)), v = end * (1 - Math.pow(1 - k, 3)); el.textContent = (dec ? v.toFixed(dec) : Math.round(v).toLocaleString()) + suf; if (k < 1) requestAnimationFrame(tick); })(t0);
+  });
+}
+function mapSVG() {
+  return `<svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="600" height="420" fill="#0F1620"/>
+  <path d="M-20 300 C 120 250, 220 330, 360 280 S 560 230, 640 260" stroke="#16324A" stroke-width="40" fill="none"/>
+  <g fill="#141E2A">${[[40, 40, 120, 70], [190, 30, 90, 80], [320, 40, 130, 60], [480, 30, 100, 90], [40, 150, 90, 90], [170, 160, 120, 60], [340, 140, 90, 70], [460, 160, 120, 50], [60, 340, 140, 60], [420, 340, 160, 60]].map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/>`).join('')}</g>
+  <g stroke="#26364A" stroke-width="10" fill="none" stroke-linecap="round"><path d="M0 125H600"/><path d="M160 0V420"/><path d="M450 0V420"/></g>
+  <g stroke="#1D2B3C" stroke-width="5" fill="none"><path d="M0 255H600"/><path d="M305 0V420"/><path d="M20 0L600 400"/></g>
+  <path d="M160 125H305V255" stroke="#F59E0B" stroke-width="4" fill="none" stroke-dasharray="2 8" stroke-linecap="round"/></svg>
+  <div class="pin"><svg width="44" height="56" viewBox="0 0 24 30"><path d="M12 0C5.4 0 0 5.2 0 11.7 0 20.5 12 30 12 30s12-9.5 12-18.3C24 5.2 18.6 0 12 0z" fill="#F59E0B"/><circle cx="12" cy="11.5" r="4.5" fill="#1A1206"/></svg></div>`;
+}
+
+document.getElementById('app').innerHTML = `<a class="skip" href="#main">Skip to content</a>
+<div class="progress" id="prog"></div>
+<div class="nav-shell"><div class="wrap">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="#top"><span class="mk">${I.logo}</span><span>Haligi<small>Design &amp; Build</small></span></a>
+    <div class="nav-links" id="links"><a href="#services">Services</a><a href="#process">Process</a><a href="#work">Projects</a><a href="#estimate">Estimate</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div>
+    <div class="nav-r">
+      <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-.9-.1-1.4A5.5 5.5 0 0 1 13.4 3.1 9 9 0 0 0 12 3z"/></svg></button>
+      <a class="btn btn-accent btn-sm" href="#estimate" data-track="cta_estimate_nav">Get my estimate</a>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg width="18" height="12" viewBox="0 0 18 12"><path d="M0 1h18M0 6h18M0 11h18" stroke="currentColor" stroke-width="2"/></svg></button>
+    </div>
+  </nav>
+</div></div>
+
+<main id="main">
+<section class="hero dark hero3d" id="top">
+  <div class="wrap">
+    <div class="h3-grid">
+      <div>
+        <span class="eyebrow"><i>✓</i>Design &amp; build · PCAB licensed</span>
+        <h1>See your build <span class="grad">before</span> we break ground.</h1>
+        <p class="lead">Haligi Builders designs, permits and builds homes, commercial spaces and renovations, with 3D previews at every stage. Estimate your cost in a minute, then book a free site visit.</p>
+        <div class="cta"><a class="btn btn-accent" href="#estimate" data-track="cta_estimate_hero">Estimate my project <span class="arr">→</span></a><a class="btn btn-ghost" href="#work" data-track="cta_projects_hero">Explore 12 projects</a></div>
+        <div class="proof"><div class="faces"><span style="background:#FCD34D">M</span><span style="background:#93C5FD">J</span><span style="background:#86EFAC">A</span><span style="background:#FDA4AF">L</span></div><div><span class="stars">★★★★★</span> <b>4.9</b> from 86 reviews</div></div>
+      </div>
+      <div class="stage" id="stage">
+        <canvas id="cv" aria-label="Interactive 3D model of a three-storey house. Drag to rotate, and use the slider to see each construction stage." role="img"></canvas>
+        <span class="hint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5"/></svg>Drag to rotate</span>
+        <div class="tod" role="group" aria-label="Lighting"><button data-tod="day" aria-pressed="false">Day</button><button data-tod="dusk" aria-pressed="true">Dusk</button></div>
+        <div class="ctrl">
+          <button class="play" id="play" aria-label="Play the construction sequence"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg></button>
+          <div class="row"><b id="stageName">Turnover</b><span id="pct">100% complete</span></div>
+          <input type="range" id="prog3d" min="0" max="100" value="100" aria-label="Construction progress">
+          <div class="stages" aria-hidden="true"><i>Foundation</i><i>Structure</i><i>Walls</i><i class="on">Turnover</i></div>
+        </div>
+      </div>
+    </div>
+    <div class="kpis">
+      <div><b data-count="12">12</b><span>years building</span></div>
+      <div><b data-count="148" data-suffix="+">148+</b><span>projects turned over</span></div>
+      <div><b data-count="98" data-suffix="%">98%</b><span>finished on schedule</span></div>
+      <div><b data-count="4.9" data-dec="1">4.9</b><span>average client rating</span></div>
+    </div>
+  </div>
+</section>
+<div class="strip" aria-hidden="true"><div class="track" id="strip"></div></div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="l"><span class="eyebrow"><i>01</i>Services</span><h2>Everything from ground to roof</h2></div><p>Pick a service to see its scope, typical timeline and what our contract includes.</p></div>
+    <div class="tabs rv"><div class="tablist" role="tablist" aria-label="Services" id="tablist"></div><div class="panel" role="tabpanel" id="panel" aria-live="polite"></div></div>
+  </div>
+</section>
+
+<section class="dark" id="process">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="l"><span class="eyebrow"><i>02</i>How we work</span><h2>Five steps to turnover</h2></div><p class="lead" style="font-size:16px">You always know what stage your project is in and what you are paying for.</p></div>
+    <div class="steps" id="steps"><div class="fill"></div></div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="l"><span class="eyebrow"><i>03</i>Portfolio</span><h2>Recent projects</h2></div><p>Open a project to compare construction and turnover, and see its floor area, cost range and timeline.</p></div>
+    <div class="pf-bar"><div class="chips" id="filters" role="group" aria-label="Filter projects"></div><label class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" type="search" placeholder="Search name or town" aria-label="Search projects"></label></div>
+    <div class="masonry" id="grid"></div>
+  </div>
+</section>
+
+<section style="background:var(--surface)" id="transform">
+  <div class="wrap ba-wrap">
+    <div class="ba rv" id="baMain"></div>
+    <div class="copy rv"><span class="eyebrow"><i>04</i>Construction to turnover</span><h2>Drag to see the difference</h2><p id="baText"></p><div class="chips" id="baPick"></div></div>
+  </div>
+</section>
+
+<section id="estimate">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="l"><span class="eyebrow"><i>05</i>Instant quotation</span><h2>Estimate your build in a minute</h2></div><p>Answer three questions for an indicative cost range. Our engineer confirms the exact price after a free site visit.</p></div>
+    <div class="est rv">
+      <form class="est-form" id="est" novalidate><div class="est-bar" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div><div id="estBody"></div><div class="est-nav"><button type="button" class="btn btn-ghost" id="back">← Back</button><button type="submit" class="btn btn-accent" id="next">Next step <span class="arr">→</span></button></div></form>
+      <aside class="est-out" aria-live="polite"><span class="mono">Indicative cost range</span><div class="bignum" id="range">₱0</div><div class="shot" id="estShot"><img alt="3D preview of the selected project type"></div><dl class="bd" id="bd"></dl><p class="note">Based on typical 2026 rates per square meter in the Philippines. Final price depends on soil, design, site access and materials.</p></aside>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" style="background:var(--surface)">
+  <div class="wrap rev">
+    <div class="score rv"><span class="eyebrow"><i>06</i>Client reviews</span><b style="margin-top:20px">4.9</b><div class="stars" style="font-size:22px">★★★★★</div><p style="color:var(--muted);margin-top:8px">From 86 reviews on Google and Facebook</p></div>
+    <div class="rv"><figure class="rq" id="rq" style="margin:0"></figure><div class="rnav"><button class="arrow" id="rPrev" aria-label="Previous review">←</button><button class="arrow" id="rNext" aria-label="Next review">→</button><div class="dots" id="dots"></div></div></div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap faq">
+    <div class="rv"><span class="eyebrow"><i>07</i>FAQ</span><h2 style="margin-top:18px">Questions clients ask us</h2><p style="color:var(--muted);margin-top:16px;max-width:36ch">Don't see yours? Message us on Messenger and we'll answer within the day.</p></div>
+    <div class="rv" id="faqList"></div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band rv" style="margin-bottom:28px"><div><h2>Let's build it together</h2><p>Book a free site visit with our engineer. We reply within one working day.</p></div><a class="btn btn-accent" href="#estimate" data-track="cta_estimate_band">Start with an estimate <span class="arr">→</span></a></div>
+    <div class="cgrid">
+      <div class="ways rv">
+        <a class="way" href="tel:${BIZ.tel}" data-track="click_call"><span class="ico">${I.phone}</span><div><small>Call or text</small><strong>${BIZ.phone}</strong></div><span class="go">${I.arrow}</span></a>
+        <a class="way" href="${BIZ.msgr}" target="_blank" rel="noopener" data-track="click_messenger"><span class="ico">${I.msg}</span><div><small>Messenger</small><strong>m.me/haligibuilders</strong></div><span class="go">${I.arrow}</span></a>
+        <a class="way" href="mailto:${BIZ.email}" data-track="click_email"><span class="ico">${I.mail}</span><div><small>Email</small><strong>${BIZ.email}</strong></div><span class="go">${I.arrow}</span></a>
+        <a class="way" href="${BIZ.maps}" target="_blank" rel="noopener" data-track="click_directions"><span class="ico">${I.pin}</span><div><small>Office · ${BIZ.hours}</small><strong>${BIZ.addr}</strong></div><span class="go">${I.arrow}</span></a>
+      </div>
+      <div class="map rv" aria-label="Map of the office on Rizal Avenue">${mapSVG()}<div class="card-on"><div><strong>${BIZ.name}</strong><small>${BIZ.addr}</small></div><a class="btn btn-accent btn-sm" href="${BIZ.maps}" target="_blank" rel="noopener" data-track="click_directions_map">Get directions</a></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a class="logo" href="#top" style="color:#fff"><span class="mk">${I.logo}</span><span>Haligi<small>Design &amp; Build</small></span></a><p style="margin-top:16px;max-width:34ch">Design-and-build contractor for homes, commercial buildings and renovations since 2014.</p><div class="socials"><a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">${I.fb}</a><a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">${I.ig}</a><a href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">${I.tt}</a></div></div>
+      <div><h4>Explore</h4><a href="#services">Services</a><a href="#process">Process</a><a href="#work">Projects</a><a href="#estimate">Estimate</a></div>
+      <div><h4>Company</h4><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
+      <div><h4>Reach us</h4><p>${BIZ.phone}<br>${BIZ.email}<br>${BIZ.addr}</p></div>
+    </div>
+    <div class="fbase"><span>© 2026 Haligi Builders. All rights reserved.</span><span>PCAB License No. 00000 · Sample website</span></div>
+  </div>
+</footer>
+<div class="fab"><a class="m" href="${BIZ.msgr}" target="_blank" rel="noopener" aria-label="Message us on Messenger" data-track="click_messenger_fab">${I.msg}</a><a class="c" href="tel:${BIZ.tel}" aria-label="Call ${BIZ.phone}" data-track="click_call_fab">${I.phone}</a></div>
+<button class="trk-btn" id="trkBtn" aria-expanded="false" aria-controls="trk"><i></i><span id="trkN">0 events</span> tracked</button>
+<div class="trk" id="trk" hidden><h4>Conversion tracking (demo)</h4><ol id="trkList"><li class="empty-t">Click a button on the page to see an event.</li></ol><p>On the live site these events go to Google Analytics 4 and the Meta Pixel, so the owner sees which buttons bring in inquiries.</p></div>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle"></div>`;
+/* ---------- conversion tracking stub ---------- */
+window.dataLayer = window.dataLayer || [];
+function track(name, params = {}) {
+  dataLayer.push({ event: name, ...params }); // live site: gtag('event', name, params); fbq('trackCustom', name, params);
+  const list = $('#trkList'); const e = $('.empty-t', list); if (e) e.remove();
+  const li = document.createElement('li'); li.innerHTML = `<span>${name}</span><span>${new Date().toTimeString().slice(0, 8)}</span>`; list.prepend(li); $('#trkN').textContent = dataLayer.length + (dataLayer.length === 1 ? ' event' : ' events');
+}
+document.addEventListener('click', e => { const t = e.target.closest('[data-track]'); if (t) track(t.dataset.track); });
+$('#trkBtn').addEventListener('click', () => { const p = $('#trk'); p.hidden = !p.hidden; $('#trkBtn').setAttribute('aria-expanded', !p.hidden); });
+
+/* ---------- theme ---------- */
+const root = document.documentElement;
+try { const s = localStorage.getItem('haligi-theme'); if (s) root.dataset.theme = s; } catch (e) { }
+$('#themeBtn').addEventListener('click', () => {
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('haligi-theme', root.dataset.theme); } catch (e) { }
+  track('theme_toggle', { theme: root.dataset.theme });
+});
+
+/* ---------- 3D hero ---------- */
+const HERO = { type: 'modern', floors: 3, w: 13, d: 10, time: 'dusk', az: .6, el: .2, zoom: 1.5, lift: 2.2, carColor: '#1F2937' };
+const STAGES = [[0, 'Foundation'], [25, 'Structure'], [60, 'Walls'], [100, 'Turnover']];
+let live = null;
+if (HR.ok) { try { live = HR.live($('#cv'), Object.assign({}, HERO)); } catch (e) { live = null; } }
+if (!live) { $('#cv').remove(); $('#stage').insertAdjacentHTML('afterbegin', shot(Object.assign({}, HERO, { time: 'dusk' }), '3D render of a modern three-storey house at dusk')); paintAll($('#stage')); $('.ctrl').hidden = true; $('.tod').hidden = true; $('.hint').hidden = true; }
+const pr = $('#prog3d');
+function setStageUI(v) {
+  const name = v >= 100 ? 'Turnover' : v >= 60 ? 'Walls & finishing' : v >= 25 ? 'Structure' : 'Foundation';
+  $('#stageName').textContent = name; $('#pct').textContent = v + '% complete';
+  const idx = v >= 100 ? 3 : v >= 60 ? 2 : v >= 25 ? 1 : 0; $$('.stages i').forEach((x, i) => x.classList.toggle('on', i === idx));
+}
+let pending = null;
+pr.addEventListener('input', () => { stopPlay(); setStageUI(+pr.value); if (!pending) pending = requestAnimationFrame(() => { pending = null; live && live.setProgress(Math.max(.04, pr.value / 100)); }); });
+pr.addEventListener('change', () => track('use_3d_progress', { value: +pr.value }));
+$$('[data-tod]').forEach(b => b.addEventListener('click', () => { $$('[data-tod]').forEach(x => x.setAttribute('aria-pressed', x === b)); live && live.setTime(b.dataset.tod); track('toggle_lighting', { time: b.dataset.tod }); }));
+let playT = null;
+function stopPlay() { clearInterval(playT); playT = null; $('#play').innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg>'; }
+$('#play').addEventListener('click', () => {
+  if (playT) { stopPlay(); return; }
+  track('play_3d_build'); let v = 0; $('#play').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+  playT = setInterval(() => { v = Math.min(100, v + 2); pr.value = v; setStageUI(v); live && live.setProgress(Math.max(.04, v / 100)); if (v >= 100) stopPlay(); }, 110);
+});
+
+/* ---------- strip ---------- */
+const STRIP = ['PCAB licensed', 'Design & build', 'Free site visit', 'Milestone billing', 'Weekly photo reports', '1-year warranty', 'Permits handled'];
+$('#strip').innerHTML = STRIP.concat(STRIP).map(t => `<span>${t}</span>`).join('');
+
+/* ---------- services tabs ---------- */
+const tablist = $('#tablist'), panel = $('#panel');
+tablist.innerHTML = SERVICES.map((s, i) => `<button role="tab" id="tab${i}" aria-controls="panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-tab="${i}"><span class="ico">${I[s.icon]}</span>${s.name}</button>`).join('');
+function showTab(i) {
+  const s = SERVICES[i];
+  $$('[data-tab]').forEach((b, j) => { b.setAttribute('aria-selected', i === j); b.tabIndex = i === j ? 0 : -1; });
+  panel.setAttribute('aria-labelledby', 'tab' + i);
+  panel.innerHTML = `${shot(s.r, '3D render for ' + s.name, 'fadein', 1000, 900)}<div class="txt fadein"><span class="mono">${s.spec[1][0]}: ${s.spec[1][1]}</span><h3 style="font-size:30px">${s.name}</h3><p>${s.body[0]}</p><ul class="ticks">${s.incl.slice(0, 4).map(x => `<li>${x}</li>`).join('')}</ul><div class="kv">${s.spec.map(([a, b]) => `<span>${a}: ${b}</span>`).join('')}</div><a class="btn btn-accent" href="#estimate" data-track="cta_service_${s.id}" style="justify-self:start">Estimate this <span class="arr">→</span></a></div>`;
+  paintAll(panel);
+}
+tablist.addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { showTab(+b.dataset.tab); track('view_service', { service: SERVICES[b.dataset.tab].id }); } });
+tablist.addEventListener('keydown', e => { const c = $$('[data-tab]').findIndex(b => b.getAttribute('aria-selected') === 'true'); let n; if (['ArrowDown', 'ArrowRight'].includes(e.key)) n = (c + 1) % SERVICES.length; if (['ArrowUp', 'ArrowLeft'].includes(e.key)) n = (c - 1 + SERVICES.length) % SERVICES.length; if (n != null) { e.preventDefault(); showTab(n); $$('[data-tab]')[n].focus(); } });
+showTab(0);
+
+/* ---------- process ---------- */
+const STEPS = [['Site visit', 'Day 1', 'Our engineer checks the lot, soil and access, and listens to what you need.'], ['Estimate', 'Week 1', 'A line-by-line quotation for materials and labor, with 3D previews.'], ['Design & permits', 'Weeks 2–6', 'Plans are finalized and we file for your building permit.'], ['Construction', 'Per schedule', 'Weekly photo reports and milestone billing until done.'], ['Turnover', 'Final week', 'Walkthrough, punch list, as-built plans and warranty.']];
+$('#steps').insertAdjacentHTML('beforeend', STEPS.map(([h, w, d], i) => `<div class="step"><div class="n">0${i + 1}</div><small>${w}</small><h3>${h}</h3><p>${d}</p></div>`).join(''));
+
+/* ---------- portfolio ---------- */
+let cat = 'All', q = '';
+const cats = ['All', ...new Set(PROJECTS.map(p => p.cat))];
+$('#filters').innerHTML = cats.map(c => `<button class="chipb" data-cat="${c}" aria-pressed="${c === 'All'}">${c}<span class="c">${c === 'All' ? PROJECTS.length : PROJECTS.filter(p => p.cat === c).length}</span></button>`).join('');
+function renderGrid() {
+  const list = PROJECTS.map((p, i) => [p, i]).filter(([p]) => (cat === 'All' || p.cat === cat) && (p.t + ' ' + p.loc).toLowerCase().includes(q));
+  $('#grid').innerHTML = list.length ? list.map(([p, i], k) => { const wide = k === 0 && cat === 'All' && !q; return `<button class="tile${wide ? ' wide' : ''}" data-p="${i}" aria-label="Open ${p.t}">${shot(p.r, '3D render of ' + p.t, '', wide ? 1400 : 960, wide ? 1050 : 720)}<span class="open">${I.arrow}</span><span class="ov"><span class="mono">${p.cat} · ${p.yr}</span><h3>${p.t}</h3><small>${p.loc} · ${p.area} sqm · ${p.dur}</small></span></button>`; }).join('') : `<p class="empty">No projects match "${q.replace(/[<>&"]/g, '')}". Try another town or clear the search.</p>`;
+  paintAll($('#grid'));
+}
+$('#filters').addEventListener('click', e => { const b = e.target.closest('[data-cat]'); if (!b) return; cat = b.dataset.cat; $$('[data-cat]').forEach(x => x.setAttribute('aria-pressed', x === b)); renderGrid(); track('filter_projects', { category: cat }); });
+$('#q').addEventListener('input', e => { q = e.target.value.trim().toLowerCase(); renderGrid(); });
+renderGrid();
+
+/* ---------- before/after ---------- */
+const baHTML = (p, W, H) => `${shot(Object.assign({}, p.r, { progress: .5, time: 'day', zoom: 1.2 }), p.t + ' during construction', '', W, H)}${shot(Object.assign({}, p.r, { progress: 1, zoom: 1.2 }), p.t + ' at turnover', 'after', W, H)}<span class="tl">Construction</span><span class="tr">Turnover</span><div class="handle"></div><input type="range" min="0" max="100" value="50" aria-label="Drag to compare construction and turnover">`;
+function bindBA(el) { const r = $('input', el); const set = () => el.style.setProperty('--x', r.value + '%'); r.addEventListener('input', set); r.addEventListener('change', () => track('use_before_after')); set(); paintAll(el); }
+const BAP = [0, 2, 3];
+$('#baPick').innerHTML = BAP.map((i, k) => `<button class="chipb" data-ba="${i}" aria-pressed="${k === 0}">${PROJECTS[i].t}</button>`).join('');
+function showBA(i) { const p = PROJECTS[i]; $('#baMain').innerHTML = baHTML(p, 1400, 875); bindBA($('#baMain')); $('#baText').textContent = `${p.d} Built in ${p.dur} in ${p.loc}, ${p.area} sqm.`; $$('[data-ba]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.ba === i)); }
+$('#baPick').addEventListener('click', e => { const b = e.target.closest('[data-ba]'); if (b) showBA(+b.dataset.ba); });
+showBA(0);
+
+/* ---------- project modal ---------- */
+const modal = $('#modal'); let lastF;
+$('#grid').addEventListener('click', e => { const b = e.target.closest('[data-p]'); if (b) openP(+b.dataset.p); });
+function openP(i) {
+  const p = PROJECTS[i]; lastF = document.activeElement;
+  const lo = parseFloat(p.cost.match(/[\d.]+/)[0]) * 1e6;
+  modal.innerHTML = `<div class="m-in"><div class="m-media"><div class="ba" id="mba">${baHTML(p, 1200, 900)}</div></div><div class="m-info"><button class="x" data-close aria-label="Close">✕</button><span class="mono">${p.cat} · ${p.loc} · ${p.yr}</span><h2 id="mTitle" style="font-size:32px">${p.t}</h2><p>${p.d}</p>
+  <dl class="specs"><div><dt>Floor area</dt><dd>${p.area} sqm</dd></div><div><dt>Duration</dt><dd>${p.dur}</dd></div><div><dt>Contract range</dt><dd>${p.cost}</dd></div><div><dt>Cost per sqm</dt><dd>from ₱${Math.round(lo / p.area / 1000)}k</dd></div></dl>
+  <a class="btn btn-accent" href="#estimate" data-close data-track="cta_similar_project">Estimate a similar project <span class="arr">→</span></a></div></div>`;
+  modal.hidden = false; document.body.style.overflow = 'hidden'; bindBA($('#mba')); $('.x', modal).focus(); track('view_project', { project: p.t });
+}
+function closeM() { modal.hidden = true; document.body.style.overflow = ''; lastF && lastF.focus && lastF.focus(); }
+modal.addEventListener('click', e => { if (e.target === modal || e.target.closest('[data-close]')) closeM(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeM(); });
+
+/* ---------- estimator ---------- */
+const TYPES = { house: ['New house', 1, 'Bungalow to 3 storeys', { type: 'modern', w: 13, d: 10 }], reno: ['Renovation', .6, 'Extend or remodel', { type: 'house', w: 11, d: 9, progress: .75 }], comm: ['Commercial', 1.12, 'Shop, apartment, office', { type: 'shop', w: 15, d: 10 }], fit: ['Interior fit-out', .45, 'Interiors only', { type: 'shop', w: 12, d: 10, time: 'dusk', accent: '#2F8F83' }] };
+const FIN = { std: ['Standard', 28000, 35000, 'Basic tiles, painted walls, standard fixtures'], mid: ['Mid-range', 35000, 45000, 'Better tiles, gypsum ceilings, branded fixtures'], high: ['High-end', 45000, 65000, 'Premium stone, custom cabinets, designer lighting'] };
+const S = { step: 0, type: 'house', area: 150, floors: 2, fin: 'mid' };
+const peso = n => '₱' + Math.round(n).toLocaleString('en-PH');
+const short = n => n >= 1e6 ? '₱' + (n / 1e6).toFixed(n >= 1e7 ? 1 : 2) + 'M' : peso(n);
+function calc() { const m = TYPES[S.type][1], [, lo, hi] = FIN[S.fin], fl = 1 + Math.max(0, S.floors - 1) * .04; return [S.area * lo * m * fl, S.area * hi * m * fl]; }
+let estKey = '';
+function renderOut() {
+  const [lo, hi] = calc(); $('#range').textContent = `${short(lo)} – ${short(hi)}`;
+  $('#bd').innerHTML = [['Project type', TYPES[S.type][0]], ['Floor area', S.area + ' sqm'], ['Floors', S.floors], ['Finish level', FIN[S.fin][0]], ['Per sqm', peso(lo / S.area) + ' – ' + peso(hi / S.area)]].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
+  const key = S.type + S.floors; if (key !== estKey) { estKey = key; const el = $('#estShot'); el.classList.remove('ready'); delete el.dataset.painted; el.dataset.r = JSON.stringify(Object.assign({ floors: S.type === 'fit' ? Math.min(S.floors, 2) : S.floors, az: .55 }, TYPES[S.type][3])); el.dataset.w = 800; el.dataset.h = 500; paintAll($('.est-out')); }
+}
+const opt = (name, val, label, sub) => `<div class="opt"><input type="radio" name="${name}" id="${name}-${val}" value="${val}" ${S[name] == val ? 'checked' : ''}><label for="${name}-${val}">${label}${sub ? `<small>${sub}</small>` : ''}</label></div>`;
+function renderStep() {
+  $$('.est-bar i').forEach((b, i) => b.classList.toggle('on', i <= S.step));
+  $('#back').hidden = S.step === 0 || S.step === 4; $('#next').hidden = S.step === 4;
+  $('#next').innerHTML = (S.step === 3 ? 'Send my estimate' : 'Next step') + ' <span class="arr">→</span>';
+  const b = $('#estBody');
+  if (S.step === 0) b.innerHTML = `<fieldset class="q"><legend>What are you building?</legend><div class="opts">${Object.entries(TYPES).map(([k, [l, , sub]]) => opt('type', k, l, sub)).join('')}</div></fieldset>`;
+  if (S.step === 1) b.innerHTML = `<fieldset class="q"><legend>How big is it?</legend><div class="range"><div class="r1"><label for="area" style="font-weight:700">Total floor area</label><output id="areaOut" for="area">${S.area} sqm</output></div><input type="range" id="area" min="20" max="1000" step="10" value="${S.area}"><div class="tk"><span>20 sqm</span><span>500</span><span>1,000 sqm</span></div></div><p style="font-weight:700;margin-top:10px">Number of floors</p><div class="opts" style="grid-template-columns:repeat(4,1fr)">${[1, 2, 3, 4].map(n => opt('floors', n, n + (n === 4 ? '+' : ''), '')).join('')}</div></fieldset>`;
+  if (S.step === 2) b.innerHTML = `<fieldset class="q"><legend>Choose a finish level</legend><div class="opts" style="grid-template-columns:1fr">${Object.entries(FIN).map(([k, [l, lo, hi, d]]) => opt('fin', k, `${l} · ${peso(lo)}–${peso(hi)} per sqm`, d)).join('')}</div></fieldset>`;
+  if (S.step === 3) b.innerHTML = `<fieldset class="q"><legend>Where should we send it?</legend><div class="two"><div class="field"><label for="e-name">Full name</label><input id="e-name" autocomplete="name"><span class="err" hidden>Enter your name.</span></div><div class="field"><label for="e-phone">Mobile number</label><input id="e-phone" inputmode="tel" placeholder="09XX XXX XXXX"><span class="err" hidden>Use an 11-digit mobile number, like 0917 123 4567.</span></div></div><div class="two"><div class="field"><label for="e-loc">Lot location</label><input id="e-loc" placeholder="Barangay, town"></div><div class="field"><label for="e-start">Target start</label><select id="e-start"><option>Within 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Just exploring</option></select></div></div></fieldset>`;
+  if (S.step === 4) { const [lo, hi] = calc(); b.innerHTML = `<div class="done"><span class="ok">${I.check}</span><h3 style="font-size:28px">Estimate sent, ${S.name}.</h3><p style="color:var(--muted)">Your range of ${short(lo)} – ${short(hi)} is saved with your inquiry. Our engineer will text ${S.phone} within one working day to schedule a free site visit.</p><a class="btn btn-ghost" href="#work">Browse similar projects</a></div>`; }
+  const a = $('#area'); if (a) a.addEventListener('input', () => { S.area = +a.value; $('#areaOut').textContent = S.area + ' sqm'; renderOut(); });
+}
+$('#est').addEventListener('change', e => { const t = e.target; if (t.type === 'radio') { S[t.name] = t.name === 'floors' ? +t.value : t.value; renderOut(); } });
+$('#back').addEventListener('click', () => { S.step = Math.max(0, S.step - 1); renderStep(); });
+$('#est').addEventListener('submit', e => {
+  e.preventDefault();
+  if (S.step === 3) {
+    const n = $('#e-name'), p = $('#e-phone'), okN = n.value.trim().length > 1, okP = /^(\+?63|0)9\d{9}$/.test(p.value.replace(/[\s-]/g, ''));
+    [[n, okN], [p, okP]].forEach(([el, ok]) => { el.closest('.field').classList.toggle('invalid', !ok); $('.err', el.closest('.field')).hidden = ok; });
+    if (!okN) { n.focus(); return; } if (!okP) { p.focus(); return; }
+    S.name = n.value.trim().split(' ')[0].replace(/[<>&"]/g, ''); S.phone = p.value.trim().replace(/[<>&"]/g, '');
+    track('generate_lead', { type: S.type, area: S.area, value: Math.round(calc()[0]) });
+  } else track('estimator_step', { step: S.step + 1 });
+  S.step++; renderStep();
+});
+renderStep(); renderOut();
+
+/* ---------- reviews ---------- */
+let ri = 0, rt; const rq = $('#rq');
+$('#dots').innerHTML = REVIEWS.map((_, i) => `<button aria-label="Review ${i + 1}" data-r2="${i}"></button>`).join('');
+function showR(i) { ri = (i + REVIEWS.length) % REVIEWS.length; const [q2, n, r, c] = REVIEWS[ri]; rq.innerHTML = `<div class="fadein"><div class="stars" style="font-size:18px">★★★★★</div><blockquote>"${q2}"</blockquote><figcaption class="who" style="margin-top:24px"><span class="av" style="background:${c}">${n[0]}</span><span><strong>${n}</strong><small>${r}</small></span></figcaption></div>`; $$('[data-r2]').forEach((b, j) => b.setAttribute('aria-current', j === ri)); }
+function auto() { clearInterval(rt); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) rt = setInterval(() => showR(ri + 1), 7000); }
+$('#rPrev').onclick = () => { showR(ri - 1); auto(); }; $('#rNext').onclick = () => { showR(ri + 1); auto(); };
+$('#dots').addEventListener('click', e => { const b = e.target.closest('[data-r2]'); if (b) { showR(+b.dataset.r2); auto(); } });
+showR(0); auto();
+
+/* ---------- faq ---------- */
+const FAQ = [['How much does it cost to build a house per square meter?', 'In 2026, most homes cost between ₱28,000 and ₱65,000 per square meter depending on finishes. Use the estimator above for a quick range; we confirm the exact price after a site visit.'], ['Do you handle building permits?', 'Yes. We prepare signed and sealed plans and file the building permit with your local building official. We also assist with the occupancy permit at turnover.'], ['How do payments work?', 'We bill per milestone, such as foundation, structure, roofing and finishing. You only pay for work that is complete and checked.'], ['Can I visit the site during construction?', 'Anytime, with your project lead. You also get photo and progress reports every week.'], ['Do you offer a warranty?', 'Yes: one year on construction and renovation workmanship, and six months on fit-out work.']];
+$('#faqList').innerHTML = FAQ.map(([q2, a], i) => `<details ${i === 0 ? 'open' : ''}><summary>${q2}<span class="pm" aria-hidden="true">+</span></summary><p>${a}</p></details>`).join('');
+setTimeout(() => $('#faqList').addEventListener('toggle', e => { if (e.target.open) track('open_faq'); }, true), 800);
+
+/* ---------- scroll effects ---------- */
+const prog = $('#prog'), secs = $$('main section[id]');
+function onScroll() {
+  const h = document.documentElement; prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100 || 0) + '%';
+  let cur = ''; secs.forEach(s => { if (s.getBoundingClientRect().top < 140) cur = s.id; }); $$('#links a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+  const st = $('#steps'), r = st.getBoundingClientRect(), p = Math.max(0, Math.min(1, (innerHeight * .75 - r.top) / r.height));
+  st.style.setProperty('--p', p * 100 + '%'); $$('.step', st).forEach((s, i, a) => s.classList.toggle('lit', p >= i / a.length + .02 || p === 1));
+}
+addEventListener('scroll', onScroll, { passive: true });
+initNav(); paintAll(); initReveal(); countUp(); onScroll();
+</script>
+
+</body>
+</html>
