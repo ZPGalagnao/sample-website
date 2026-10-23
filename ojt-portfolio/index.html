@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Portfolio and OJT blog of Zoren Ponce Galagnao, BSCS student at NEMSU, Technician-Trainee at KEWAM Computer Shop &amp; Services.">
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Zoren Galagnao Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a technician's work-order — portfolio up top, OJT summary card, then a blog of weekly "job logs" with time-log tables. */
+:root{
+  --bg:#eef0f3; --surface:#ffffff; --sunk:#e3e6ec; --ink:#141b2d; --muted:#596178; --line:#cfd4de;
+  --accent:#4a3cc9; --accent-ink:#ffffff; --amber:#b86e00; --ok:#1d7a4c;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f131c; --surface:#171c28; --sunk:#1e2432; --ink:#e8ebf2; --muted:#9aa2b8; --line:#2c3344;
+  --accent:#9d93ff; --accent-ink:#120f2e; --amber:#f0b04a; --ok:#5fd39a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f131c; --surface:#171c28; --sunk:#1e2432; --ink:#e8ebf2; --muted:#9aa2b8; --line:#2c3344;
+  --accent:#9d93ff; --accent-ink:#120f2e; --amber:#f0b04a; --ok:#5fd39a; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.label{font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+
+/* nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.brand{font:800 18px/1 var(--display);color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.bname{font-style:normal}
+.brand span{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:7px;background:var(--accent);color:var(--accent-ink);font-size:14px}
+.nav nav{display:flex;gap:4px;flex-wrap:wrap}
+.nav nav a{font:600 14px/1 var(--body);color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:6px}
+.nav nav a:hover{color:var(--ink);background:var(--sunk)}
+.nav nav a[aria-current="page"]{color:var(--ink);background:var(--sunk)}
+
+section{padding-block:56px}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.sec-head h2{font-size:clamp(28px,4vw,40px);font-weight:800}
+.sec-head p{margin:0;color:var(--muted);max-width:62ch}
+
+/* hero */
+.hero{padding-block:56px 40px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(44px,8vw,88px);font-weight:800;letter-spacing:-.02em;margin-top:14px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lede{font-size:19px;max-width:54ch;margin:20px 0 0;color:var(--ink)}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font:600 13px/1 var(--mono);padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{font:700 15px/1 var(--body);padding:13px 18px;border-radius:8px;text-decoration:none;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.hero-photo{position:relative;min-width:0}
+.hero-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
+.hero-photo figcaption{font:400 12px/1.4 var(--mono);color:var(--muted);margin-top:8px}
+
+/* DTR stat strip */
+.dtr{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:44px;overflow:hidden}
+.dtr div{padding:18px 20px;border-right:1px dashed var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.dtr div:last-child{border-right:0}
+.dtr b{font:700 clamp(26px,4vw,36px)/1 var(--display);font-variant-numeric:tabular-nums}
+.dtr small{color:var(--muted);font-size:13px}
+
+/* about + skills */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.two > *{min-width:0}
+.about p{margin:0 0 14px;max-width:62ch}
+.skillset{display:flex;flex-direction:column;gap:22px}
+.skillset h3{font-size:18px;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:400 14px/1 var(--body);padding:8px 11px;border-radius:6px;background:var(--sunk);color:var(--ink)}
+.tag.hw{background:transparent;border:1px solid var(--line)}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.proj .kind{font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+.proj h3{font-size:22px}
+.proj p{margin:0;color:var(--muted);font-size:15px}
+.proj .stack{margin-top:auto;padding-top:8px;font:400 12px/1.5 var(--mono);color:var(--muted)}
+
+/* OJT */
+.ojt{background:var(--surface);border-block:1px solid var(--line)}
+.ojt-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.ojt-grid > *{min-width:0}
+dl.profile{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0;font-size:15px}
+dl.profile dt{color:var(--muted);font:600 12px/1.8 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+dl.profile dd{margin:0}
+.services{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.eval{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.eval-top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:18px 20px;background:var(--sunk);flex-wrap:wrap}
+.eval-top b{font:800 48px/1 var(--display)}
+.eval-top .verdict{font:700 13px/1 var(--mono);letter-spacing:.1em;color:var(--ok)}
+.eval ul{list-style:none;margin:0;padding:6px 20px 14px}
+.eval li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.eval li:last-child{border-bottom:0}
+.eval li span:last-child{font:600 13px/1.4 var(--mono);white-space:nowrap}
+.eval .note{padding:0 20px 18px;color:var(--muted);font-size:13px;margin:0}
+.cert{margin-top:28px}
+.cert img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+
+/* blog list */
+.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.post-card{display:grid;grid-template-columns:96px 1fr;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--ink);min-width:0;transition:border-color .15s, transform .15s}
+.post-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.post-card img{width:96px;height:120px;object-fit:cover;border-radius:8px;background:var(--sunk)}
+.post-card .txt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.post-card h3{font-size:20px}
+.post-card p{margin:0;color:var(--muted);font-size:14px}
+.post-card .label{color:var(--accent)}
+.post-card.feature{grid-column:1/-1;grid-template-columns:1fr;background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.post-card.feature p{color:var(--bg);opacity:.8}
+.post-card.feature .label{color:var(--bg);opacity:.7}
+
+/* single post */
+.post{padding-block:40px 64px}
+.post .back{font:600 14px/1 var(--body);text-decoration:none;display:inline-flex;gap:6px;margin-bottom:28px}
+.post-head{max-width:760px}
+.post-head h1{font-size:clamp(34px,6vw,60px);font-weight:800;letter-spacing:-.015em;margin:12px 0 16px}
+.post-head .byline{color:var(--muted);font-size:14px}
+.post-body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px;margin-top:36px}
+.prose p{margin:0 0 16px;max-width:66ch;font-size:17px}
+.prose h2{font-size:24px;margin:32px 0 14px}
+.log{width:100%;border-collapse:collapse;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.log-wrap{overflow-x:auto}
+.log th{font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:12px 14px;background:var(--sunk)}
+.log td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+.log td.d{font:600 13px/1.5 var(--mono);white-space:nowrap}
+.log td.t{font:400 12px/1.5 var(--mono);color:var(--muted);white-space:nowrap}
+.log tr.ot td.t{color:var(--amber);font-weight:600}
+.post aside figure{margin:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
+.post aside img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+.post aside figcaption{font:400 12px/1.5 var(--mono);color:var(--muted);margin-top:8px}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:48px;flex-wrap:wrap}
+.pager a{text-decoration:none;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;color:var(--ink);max-width:48%;min-width:0}
+.pager a:hover{border-color:var(--accent)}
+.pager a.next{margin-left:auto;text-align:right}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gallery figure{margin:0;min-width:0}
+.gallery img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;display:block;border:1px solid var(--line)}
+.gallery figure.wide{grid-column:span 2}
+.gallery figure.wide img{aspect-ratio:3/2}
+.gallery figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+
+/* contact */
+.contact{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.copyline{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 6px 6px 14px;min-width:0;max-width:100%}
+.copyline span{font:400 14px/1.4 var(--mono);user-select:all;overflow-wrap:anywhere}
+.copyline button{font:600 13px/1 var(--body);border:0;background:var(--sunk);color:var(--ink);padding:9px 12px;border-radius:6px;cursor:pointer}
+footer{border-top:1px solid var(--line);padding-block:28px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .hero-grid,.two,.ojt-grid,.post-body{grid-template-columns:1fr}
+  .hero-photo{max-width:360px}
+  .projects{grid-template-columns:1fr 1fr}
+  .posts{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .post aside figure{position:static}
+  .post aside{max-width:360px}
+}
+@media (max-width:560px){
+  .dtr{grid-template-columns:1fr 1fr}
+  .dtr div:nth-child(2){border-right:0}
+  .dtr div:nth-child(-n+2){border-bottom:1px dashed var(--line)}
+  .projects{grid-template-columns:1fr}
+  .post-card{grid-template-columns:72px 1fr}
+  .post-card img{width:72px;height:92px}
+  .pager a{max-width:100%}
+  .nav nav a{padding:8px 9px}
+  .bname{display:none}
+  section{padding-block:44px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#home"><span>ZG</span><i class="bname">Zoren Galagnao</i></a>
+    <nav aria-label="Main">
+      <a href="#home" data-nav="home">Portfolio</a>
+      <a href="#ojt" data-nav="ojt">OJT</a>
+      <a href="#blog" data-nav="blog">Blog</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="view-home">
+  <section class="hero" id="home">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="label">BS Computer Science · NEMSU Tandag</div>
+          <h1>I build software, and now I can <em>fix the hardware</em> too.</h1>
+          <p class="lede">I'm Zoren Ponce Galagnao, a 4th-year Computer Science student from Tandag City. I build full-stack web apps, and I spent my practicum as a Technician-Trainee at KEWAM Computer Shop &amp; Services repairing PCs, printers and vendo machines.</p>
+          <div class="meta">
+            <span class="chip">Technician-Trainee</span>
+            <span class="chip">Full-stack web dev</span>
+            <span class="chip">Tandag City, Surigao del Sur</span>
+          </div>
+          <div class="cta">
+            <a class="btn" href="#blog">Read my OJT blog</a>
+            <a class="btn ghost" href="#projects">See projects</a>
+          </div>
+        </div>
+        <figure class="hero-photo" style="margin:0">
+          <img src="img/doc1.jpg" alt="Assembling a vendo machine cabinet at the KEWAM workbench">
+          <figcaption>On the bench at KEWAM</figcaption>
+        </figure>
+      </div>
+      <div class="dtr" aria-label="OJT summary">
+        <div><span class="label">Hours rendered</span><b>324</b><small>Practicum hours</small></div>
+        <div><span class="label">Duration</span><b>7 wks</b><small>Jul 1 – Aug 15, 2026</small></div>
+        <div><span class="label">Rating</span><b>4.8</b><small>Outstanding</small></div>
+        <div><span class="label">Daily log</span><b>8–5</b><small>Mon–Sat shifts</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap two">
+      <div class="about">
+        <div class="sec-head"><span class="label">About</span><h2>A developer who learned the bench</h2></div>
+        <p>I'm a detail-oriented Computer Science student who likes building practical software. My academic and personal projects cover web apps, games and management systems, mostly written in JavaScript, TypeScript and PHP.</p>
+        <p>My OJT pushed me to the other side of the screen. At KEWAM I went from observing senior technicians to building and repairing PisoWifi and water vendo machines on my own by week five. I learned to work carefully and stay patient under pressure, and I learned how much a working machine matters to the people who rely on it.</p>
+        <p>I'm expected to graduate in June 2027 and I'm working on my thesis now.</p>
+      </div>
+      <div class="skillset">
+        <div>
+          <h3>Software</h3>
+          <div class="tags">
+            <span class="tag">React</span><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">Firebase</span>
+            <span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">PHP</span>
+            <span class="tag">UI/UX design</span><span class="tag">Version control</span><span class="tag">Debugging</span>
+          </div>
+        </div>
+        <div>
+          <h3>Hardware, from the OJT</h3>
+          <div class="tags">
+            <span class="tag hw">PC assembly</span><span class="tag hw">BIOS &amp; RAM XMP</span><span class="tag hw">Windows 10/11 install</span>
+            <span class="tag hw">HDD to SSD upgrade</span><span class="tag hw">Thermal paste &amp; fan cleaning</span><span class="tag hw">Laptop LCD replacement</span>
+            <span class="tag hw">PSU troubleshooting</span><span class="tag hw">Epson resetter &amp; head cleaning</span><span class="tag hw">Printer flex replacement</span>
+            <span class="tag hw">UTP crimping</span><span class="tag hw">PisoWifi setup &amp; portal config</span><span class="tag hw">Coin acceptor &amp; relay wiring</span>
+            <span class="tag hw">Water vendo solenoid pumps</span>
+          </div>
+        </div>
+        <div>
+          <h3>Work habits</h3>
+          <div class="tags">
+            <span class="tag">Teamwork</span><span class="tag">Time management</span><span class="tag">Problem solving</span><span class="tag">Client service</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head"><span class="label">Projects</span><h2>Things I've built</h2><p>A mix of academic projects and systems I built for real businesses.</p></div>
+      <div class="projects">
+        <article class="proj">
+          <span class="kind">Business system</span>
+          <h3>Labalista</h3>
+          <p>A laundry shop management system for tracking orders, customers and the day's work.</p>
+          <div class="stack">Web app · full stack</div>
+        </article>
+        <article class="proj">
+          <span class="kind">Business system</span>
+          <h3>Tubig Express</h3>
+          <p>An ordering app for a water refilling station, so customers can order refills without calling.</p>
+          <div class="stack">Web app · full stack</div>
+        </article>
+        <article class="proj">
+          <span class="kind">Academic · 2024–2025</span>
+          <h3>Scholars Dungeon</h3>
+          <p>A full-stack educational dungeon game with interactive game mechanics and a responsive layout that works across screen sizes.</p>
+          <div class="stack">Web game · UI/UX · performance</div>
+        </article>
+        <article class="proj">
+          <span class="kind">Academic · 2024–2025</span>
+          <h3>Libre-Library</h3>
+          <p>A free digital library management system for browsing, searching and managing books, with cataloguing, user management and data persistence.</p>
+          <div class="stack">Desktop app · GUI</div>
+        </article>
+        <article class="proj">
+          <span class="kind">Academic · 2024–2025</span>
+          <h3>Blackjack Game</h3>
+          <p>A cross-platform Blackjack card game for mobile with full dealing, scoring and betting logic plus smooth animations.</p>
+          <div class="stack">Mobile · Android &amp; iOS</div>
+        </article>
+        <article class="proj">
+          <span class="kind">Practicum · 2026</span>
+          <h3>KEWAM bench work</h3>
+          <p>Custom PC builds, PisoWifi units and water vendo machines built and repaired for real clients during my OJT.</p>
+          <div class="stack"><a href="#blog">Read the weekly logs →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ojt" id="ojt">
+    <div class="wrap">
+      <div class="sec-head"><span class="label">On-the-Job Training · CS 331 Practicum</span><h2>KEWAM Computer Shop &amp; Services</h2><p>A locally owned shop in Tandag City for sales, repair and support of computers, laptops, printers and vendo machines such as PisoWifi, water vendo and carwash vendo units.</p></div>
+      <div class="ojt-grid">
+        <div>
+          <dl class="profile">
+            <dt>Address</dt><dd>Cabrera Street, Bag-ong Lungsod, Tandag City, Surigao del Sur</dd>
+            <dt>Position</dt><dd>Technician-Trainee</dd>
+            <dt>Owner</dt><dd>Kelly M. Cañete</dd>
+            <dt>Manager</dt><dd>Rodenne M. Escatron</dd>
+            <dt>HR / Secretary</dt><dd>Crisolyn B. Porta</dd>
+            <dt>OJT Instructor</dt><dd>Virgilio F. Tuga Jr., MSCS (CAR)</dd>
+            <dt>Period</dt><dd class="mono">Jul 1 – Aug 15, 2026 · 324 hrs</dd>
+          </dl>
+          <div class="services"><span class="chip">Sales</span><span class="chip">Repair</span><span class="chip">Support</span></div>
+          <figure class="cert" style="margin-inline:0">
+            <img src="img/cert.jpg" alt="Certificate of Completion from KEWAM Computer Shop and Services awarded to Zoren Galagnao">
+          </figure>
+        </div>
+        <div class="eval">
+          <div class="eval-top">
+            <div><div class="label">Performance evaluation</div><b>4.8</b></div>
+            <span class="verdict">OUTSTANDING · 67 / 70</span>
+          </div>
+          <ul id="eval-list"></ul>
+          <p class="note">Rated by Rodenne M. Escatron, Manager. Scale: 5 Outstanding, 4 Very Good, 3 Good.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <div class="wrap">
+      <div class="sec-head"><span class="label">Blog · OJT journal</span><h2>Seven weeks on the bench</h2><p>One post per week of my training, written from my weekly accomplishment reports, plus my reflection at the end.</p></div>
+      <div class="posts" id="post-list"></div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <div class="sec-head"><span class="label">Documentation</span><h2>From the shop floor</h2></div>
+      <div class="gallery">
+        <figure><img src="img/doc1.jpg" alt="Working on a vendo machine cabinet" loading="lazy"><figcaption>Vendo cabinet assembly</figcaption></figure>
+        <figure><img src="img/doc2.jpg" alt="Wiring and testing a vendo unit at the workbench" loading="lazy"><figcaption>Vendo unit wiring and testing</figcaption></figure>
+        <figure><img src="img/doc3.jpg" alt="Servicing a desktop PC" loading="lazy"><figcaption>Desktop PC servicing</figcaption></figure>
+        <figure><img src="img/doc5.jpg" alt="Group photo with the KEWAM team" loading="lazy"><figcaption>With the KEWAM team</figcaption></figure>
+        <figure class="wide"><img src="img/doc4.jpg" alt="Preparing a bootable USB with Ventoy on a laptop" loading="lazy"><figcaption>Making a bootable USB for OS installs</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head"><span class="label">Contact</span><h2>Let's work together</h2><p>Open to freelance web projects and entry-level developer or IT roles after graduation.</p></div>
+      <div class="contact">
+        <div class="copyline"><span id="email">zorenponce@gmail.com</span><button type="button" id="copy-email">Copy</button></div>
+        <a class="btn ghost" href="https://github.com/ZPGalagnao" target="_blank" rel="noopener">GitHub · ZPGalagnao</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="view-post" class="post" hidden>
+  <div class="wrap">
+    <a class="back" href="#blog">← All posts</a>
+    <div class="post-head">
+      <span class="label" id="p-label"></span>
+      <h1 id="p-title"></h1>
+      <div class="byline" id="p-byline"></div>
+    </div>
+    <div class="post-body">
+      <div class="prose" id="p-body"></div>
+      <aside id="p-aside"></aside>
+    </div>
+    <div class="pager" id="p-pager"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Zoren Ponce Galagnao · BSCS, North Eastern Mindanao State University</span>
+    <span>OJT at KEWAM Computer Shop &amp; Services, Tandag City</span>
+  </div>
+</footer>
+
+<script>
+const EVAL=[
+ ["Reports to work regularly",5],["Reports to work in proper uniform",5],["Accepts responsibility and volunteers for assignments",5],
+ ["Establishes rapport with personnel",5],["Shows respect to co-trainees, workers and superiors",5],["Follows job instructions",5],
+ ["Works independently with minimal supervision",4],["Finds ways to do the job better",5],["Ensures timely completion of tasks",5],
+ ["Prepares and submits reports accurately and on time",5],["Provides valuable and impactful suggestions",3],["Courteous and considerate to clients",5],
+ ["Follows the agency's rules and regulations",5],["Exhibits orderly and safe working habits",5]];
+document.getElementById('eval-list').innerHTML=EVAL.map(([c,s])=>`<li><span>${c}</span><span>${s} / 5</span></li>`).join('');
+
+const T='8:00 AM – 5:00 PM';
+const POSTS=[
+ {id:'week-1',week:'Week 1',range:'July 1 – 4, 2026',title:'Orientation and my first printer job',
+  excerpt:'Safety protocols, watching the seniors diagnose, and cleaning my first printer head.',
+  img:'img/week1.jpg',
+  body:[
+   'My first day at KEWAM started with an orientation on shop safety and basic troubleshooting. I was nervous. In class there is always time to look something up, but here a client\'s device is right in front of you.',
+   'For most of this short week I watched and listened. I observed the senior technicians diagnose printer power problems and paper jams, then shadowed them on desktop PCs that would not boot or showed no display. By Saturday they let me do hands-on cleaning of a printer nozzle and print head.'],
+  log:[['Jul 01','Wed','Attended orientation, learned shop safety protocols, and observed basic laptop troubleshooting procedures.'],
+   ['Jul 02','Thu','Observed senior technicians diagnose printer power issues and mechanical paper jams.'],
+   ['Jul 03','Fri','Shadowed hardware diagnostics for desktop PCs experiencing boot failures and No-Display errors.'],
+   ['Jul 04','Sat','Hands-on cleaning of the printer nozzle and head cleaning.']],
+  learned:'Observe first. Most of the diagnosis happens before anyone picks up a screwdriver.'},
+ {id:'week-2',week:'Week 2',range:'July 6 – 11, 2026',title:'Formatting, thermal paste and SSD upgrades',
+  excerpt:'Clean Windows installs, Epson resets, dirty cooling fans and a lot of slow laptops made fast.',
+  img:'img/week2.jpg',
+  body:[
+   'Week two was when I started working on client units myself. I formatted laptops and did clean installs of Windows 10 and 11, then installed drivers, Microsoft Office and antivirus on the formatted PCs.',
+   'I also used the resetter software on Epson printers with pad counter overflow errors, repaired paper feeding mechanisms and flushed clogged ink heads. On the laptop side I opened up units to clean dusty cooling fans and replace dried-out thermal paste, and I upgraded slow mechanical hard drives to SATA SSDs. The speed difference after an SSD upgrade is the easiest way to make a client happy.'],
+  log:[['Jul 06','Mon','Performed hands-on OS formatting and clean installation of Windows 10/11 on client laptops.'],
+   ['Jul 07','Tue','Conducted software resetting on Epson printers experiencing pad counter overflow errors.'],
+   ['Jul 08','Wed','Disassembled and cleaned dirty laptop cooling fans and replaced degraded CPU/GPU thermal paste.'],
+   ['Jul 09','Thu','Installed essential software drivers, Microsoft Office, and antivirus packages on formatted PCs.'],
+   ['Jul 10','Fri','Repaired printer paper feeding mechanisms and performed deep ink head flushing.'],
+   ['Jul 11','Sat','Diagnosed slow laptop performance and upgraded mechanical HDDs to high-speed SATA SSDs.']],
+  learned:'Small tasks like thermal paste need precision. Rushing one screw can cost a whole afternoon.'},
+ {id:'week-3',week:'Week 3',range:'July 13 – 18, 2026',title:'Building PCs from scratch',
+  excerpt:'Motherboard mounting, cable management, BIOS updates and my first look at a PisoWifi.',
+  img:'img/week3.jpg',
+  body:[
+   'This week I assembled custom desktop PCs from scratch, from mounting the motherboard and installing the CPU to wiring the power supply and doing clean cable management. After assembly I updated the BIOS and set up RAM XMP profiles so the memory runs at its rated speed.',
+   'I also cleaned an Epson L3110 through its driver utility, and on Friday I watched how a PisoWifi unit is troubleshot. That was my first look at the vendo machines that would take up the rest of my OJT. On Saturday a new stack of laptops arrived, and we set up each one by hand: installing the OS and Office and activating both.'],
+  log:[['Jul 13','Mon','Assembled custom desktop PCs from scratch, including motherboard mounting and CPU installation.'],
+   ['Jul 14','Tue','Executed clean cable management and power supply wiring for custom PC builds.'],
+   ['Jul 15','Wed','Performed BIOS updates and configured RAM XMP profiles on newly assembled systems.'],
+   ['Jul 16','Thu','Performed a cleaning of an Epson L3110 printer using its drivers.'],
+   ['Jul 17','Fri','Observed how to troubleshoot a PisoWifi.'],
+   ['Jul 18','Sat','Received a new stack of laptops and set up everything manually, downloading the OS and Office and activating Office and Windows.']],
+  learned:'A good build is one the next technician can open and understand. Cable management is part of the job.'},
+ {id:'week-4',week:'Week 4',range:'July 20 – 25, 2026',title:'Inside the vendo machines',
+  excerpt:'Relay wiring, coin acceptors, solenoid pumps, UTP crimping and PisoWifi portal setup.',
+  img:'img/week4.jpg',
+  body:[
+   'I never expected to learn vendo machines this deeply. This week I watched how PisoWifi vendo units are assembled, how the relays are wired and how the boards are configured. I helped wire electronic coin acceptors and timer modules for carwash vendo machines, and learned the schematic and solenoid pump connections of a water vendo.',
+   'I installed the PisoWifi program using a flash drive and an OTG adapter, learned how to crimp UTP cables so I could help the seniors finish faster, and by Saturday I was configuring custom portal pages, bandwidth limits and user rates in the system software.'],
+  log:[['Jul 20','Mon','Observed the assembly process, relay wiring, and board configurations of PisoWiFi Vendo units.'],
+   ['Jul 21','Tue','Assisted in wiring electronic coin acceptors and timer modules for custom Carwash Vendo machines.'],
+   ['Jul 22','Wed','Learned the schematic setup and water solenoid pump connections for Water Vendo machines.'],
+   ['Jul 23','Thu','Installed a program in PisoWifi using a flash drive and OTG adapter.'],
+   ['Jul 24','Fri','Learned how to crimp a UTP cable and assisted seniors to make the work faster.'],
+   ['Jul 25','Sat','Configured PisoWiFi custom portal pages, bandwidth limits, and user rates in system software.']],
+  learned:'A vendo machine is a small computer, a coin mechanism and a power circuit. Each one fails in its own way.'},
+ {id:'week-5',week:'Week 5',range:'July 27 – August 1, 2026',title:'Building and repairing on my own',
+  excerpt:'My first solo water vendo build, solo PisoWifi repairs and home service calls.',
+  img:'img/week5.jpg',
+  body:[
+   'Week five was the turning point. On Monday I built a water vendo machine by myself, applying everything my seniors had taught me. The next day I repaired a PisoWifi on my own and returned it to the client in good condition, and on Wednesday I built a brand-new PisoWifi unit for a customer.',
+   'I also went out on home service calls. I repaired a client\'s water vendo machine by replacing its power supply, and on Saturday went out again for another water vendo repair. In between, I replaced a laptop LCD under a senior technician\'s supervision.'],
+  log:[['Jul 27','Mon','Built a water vendo machine all by myself, applying all the tutorials from my seniors.'],
+   ['Jul 28','Tue','Repaired a PisoWifi by myself and returned it to the client in good condition.'],
+   ['Jul 29','Wed','Built a new PisoWifi for our clients and delivered it brand new and in good condition, which made the customers happy.'],
+   ['Jul 30','Thu','Repaired a water vendo machine on home service by replacing its power supply.'],
+   ['Jul 31','Fri','Replaced a laptop LCD under senior technician supervision.'],
+   ['Aug 01','Sat','Home service repair of a client\'s water vendo machine.']],
+  learned:'Being trusted with a client\'s unit on your own is a responsibility, and it builds confidence fast.'},
+ {id:'week-6',week:'Week 6',range:'August 3 – 8, 2026',title:'Power supplies, memory and a custom build',
+  excerpt:'A printer flex replacement, PSU testing, RAM upgrades and a PC built from a purchase order.',
+  img:'img/week6.jpg',
+  body:[
+   'I started the week by replacing the flex cable of a printer and bringing it back to working condition. I assembled the internal electrical parts and coin mechanism of a water vendo unit, and learned to troubleshoot a power supply to check whether it delivers power at all.',
+   'I replaced the memory of a client\'s PC and fixed its cable management, then built a new custom PC from a client\'s purchase order. On Saturday I ran full system diagnostics and software updates on several client laptops together with the seniors.'],
+  log:[['Aug 03','Mon','Successfully changed the flex of a printer and brought it back to good condition.'],
+   ['Aug 04','Tue','Assembled internal electrical components and coin mechanisms for a Water Vendo machine unit.'],
+   ['Aug 05','Wed','Troubleshot a power supply to check whether it has power or not.'],
+   ['Aug 06','Thu','Replaced the memory of a client PC and fixed its cable management.'],
+   ['Aug 07','Fri','Built a new custom PC from the client\'s purchase order.'],
+   ['Aug 08','Sat','Conducted full system diagnostic checks and software updates on multiple client laptops with our seniors.']],
+  learned:'Check the power first. A lot of "dead" machines just have a failing supply.'},
+ {id:'week-7',week:'Week 7',range:'August 10 – 15, 2026',title:'Final week and an overtime finish',
+  excerpt:'Final assemblies, an LCD swap, job order logs, and a 9 PM finish before school opening.',
+  img:'img/week7.jpg',
+  body:[
+   'In my final week I did the final assembly, wiring check and troubleshooting of a customer\'s PC, replaced a customer\'s laptop LCD, and helped my seniors build a WiFi vendo machine. On Thursday I assisted in the final testing of a PisoWifi installation on home service.',
+   'I also prepared summary logs of completed job orders and did the final workspace maintenance. My last day was Saturday. I finished my internship paperwork and exit requirements, and we worked overtime until 9 PM because our clients needed their water vendo machines ready in time for school opening. It was a good way to end.'],
+  log:[['Aug 10','Mon','Performed final assembly, wiring check, and troubleshooting of a customer\'s PC.'],
+   ['Aug 11','Tue','Replaced the LCD of a customer\'s laptop.'],
+   ['Aug 12','Wed','Helped my seniors build a WiFi Vendo Machine.'],
+   ['Aug 13','Thu','Assisted senior technicians in the final testing of a PisoWifi home service installation.'],
+   ['Aug 14','Fri','Prepared summary logs of completed job orders and conducted final workspace maintenance.'],
+   ['Aug 15','Sat','Finalized internship paperwork, completed remaining job reports, and cleared OJT exit requirements. Worked overtime as clients needed their Water Vendo machines finalized in time for school opening.','8:00 AM – 9:00 PM']],
+  learned:'Deadlines are real when a school is waiting on your machines.'},
+ {id:'reflection',week:'Reflection',range:'After completion · August 2026',title:'What 324 hours at KEWAM taught me',
+  excerpt:'Resourcefulness, patience under pressure, and the value of mentors who want you to succeed.',
+  img:'img/doc5.jpg',feature:true,
+  body:[
+   'The start of my On-the-Job Training was both exciting and nerve-wracking. Being deployed at KEWAM Computer Shop and Services in Tandag City meant stepping into an environment where theory had to translate immediately into practice. There was no room for hesitation once a client\'s device was placed in front of me.',
+   'During my first few days, I was welcomed by the staff and given a proper orientation on shop safety protocols and basic troubleshooting procedures. I started by observing senior technicians diagnose printer issues and desktop boot failures, absorbing as much as I could before being trusted to handle tasks on my own. It did not take long before I was given hands-on responsibilities, from cleaning printer nozzles and formatting operating systems to replacing thermal paste and upgrading storage drives. Each task, no matter how small, taught me the importance of precision and patience in hardware work.',
+   'As the weeks progressed, I was introduced to a side of the technician\'s trade I had never expected to learn in such depth: the assembly, wiring, and troubleshooting of vendo machines, including PisoWifi units, water vendo machines, and carwash vendo systems. I learned how to crimp UTP cables, wire coin acceptors and relay modules, configure bandwidth limits and custom portal pages, and even conduct home service repairs for clients. By the fifth week, I was already building and repairing vendo machines independently, applying everything my seniors had patiently taught me.',
+   'What made this journey especially meaningful was not just the technical skills I gained, but the trust that was extended to me by the staff of KEWAM. I was allowed to grow at my own pace, make mistakes, and learn from them under proper guidance. I also came to appreciate how essential these machines are to everyday Filipino life. A working PisoWifi or water vendo unit can mean a lot to a community, and being part of the team that keeps these running gave me a strong sense of purpose.',
+   'By the final weeks, I was assisting in full system diagnostics, replacing hardware components with minimal supervision, and helping prepare summary logs and internship exit requirements. My last day at KEWAM, capped off with an overtime shift to ensure our clients\' units were ready in time for the school opening, was a fitting close to a training experience that pushed me to grow both technically and personally.',
+   'This OJT journey taught me far more than computer and vendo machine repair. It taught me resourcefulness, patience under pressure, and the value of hands-on learning guided by mentors who genuinely wanted me to succeed. I am truly grateful to my parents for their unwavering support, and to the staff of KEWAM Computer Shop and Services, Mr. Rodenne M. Escatron, Ms. Crisolyn B. Porta and Mr. Kelly M. Cañete, for sharing their knowledge and trusting me with real responsibilities throughout my training. Thank you as well to my OJT Instructor, Sir Virgilio F. Tuga Jr., for his guidance.']}
+];
+
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+document.getElementById('post-list').innerHTML=POSTS.map(p=>`
+ <a class="post-card${p.feature?' feature':''}" href="#${p.id}">
+  ${p.feature?'':`<img src="${p.img}" alt="" loading="lazy">`}
+  <div class="txt"><span class="label">${p.week} · ${p.range}</span><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p></div>
+ </a>`).join('');
+
+const home=document.getElementById('view-home'), postView=document.getElementById('view-post');
+function renderPost(i){
+  const p=POSTS[i];
+  document.getElementById('p-label').textContent=`${p.week} · ${p.range}`;
+  document.getElementById('p-title').textContent=p.title;
+  document.getElementById('p-byline').textContent='Zoren P. Galagnao · Technician-Trainee, KEWAM Computer Shop & Services';
+  let html=p.body.map(t=>`<p>${esc(t)}</p>`).join('');
+  if(p.log){
+    html+=`<h2>Daily time log</h2><div class="log-wrap"><table class="log"><thead><tr><th>Date</th><th>Time</th><th>Accomplishment</th></tr></thead><tbody>`+
+      p.log.map(r=>`<tr class="${r[3]?'ot':''}"><td class="d">${r[0]}<br>${r[1].toUpperCase()}</td><td class="t">${r[3]||T}</td><td>${esc(r[2])}</td></tr>`).join('')+
+      `</tbody></table></div>`;
+    html+=`<h2>Takeaway</h2><p>${esc(p.learned)}</p>`;
+  }
+  document.getElementById('p-body').innerHTML=html;
+  document.getElementById('p-aside').innerHTML=`<figure><img src="${p.img}" alt="${p.log?'Weekly photo documentation for '+p.week:'With the KEWAM team'}"><figcaption>${p.log?'Photo documentation, '+p.week+' accomplishment report':'With the KEWAM team'}</figcaption></figure>`;
+  const prev=POSTS[i-1], next=POSTS[i+1];
+  document.getElementById('p-pager').innerHTML=
+    (prev?`<a href="#${prev.id}"><span class="label">← Previous</span><strong>${esc(prev.title)}</strong></a>`:'')+
+    (next?`<a class="next" href="#${next.id}"><span class="label">Next →</span><strong>${esc(next.title)}</strong></a>`:'');
+}
+function route(){
+  const h=(location.hash||'#home').slice(1);
+  const i=POSTS.findIndex(p=>p.id===h);
+  document.querySelectorAll('[data-nav]').forEach(a=>a.removeAttribute('aria-current'));
+  if(i>=0){
+    home.hidden=true; postView.hidden=false; renderPost(i); window.scrollTo(0,0);
+    document.querySelector('[data-nav="blog"]').setAttribute('aria-current','page');
+  }else{
+    const wasPost=!postView.hidden;
+    postView.hidden=true; home.hidden=false;
+    const el=document.getElementById(h);
+    if(el) { if(wasPost) requestAnimationFrame(()=>el.scrollIntoView()); }
+    const n=document.querySelector(`[data-nav="${h}"]`); if(n) n.setAttribute('aria-current','page');
+  }
+}
+window.addEventListener('hashchange',route); route();
+
+document.getElementById('copy-email').addEventListener('click',e=>{
+  const b=e.currentTarget, t=document.getElementById('email').textContent;
+  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1600)};
+  try{navigator.clipboard.writeText(t).then(done,()=>{selectEmail();b.textContent='Press Ctrl+C'})}catch(_){selectEmail()}
+});
+function selectEmail(){const r=document.createRange();r.selectNodeContents(document.getElementById('email'));const s=getSelection();s.removeAllRanges();s.addRange(r)}
+</script>
+
+</body>
+</html>
