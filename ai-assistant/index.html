@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ZorDevAI Assistant</title>
+<meta name="description" content="Step by step: what the ZorDevAI AI assistant looks like on your website, and what you get as the owner.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; each step pairs a screenshot (numbered markers) with its numbered notes. */
+:root {
+  --paper: #f4f6f3; --surface: #ffffff; --ink: #142026; --muted: #56656b; --line: #dfe5e1;
+  --accent: #0d7a68; --accent-ink: #ffffff; --mark: #ffb21e; --mark-ink: #1b1400;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper: #0f1719; --surface: #172227; --ink: #e7efec; --muted: #9db0ab; --line: #26353a; --accent: #3cc2a6; --accent-ink: #062019; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --paper: #0f1719; --surface: #172227; --ink: #e7efec; --muted: #9db0ab; --line: #26353a; --accent: #3cc2a6; --accent-ink: #062019; color-scheme: dark; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-block: 40px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.hero { display: grid; gap: 14px; max-width: 760px; margin-bottom: 28px; }
+.brand { font: 500 13px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 800 clamp(34px, 6vw, 58px)/1.02 var(--display); margin: 0; text-wrap: balance; letter-spacing: -.02em; }
+.lede { font-size: 19px; color: var(--muted); margin: 0; max-width: 62ch; }
+.sample-note { font-size: 15px; color: var(--muted); border-left: 3px solid var(--mark); padding-left: 12px; margin: 4px 0 0; max-width: 70ch; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 8px; }
+nav.toc a { font-size: 14px; color: var(--ink); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 6px 12px; border-radius: 999px; }
+nav.toc a:hover, nav.toc a:focus-visible { border-color: var(--accent); color: var(--accent); }
+.step { padding-block: 44px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.kicker { font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 0; }
+h2 { font: 700 clamp(26px, 3.6vw, 36px)/1.1 var(--display); margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+.intro { margin: 0 0 14px; color: var(--muted); max-width: 66ch; }
+.figure { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.figure.phone { grid-template-columns: 1fr; gap: 14px; }
+.pair { display: grid; gap: 32px; }
+.phones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.shot { position: relative; border-radius: 14px; overflow: visible; max-width: 100%; }
+.shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(20, 32, 38, .12); }
+.figure.phone .shot img { border-radius: 26px; border: 6px solid var(--ink); }
+.tag { position: absolute; left: 12px; top: 12px; z-index: 3; font: 500 12px/1 var(--mono); letter-spacing: .04em; background: var(--ink); color: var(--paper); padding: 6px 9px; border-radius: 6px; }
+.mark { position: absolute; z-index: 2; transform: translate(-40%, -40%); width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; background: var(--mark); color: var(--mark-ink); font: 700 15px/1 var(--body); display: grid; place-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0, 0, 0, .3); padding: 0; transition: transform .15s; }
+.figure.phone .mark { width: 24px; height: 24px; font-size: 13px; }
+.box { position: absolute; z-index: 1; border: 3px solid var(--mark); border-radius: 10px; opacity: 0; pointer-events: none; transition: opacity .15s; box-shadow: 0 0 0 4000px rgba(10, 16, 18, .0); }
+.on.box { opacity: 1; }
+.on.mark { transform: translate(-40%, -40%) scale(1.18); }
+.notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; min-width: 0; }
+.notes li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: default; outline: none; transition: border-color .15s; }
+.notes li.on, .notes li:focus-visible { border-color: var(--mark); }
+.notes .num { width: 26px; height: 26px; border-radius: 50%; background: var(--mark); color: var(--mark-ink); font: 700 14px/26px var(--body); text-align: center; }
+.notes b { display: block; font-weight: 700; }
+.notes p { margin: 2px 0 0; color: var(--muted); font-size: 15.5px; }
+.notes p:empty { display: none; }
+.alert-demo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: center; }
+.lock { background: linear-gradient(160deg, #1d3a44, #0d1d23 70%); border-radius: 30px; padding: 34px 18px 60px; max-width: 360px; width: 100%; justify-self: center; border: 6px solid #0a1114; }
+.clock { color: #fff; text-align: center; font: 300 64px/1 var(--body); margin: 0 0 26px; letter-spacing: -.02em; }
+.notif { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; background: rgba(255, 255, 255, .92); color: #142026; border-radius: 18px; padding: 12px 14px; animation: drop .6s ease-out both; }
+.notif .app { width: 40px; height: 40px; border-radius: 10px; background: #b9521f; color: #fff; font: 700 20px/40px var(--body); text-align: center; }
+.notif p { margin: 0; }
+.notif .from { font-size: 12.5px; color: #56656b; }
+.notif .title { font-weight: 700; }
+.notif .body { font-size: 15px; }
+@keyframes drop { from { transform: translateY(-14px); opacity: .4; } to { transform: none; opacity: 1; } }
+.facts { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.facts li { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.summary { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+.summary div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.summary h3 { font: 700 20px/1.2 var(--display); margin: 0 0 10px; }
+.summary ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.cta { margin-top: 8px; background: var(--accent); color: var(--accent-ink); border-radius: 16px; padding: 24px 22px; display: grid; gap: 8px; }
+.cta h3 { font: 800 26px/1.15 var(--display); margin: 0; }
+.cta p { margin: 0; }
+.cta a { color: inherit; font-weight: 700; }
+footer { margin-top: 36px; font-size: 14px; color: var(--muted); max-width: 75ch; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+@media (max-width: 860px) {
+  .figure, .alert-demo, .summary { grid-template-columns: 1fr; }
+  .phones { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+  .mark { width: 24px; height: 24px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .notif { animation: none; } .mark, .box { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <p class="brand">ZorDevAI Assistant</p>
+  <h1>An AI assistant that answers your customers and books them for you</h1>
+  <p class="lede">Here's exactly what your customers see on your website, and what you get as the owner, step by step. Tap a numbered marker or a note to see what it points to.</p>
+  <p class="sample-note">These screenshots come from a demo with a made-up business, Thermostead Heating &amp; Air. On your website, it uses your shop's name, colors, services and prices.</p>
+  <nav class="toc" aria-label="Steps">
+    <a href="#website">1 · Website</a><a href="#chat">2 · Chat</a><a href="#conversation">3 · Booking</a><a href="#form">4 · Form</a><a href="#alert">5 · Alert</a><a href="#dashboard">6 · Dashboard</a><a href="#reviews">7 · Reviews</a><a href="#phones">Phones</a>
+  </nav>
+</header>
+<section class="step" id="website">
+  <p class="kicker">Step 1 · Your website</p>
+  <h2>A chat bubble on every page</h2>
+  <p class="intro">Your customers visit your website as usual. In the corner, there's a chat bubble in your brand color.</p>
+  <div class="figure">
+  <div class="shot" style="aspect-ratio:1280/800">
+    
+    <img src="img/01-site.webp" alt="A business website with a round chat button in the bottom-right corner" loading="lazy" width="1280" height="800">
+    <span class="box" data-n="01-site-1" style="left:93.75%;top:90.00%;width:4.69%;height:7.50%"></span>
+<button class="mark" type="button" data-n="01-site-1" style="left:93.75%;top:90.00%" aria-label="Point 1">1</button>
+<span class="box" data-n="01-site-2" style="left:77.09%;top:91.13%;width:15.73%;height:5.13%"></span>
+<button class="mark" type="button" data-n="01-site-2" style="left:77.09%;top:91.13%" aria-label="Point 2">2</button>
+  </div>
+  <ol class="notes"><li data-n="01-site-1" tabindex="0"><span class="num">1</span><div><b>The chat bubble</b><p>Always in the corner of every page, on computers and phones.</p></div></li>
+<li data-n="01-site-2" tabindex="0"><span class="num">2</span><div><b>A friendly hint</b><p>After a few seconds, a small message invites visitors to ask a question.</p></div></li></ol>
+</div>
+</section>
+<section class="step" id="chat">
+  <p class="kicker">Step 2 · The customer opens the chat</p>
+  <h2>Your own AI assistant answers</h2>
+  <p class="intro">One tap opens the chat. It greets the customer in your words and offers quick questions they can tap.</p>
+  <div class="figure">
+  <div class="shot" style="aspect-ratio:1280/800">
+    
+    <img src="img/02-chat.webp" alt="The chat window open, with a greeting and quick-question buttons" loading="lazy" width="1280" height="800">
+    <span class="box" data-n="02-chat-1" style="left:68.83%;top:10.63%;width:29.53%;height:8.50%"></span>
+<button class="mark" type="button" data-n="02-chat-1" style="left:68.83%;top:10.63%" aria-label="Point 1">1</button>
+<span class="box" data-n="02-chat-2" style="left:69.92%;top:20.88%;width:23.24%;height:13.01%"></span>
+<button class="mark" type="button" data-n="02-chat-2" style="left:69.92%;top:20.88%" aria-label="Point 2">2</button>
+<span class="box" data-n="02-chat-3" style="left:69.92%;top:35.13%;width:27.34%;height:10.00%"></span>
+<button class="mark" type="button" data-n="02-chat-3" style="left:69.92%;top:35.13%" aria-label="Point 3">3</button>
+<span class="box" data-n="02-chat-4" style="left:68.83%;top:70.25%;width:29.53%;height:8.13%"></span>
+<button class="mark" type="button" data-n="02-chat-4" style="left:68.83%;top:70.25%" aria-label="Point 4">4</button>
+<span class="box" data-n="02-chat-5" style="left:69.92%;top:78.38%;width:7.67%;height:3.50%"></span>
+<button class="mark" type="button" data-n="02-chat-5" style="left:69.92%;top:78.38%" aria-label="Point 5">5</button>
+<span class="box" data-n="02-chat-6" style="left:68.83%;top:83.13%;width:29.53%;height:4.75%"></span>
+<button class="mark" type="button" data-n="02-chat-6" style="left:68.83%;top:83.13%" aria-label="Point 6">6</button>
+  </div>
+  <ol class="notes"><li data-n="02-chat-1" tabindex="0"><span class="num">1</span><div><b>Your shop's assistant</b><p>Your business name and colors. It says clearly that it's an AI assistant.</p></div></li>
+<li data-n="02-chat-2" tabindex="0"><span class="num">2</span><div><b>A greeting in your words</b><p>It understands English, Tagalog and Bisaya, and answers in the customer's language.</p></div></li>
+<li data-n="02-chat-3" tabindex="0"><span class="num">3</span><div><b>Quick questions</b><p>Common questions customers can tap instead of typing.</p></div></li>
+<li data-n="02-chat-4" tabindex="0"><span class="num">4</span><div><b>Any question</b><p>Customers can also type anything about your services.</p></div></li>
+<li data-n="02-chat-5" tabindex="0"><span class="num">5</span><div><b>Leave my number</b><p>For customers who prefer a short form over chatting.</p></div></li>
+<li data-n="02-chat-6" tabindex="0"><span class="num">6</span><div><b>Honest reminder</b><p>It tells customers that your team confirms prices and schedules.</p></div></li></ol>
+</div>
+</section>
+<section class="step" id="conversation">
+  <p class="kicker">Step 3 · Questions and booking requests</p>
+  <h2>It answers, then takes the booking request</h2>
+  <p class="intro">The AI answers from the facts you give us (services, prices, promos, area). When the customer is ready, it asks for their details and saves the request for your team.</p>
+  <div class="figure">
+  <div class="shot" style="aspect-ratio:1280/800">
+    <span class="tag">Example conversation</span>
+    <img src="img/03-example.webp" alt="An example chat: a customer reports a problem, the assistant explains the visit and saves the request" loading="lazy" width="1280" height="800">
+    <span class="box" data-n="03-example-1" style="left:74.02%;top:18.01%;width:23.24%;height:7.75%"></span>
+<button class="mark" type="button" data-n="03-example-1" style="left:74.02%;top:18.01%" aria-label="Point 1">1</button>
+<span class="box" data-n="03-example-2" style="left:69.92%;top:27.01%;width:23.24%;height:20.89%"></span>
+<button class="mark" type="button" data-n="03-example-2" style="left:69.92%;top:27.01%" aria-label="Point 2">2</button>
+<span class="box" data-n="03-example-3" style="left:69.92%;top:55.53%;width:23.24%;height:13.01%"></span>
+<button class="mark" type="button" data-n="03-example-3" style="left:69.92%;top:55.53%" aria-label="Point 3">3</button>
+  </div>
+  <ol class="notes"><li data-n="03-example-1" tabindex="0"><span class="num">1</span><div><b>The customer asks, any time</b><p>Even at night or while your team is busy on a job.</p></div></li>
+<li data-n="03-example-2" tabindex="0"><span class="num">2</span><div><b>Answers from your facts only</b><p>It never invents prices or promos. If it doesn't know, it says your team will confirm.</p></div></li>
+<li data-n="03-example-3" tabindex="0"><span class="num">3</span><div><b>Request saved</b><p>It collects the name, mobile number and area, then saves the request and alerts you.</p></div></li></ol>
+</div>
+</section>
+<section class="step" id="form">
+  <p class="kicker">Step 4 · Or a quick form</p>
+  <h2>Customers can just leave their number</h2>
+  <p class="intro">Some people don't like chatting. The form takes ten seconds.</p>
+  <div class="pair"><div class="figure">
+  <div class="shot" style="aspect-ratio:1280/800">
+    
+    <img src="img/04-form.webp" alt="The leave-your-number form filled in" loading="lazy" width="1280" height="800">
+    <span class="box" data-n="04-form-1" style="left:69.92%;top:30.25%;width:27.34%;height:5.50%"></span>
+<button class="mark" type="button" data-n="04-form-1" style="left:69.92%;top:30.25%" aria-label="Point 1">1</button>
+<span class="box" data-n="04-form-2" style="left:69.92%;top:39.88%;width:27.34%;height:5.50%"></span>
+<button class="mark" type="button" data-n="04-form-2" style="left:69.92%;top:39.88%" aria-label="Point 2">2</button>
+<span class="box" data-n="04-form-3" style="left:69.92%;top:59.13%;width:27.34%;height:5.50%"></span>
+<button class="mark" type="button" data-n="04-form-3" style="left:69.92%;top:59.13%" aria-label="Point 3">3</button>
+<span class="box" data-n="04-form-4" style="left:69.92%;top:76.25%;width:27.34%;height:5.50%"></span>
+<button class="mark" type="button" data-n="04-form-4" style="left:69.92%;top:76.25%" aria-label="Point 4">4</button>
+  </div>
+  <ol class="notes"><li data-n="04-form-1" tabindex="0"><span class="num">1</span><div><b>Name</b><p>Who to call back.</p></div></li>
+<li data-n="04-form-2" tabindex="0"><span class="num">2</span><div><b>Mobile number</b><p>Checked to be a real Philippine mobile number.</p></div></li>
+<li data-n="04-form-3" tabindex="0"><span class="num">3</span><div><b>What they need</b><p>Your own list of services.</p></div></li>
+<li data-n="04-form-4" tabindex="0"><span class="num">4</span><div><b>Send</b><p>One tap and it's in your dashboard.</p></div></li></ol>
+</div><div class="figure">
+  <div class="shot" style="aspect-ratio:1280/800">
+    
+    <img src="img/05-done.webp" alt="A thank-you confirmation in the chat window" loading="lazy" width="1280" height="800">
+    <span class="box" data-n="05-done-1" style="left:73.67%;top:12.38%;width:19.69%;height:2.50%"></span>
+<button class="mark" type="button" data-n="05-done-1" style="left:73.67%;top:12.38%" aria-label="Point 1">1</button>
+  </div>
+  <ol class="notes"><li data-n="05-done-1" tabindex="0"><span class="num">1</span><div><b>Instant confirmation</b><p>The customer knows the request went through.</p></div></li></ol>
+</div></div>
+</section>
+<section class="step" id="alert">
+  <p class="kicker">Step 5 · You get an alert</p>
+  <h2>Your phone rings the moment a request comes in</h2>
+  <p class="intro">Turn on alerts once on your phone. Every new request, from the chat or the form, shows up like this, so you can call the customer first, before they ask another shop.</p>
+  <div class="alert-demo" role="img" aria-label="A phone notification: New request from Juan, AC repair or new install, Bajada, Davao City">
+  <div class="lock">
+    <p class="clock">3:29</p>
+    <div class="notif">
+      <span class="app">T</span>
+      <div><p class="from">Thermostead requests · now</p><p class="title">New request from Juan</p><p class="body">AC repair or new install · Bajada, Davao City</p></div>
+    </div>
+  </div>
+  <ul class="facts">
+    <li><b>Works on Android phones and computers</b> straight away.</li>
+    <li><b>iPhone:</b> add your dashboard to the Home Screen once, then turn alerts on.</li>
+    <li><b>Tap the alert</b> and it opens that exact request in your dashboard.</li>
+    <li><b>No SMS fees.</b> Alerts are free.</li>
+  </ul>
+</div>
+</section>
+<section class="step" id="dashboard">
+  <p class="kicker">Step 6 · Your dashboard</p>
+  <h2>Every request in one place</h2>
+  <p class="intro">Open your private dashboard link on your phone or computer. Call, text, and track each customer until the job is done.</p>
+  <div class="figure">
+  <div class="shot" style="aspect-ratio:1280/1060">
+    
+    <img src="img/06-dashboard.webp" alt="The owner dashboard with monthly numbers, instant alerts and one customer request" loading="lazy" width="1280" height="1060">
+    <span class="box" data-n="06-dashboard-1" style="left:9.06%;top:8.54%;width:81.88%;height:7.65%"></span>
+<button class="mark" type="button" data-n="06-dashboard-1" style="left:9.06%;top:8.54%" aria-label="Point 1">1</button>
+<span class="box" data-n="06-dashboard-2" style="left:9.06%;top:20.48%;width:81.88%;height:22.22%"></span>
+<button class="mark" type="button" data-n="06-dashboard-2" style="left:9.06%;top:20.48%" aria-label="Point 2">2</button>
+<span class="box" data-n="06-dashboard-3" style="left:10.39%;top:49.35%;width:79.22%;height:14.86%"></span>
+<button class="mark" type="button" data-n="06-dashboard-3" style="left:10.39%;top:49.35%" aria-label="Point 3">3</button>
+<span class="box" data-n="06-dashboard-4" style="left:11.41%;top:58.78%;width:11.78%;height:4.20%"></span>
+<button class="mark" type="button" data-n="06-dashboard-4" style="left:11.41%;top:58.78%" aria-label="Point 4">4</button>
+<span class="box" data-n="06-dashboard-5" style="left:28.95%;top:58.99%;width:8.59%;height:3.77%"></span>
+<button class="mark" type="button" data-n="06-dashboard-5" style="left:28.95%;top:58.99%" aria-label="Point 5">5</button>
+<span class="box" data-n="06-dashboard-6" style="left:29.67%;top:50.76%;width:3.77%;height:2.08%"></span>
+<button class="mark" type="button" data-n="06-dashboard-6" style="left:29.67%;top:50.76%" aria-label="Point 6">6</button>
+  </div>
+  <ol class="notes"><li data-n="06-dashboard-1" tabindex="0"><span class="num">1</span><div><b>This month at a glance</b><p>Website chats, requests, booked jobs, finished jobs and reviews asked.</p></div></li>
+<li data-n="06-dashboard-2" tabindex="0"><span class="num">2</span><div><b>Instant alerts</b><p>Turn them on once per phone. Send a test to check.</p></div></li>
+<li data-n="06-dashboard-3" tabindex="0"><span class="num">3</span><div><b>Each request</b><p>The customer's name, what they need, their area and the details they gave.</p></div></li>
+<li data-n="06-dashboard-4" tabindex="0"><span class="num">4</span><div><b>Call or text in one tap</b><p>Straight from your phone.</p></div></li>
+<li data-n="06-dashboard-5" tabindex="0"><span class="num">5</span><div><b>Track it</b><p>New, Contacted, Booked, Done. Nothing gets forgotten.</p></div></li>
+<li data-n="06-dashboard-6" tabindex="0"><span class="num">6</span><div><b>Where it came from</b><p>AI chat or the form.</p></div></li></ol>
+</div>
+</section>
+<section class="step" id="reviews">
+  <p class="kicker">Step 7 · More Google reviews</p>
+  <h2>Ask happy customers for a review</h2>
+  <p class="intro">When a job is done, the dashboard has ready messages in English, Tagalog and Bisaya with your Google review link. More good reviews help you show up higher on Google Maps.</p>
+  <div class="figure">
+  <div class="shot" style="aspect-ratio:1280/1026">
+    
+    <img src="img/07-review.webp" alt="Ready-made review request messages with Send by text buttons" loading="lazy" width="1280" height="1026">
+    <span class="box" data-n="07-review-1" style="left:9.06%;top:23.68%;width:81.88%;height:21.00%"></span>
+<button class="mark" type="button" data-n="07-review-1" style="left:9.06%;top:23.68%" aria-label="Point 1">1</button>
+<span class="box" data-n="07-review-2" style="left:10.39%;top:39.08%;width:8.99%;height:3.95%"></span>
+<button class="mark" type="button" data-n="07-review-2" style="left:10.39%;top:39.08%" aria-label="Point 2">2</button>
+<span class="box" data-n="07-review-3" style="left:9.06%;top:91.37%;width:6.30%;height:3.95%"></span>
+<button class="mark" type="button" data-n="07-review-3" style="left:9.06%;top:91.37%" aria-label="Point 3">3</button>
+  </div>
+  <ol class="notes"><li data-n="07-review-1" tabindex="0"><span class="num">1</span><div><b>Ready messages</b><p>With the customer's name and your Google review link added in.</p></div></li>
+<li data-n="07-review-2" tabindex="0"><span class="num">2</span><div><b>Send by text</b><p>Opens your phone's messages with everything filled in.</p></div></li>
+<li data-n="07-review-3" tabindex="0"><span class="num">3</span><div><b>Mark as asked</b><p>So you know who you've already asked.</p></div></li></ol>
+</div>
+</section>
+<section class="step" id="phones">
+  <p class="kicker">On phones</p>
+  <h2>Made for phones, for your customers and for you</h2>
+  <p class="intro">Most of your customers will find you on their phone. So will you, when an alert comes in.</p>
+  <div class="phones">
+<div class="figure phone">
+  <div class="shot" style="aspect-ratio:390/844">
+    
+    <img src="img/08-phone-site.webp" alt="The chat bubble on a phone screen" loading="lazy" width="390" height="844">
+    <span class="box" data-n="08-phone-site-1" style="left:81.03%;top:91.23%;width:15.38%;height:7.11%"></span>
+<button class="mark" type="button" data-n="08-phone-site-1" style="left:81.03%;top:91.23%" aria-label="Point 1">1</button>
+  </div>
+  <ol class="notes"><li data-n="08-phone-site-1" tabindex="0"><span class="num">1</span><div><b>The bubble</b><p>Easy to reach with a thumb.</p></div></li></ol>
+</div>
+<div class="figure phone">
+  <div class="shot" style="aspect-ratio:390/844">
+    <span class="tag">Example conversation</span>
+    <img src="img/09-phone-chat.webp" alt="The chat full screen on a phone" loading="lazy" width="390" height="844">
+    <span class="box" data-n="09-phone-chat-1" style="left:85.90%;top:1.84%;width:10.26%;height:4.74%"></span>
+<button class="mark" type="button" data-n="09-phone-chat-1" style="left:85.90%;top:1.84%" aria-label="Point 1">1</button>
+<span class="box" data-n="09-phone-chat-2" style="left:0.26%;top:83.18%;width:99.49%;height:7.70%"></span>
+<button class="mark" type="button" data-n="09-phone-chat-2" style="left:0.26%;top:83.18%" aria-label="Point 2">2</button>
+<span class="box" data-n="09-phone-chat-3" style="left:3.85%;top:90.88%;width:25.16%;height:3.32%"></span>
+<button class="mark" type="button" data-n="09-phone-chat-3" style="left:3.85%;top:90.88%" aria-label="Point 3">3</button>
+  </div>
+  <ol class="notes"><li data-n="09-phone-chat-1" tabindex="0"><span class="num">1</span><div><b>Full screen chat</b><p>Close it any time to go back to your website.</p></div></li>
+<li data-n="09-phone-chat-2" tabindex="0"><span class="num">2</span><div><b>Big, easy typing</b><p></p></div></li>
+<li data-n="09-phone-chat-3" tabindex="0"><span class="num">3</span><div><b>Or leave a number</b><p></p></div></li></ol>
+</div>
+<div class="figure phone">
+  <div class="shot" style="aspect-ratio:390/844">
+    
+    <img src="img/10-phone-dashboard.webp" alt="The owner dashboard on a phone" loading="lazy" width="390" height="844">
+    <span class="box" data-n="10-phone-dashboard-1" style="left:8.46%;top:49.26%;width:83.08%;height:36.08%"></span>
+<button class="mark" type="button" data-n="10-phone-dashboard-1" style="left:8.46%;top:49.26%" aria-label="Point 1">1</button>
+<span class="box" data-n="10-phone-dashboard-2" style="left:11.79%;top:67.04%;width:38.66%;height:4.80%"></span>
+<button class="mark" type="button" data-n="10-phone-dashboard-2" style="left:11.79%;top:67.04%" aria-label="Point 2">2</button>
+  </div>
+  <ol class="notes"><li data-n="10-phone-dashboard-1" tabindex="0"><span class="num">1</span><div><b>Your dashboard on your phone</b><p>The same requests, wherever you are.</p></div></li>
+<li data-n="10-phone-dashboard-2" tabindex="0"><span class="num">2</span><div><b>Call right away</b><p></p></div></li></ol>
+</div>
+</div>
+</section>
+<section class="step" id="summary">
+  <p class="kicker">In short</p>
+  <h2>What it does for your shop</h2>
+  <div class="summary">
+    <div>
+      <h3>Today</h3>
+      <ul>
+        <li>Answers customer questions 24/7, in English, Tagalog or Bisaya</li>
+        <li>Uses only your shop's real facts; your team confirms prices and schedules</li>
+        <li>Takes booking and quote requests, from the chat or a quick form</li>
+        <li>Alerts your phone instantly for every new request</li>
+        <li>Keeps every request in one dashboard until the job is done</li>
+        <li>Helps you collect more Google reviews</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Coming next</h3>
+      <ul>
+        <li>Booking straight into your calendar, with open time slots</li>
+        <li>The same assistant answering on your Facebook Messenger</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cta">
+    <h3>Want this on your website?</h3>
+    <p>Message Zoren Ponce of ZorDevAI. I can make a free sample with your shop's name and services so you can try it first.</p>
+    <p><a href="../">See more sample websites</a></p>
+  </div>
+</section>
+<footer>Made by ZorDevAI. Screenshots are from a working demo; the chat shown in steps 3 and on the phone is an example conversation. Customer names and numbers on this page are samples.</footer>
+</div>
+<script>
+(function () {
+  function set(n, on) {
+    document.querySelectorAll('[data-n="' + n + '"]').forEach(function (el) { el.classList.toggle("on", on); });
+  }
+  document.querySelectorAll("[data-n]").forEach(function (el) {
+    if (el.classList.contains("box")) return;
+    var n = el.getAttribute("data-n");
+    ["mouseenter", "focus"].forEach(function (ev) { el.addEventListener(ev, function () { set(n, true); }); });
+    ["mouseleave", "blur"].forEach(function (ev) { el.addEventListener(ev, function () { set(n, false); }); });
+    el.addEventListener("click", function () {
+      var on = !el.classList.contains("on");
+      document.querySelectorAll(".on").forEach(function (x) { x.classList.remove("on"); });
+      set(n, on);
+      if (el.classList.contains("mark")) {
+        var note = document.querySelector('li[data-n="' + n + '"]');
+        if (note && window.innerWidth < 860) note.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
