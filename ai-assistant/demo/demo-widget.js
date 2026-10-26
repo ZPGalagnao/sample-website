@@ -309,6 +309,32 @@
     }, 3500);
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
-  else start();
+  // The website's own "Book my visit" form: its bookings go to the demo dashboard too.
+  // The site's handler runs first and hides the form only when every required field is filled in.
+  function connectSiteForm() {
+    var form = document.getElementById("book-form");
+    if (!form) return;
+    form.addEventListener("submit", function () {
+      if (!form.hidden) return;
+      var f = form.elements;
+      saveRequest({
+        name: f.name.value.trim(),
+        mobile: f.phone.value.trim(),
+        area: f.zip.value.trim(),
+        service: f.issue.value,
+        details: f.notes.value.trim(),
+        source: "site",
+      });
+      var success = document.getElementById("book-success");
+      if (success && !success.querySelector(".zd-demo-link")) {
+        var note = el("p", { class: "zd-demo-link" });
+        note.innerHTML = 'Demo: in the real system the owner gets an alert right now. <a href="' + cfg.dashboard + '" target="_blank" rel="noopener">See this request in the owner dashboard</a>';
+        success.appendChild(note);
+      }
+    });
+  }
+
+  function boot() { start(); connectSiteForm(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
 })();

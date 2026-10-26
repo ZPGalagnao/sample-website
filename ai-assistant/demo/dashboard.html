@@ -192,7 +192,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
       '<div class="head"><div><span class="name">' + esc(r.name) + "</span> " +
       (fresh ? '<span class="pill fresh">Just in</span> ' : "") +
       '<span class="pill ' + esc(r.status) + '">' + STATUS.filter(function (s) { return s[0] === r.status; })[0][1] + "</span> " +
-      '<span class="pill src">' + (r.source === "chat" ? "AI chat" : "Form") + "</span></div>" +
+      '<span class="pill src">' + ({ chat: "AI chat", form: "Leave my number", site: "Booking form" }[r.source] || "Form") + "</span></div>" +
       '<div class="meta">' + ago(r.createdAt) + "</div></div>" +
       '<div class="row"><b>' + esc(r.service || "Service not given") + "</b>" + (r.area ? " · " + esc(r.area) : "") + "</div>" +
       (r.details ? '<div class="row muted">' + esc(r.details) + "</div>" : "") +

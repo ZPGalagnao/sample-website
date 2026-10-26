@@ -702,7 +702,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
       <form class="form" id="book-form" novalidate>
         <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required><span class="err" aria-live="polite"></span></div>
         <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9\(\)\+\-\. ]{7,}" required><span class="err" aria-live="polite"></span></div>
-        <div class="field"><label for="f-zip">ZIP code</label><input id="f-zip" name="zip" type="text" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" required><span class="err" aria-live="polite"></span></div>
+        <div class="field"><label for="f-zip">Barangay or area</label><input id="f-zip" name="zip" type="text" autocomplete="address-level3" required><span class="err" aria-live="polite"></span></div>
         <div class="field"><label for="f-issue">What’s going on?</label>
           <select id="f-issue" name="issue" required>
             <option value="" selected disabled>Pick one</option>
@@ -1149,7 +1149,7 @@ RM.addEventListener('change', e => {
 
 /* ---------- Booking form (preview: shows the thank-you state only) ---------- */
 const form = $('#book-form'), success = $('#book-success');
-const msgs = { name: 'Please add your name.', phone: 'Please add a phone number we can call.', zip: 'Please add a 5-digit ZIP code.', issue: 'Please pick what’s going on.' };
+const msgs = { name: 'Please add your name.', phone: 'Please add a phone number we can call.', zip: 'Please add your barangay or area.', issue: 'Please pick what’s going on.' };
 form.addEventListener('submit', e => {
   e.preventDefault();
   let first = null;
