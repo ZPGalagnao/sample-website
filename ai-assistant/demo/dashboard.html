@@ -28,7 +28,7 @@ header.top .sub{color:var(--muted);font-size:13px}
 .pill.done{background:var(--green);color:var(--green-ink)}
 .pill.booked,.pill.contacted{background:var(--yellow);color:var(--yellow-ink)}
 .pill.urgent{background:var(--red);color:var(--red-ink)}
-.pill.new,.pill.lost,.pill.src,.pill.sample{background:var(--grey);color:var(--grey-ink)}
+.pill.new,.pill.lost,.pill.src{background:var(--grey);color:var(--grey-ink)}
 .pill.fresh{background:var(--brand);color:#fff}
 .muted{color:var(--muted)}.small{font-size:13px}
 button,.btn{appearance:none;border:1px solid var(--brand);background:var(--brand);color:var(--brand-ink);border-radius:10px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;min-height:40px}
@@ -54,7 +54,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
 <body>
 <div class="wrap">
   <div class="demo" role="note">
-    <p><b>Demo dashboard.</b> This is what the shop owner sees. Requests you send from the website demo show up here. Everything stays in your browser.</p>
+    <p><b>Demo dashboard.</b> This is what the shop owner sees. It starts empty: send a request from the website demo and watch it arrive here. Everything stays in your browser.</p>
     <a class="btn ghost" href="index.html">Back to the website demo</a>
   </div>
   <header class="top">
@@ -97,28 +97,18 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
   "use strict";
   var REQUESTS = "zd_demo_requests", CHATS = "zd_demo_chats", SEEN = "zd_demo_seen", SEEDED = "zd_demo_seeded", ALERTS = "zd_demo_alerts", CHAT = "zd_demo_chat";
   var STATUS = [["new", "New"], ["contacted", "Contacted"], ["booked", "Booked"], ["done", "Done"], ["lost", "Lost"]];
-  var DAY = 86400000;
 
   function read(key, fallback) { try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } }
   function write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
   function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
-  function seeds() {
-    var now = Date.now();
-    return [
-      { id: "seed-1", sample: true, name: "Maria Santos", mobile: "0900 000 0011", area: "Lanang, Davao City", service: "Tune-up", details: "Wants a tune-up before summer", source: "chat", status: "booked", createdAt: now - DAY },
-      { id: "seed-2", sample: true, name: "Pedro Reyes", mobile: "0900 000 0012", area: "Matina, Davao City", service: "AC repair or new install", details: "Unit was leaking; fixed on the first visit", source: "form", status: "done", createdAt: now - 3 * DAY },
-    ];
-  }
+  // The demo starts empty so a visitor sees their own request arrive. Earlier versions added two
+  // sample requests; drop those for anyone who opened the demo before.
   function load() {
     var list = read(REQUESTS, []);
-    if (!read(SEEDED, false)) {
-      list = list.concat(seeds());
-      write(REQUESTS, list);
-      write(SEEDED, true);
-      write(SEEN, list.map(function (r) { return r.sample ? r.id : null; }).filter(Boolean));
-    }
-    return list;
+    var own = list.filter(function (r) { return !r.sample; });
+    if (own.length !== list.length) write(REQUESTS, own);
+    return own;
   }
   function save(list) { write(REQUESTS, list); }
 
@@ -202,8 +192,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
       '<div class="head"><div><span class="name">' + esc(r.name) + "</span> " +
       (fresh ? '<span class="pill fresh">Just in</span> ' : "") +
       '<span class="pill ' + esc(r.status) + '">' + STATUS.filter(function (s) { return s[0] === r.status; })[0][1] + "</span> " +
-      '<span class="pill src">' + (r.source === "chat" ? "AI chat" : "Form") + "</span>" +
-      (r.sample ? ' <span class="pill sample">Sample</span>' : "") + "</div>" +
+      '<span class="pill src">' + (r.source === "chat" ? "AI chat" : "Form") + "</span></div>" +
       '<div class="meta">' + ago(r.createdAt) + "</div></div>" +
       '<div class="row"><b>' + esc(r.service || "Service not given") + "</b>" + (r.area ? " · " + esc(r.area) : "") + "</div>" +
       (r.details ? '<div class="row muted">' + esc(r.details) + "</div>" : "") +
@@ -220,7 +209,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
     var closed = list.filter(function (r) { return r.status === "done" || r.status === "lost"; });
     document.getElementById("open-title").textContent = "To follow up (" + open.length + ")";
     document.getElementById("closed-title").textContent = "Finished (" + closed.length + ")";
-    document.getElementById("open").innerHTML = open.length ? open.map(function (r) { return card(r, freshIds.indexOf(r.id) !== -1); }).join("") : '<p class="muted">No open requests. Send one from the website demo.</p>';
+    document.getElementById("open").innerHTML = open.length ? open.map(function (r) { return card(r, freshIds.indexOf(r.id) !== -1); }).join("") : '<p class="muted">No requests yet. Go to the <a href="index.html">website demo</a>, chat with the assistant or tap "Leave my number", and your request shows up here.</p>';
     document.getElementById("closed").innerHTML = closed.length ? closed.map(function (r) { return card(r, false); }).join("") : '<p class="muted">Nothing here yet.</p>';
     document.getElementById("s-chats").textContent = read(CHATS, 0);
     document.getElementById("s-leads").textContent = list.length;
@@ -258,7 +247,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
   document.getElementById("reset").addEventListener("click", function () {
     [REQUESTS, CHATS, SEEN, SEEDED, CHAT].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
     render();
-    toast("Demo reset", "Back to the two sample requests.");
+    toast("Demo reset", "All requests and numbers are back to zero.");
   });
 
   // A request sent from the website demo in another tab arrives here.
