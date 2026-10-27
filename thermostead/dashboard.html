@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Thermostead Requests (Demo)</title>
+<style>
+:root{--bg:#f4f1ec;--card:#fff;--text:#14202A;--muted:#5b6870;--line:#e5e0d6;--brand:#B9521F;--brand-ink:#fff;
+--green:#e5f6ec;--green-ink:#1d7a45;--yellow:#fff4d6;--yellow-ink:#8a5a00;--red:#fde8e8;--red-ink:#b42318;--grey:#eef1f3;--grey-ink:#4a5568;--demo:#14202A;--demo-ink:#F4F6F5;--ai:#e8f1f8;--ai-ink:#2d5a78}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--brand)}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 48px}
+.demo{background:var(--demo);color:var(--demo-ink);border-radius:14px;padding:14px 16px;margin-bottom:18px;display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.demo p{margin:0;max-width:70ch}
+.demo .btn.ghost{color:#F0B48C;border-color:#F0B48C}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+header.top h1{font-size:22px;margin:0}
+header.top .sub{color:var(--muted);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+.card h2{font-size:17px;margin:0 0 12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.stat b{display:block;font-size:26px;line-height:1.1}
+.stat span{color:var(--muted);font-size:13px}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill.done{background:var(--green);color:var(--green-ink)}
+.pill.booked,.pill.contacted{background:var(--yellow);color:var(--yellow-ink)}
+.pill.urgent,.pill.dnc{background:var(--red);color:var(--red-ink)}
+.pill.new,.pill.lost,.pill.src{background:var(--grey);color:var(--grey-ink)}
+.pill.fresh{background:var(--brand);color:#fff}
+.pill.ai{background:var(--ai);color:var(--ai-ink)}
+.muted{color:var(--muted)}.small{font-size:13px}
+button,.btn{appearance:none;border:1px solid var(--brand);background:var(--brand);color:var(--brand-ink);border-radius:10px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;min-height:40px}
+button.ghost,.btn.ghost{background:transparent;color:var(--brand)}
+select,textarea{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text);min-height:40px;max-width:100%}
+textarea{width:100%;min-height:84px}
+.lead{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;transition:box-shadow .3s,border-color .3s}
+.lead.flash{border-color:var(--brand);box-shadow:0 0 0 4px rgba(185,82,31,.15)}
+.lead .head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.lead .name{font-weight:700;font-size:16px}
+.lead .meta{color:var(--muted);font-size:13px}
+.lead .row{margin-top:6px}
+.callbox{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--ai);color:var(--ai-ink)}
+.callbox b{color:var(--text)}
+.callbox details{margin-top:6px}
+.callbox summary{cursor:pointer;font-weight:600}
+.callbox ol{margin:8px 0 0;padding-left:18px;color:var(--text)}
+.callbox li{margin:4px 0}
+.callbox li span{font-weight:600;color:var(--ai-ink)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.review{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px;display:grid;gap:12px}
+.review .msg label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+.toast{position:fixed;right:16px;top:16px;z-index:10;background:#14202A;color:#fff;border-radius:14px;padding:12px 16px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:340px;display:grid;gap:2px;animation:in .35s ease-out}
+.toast b{font-size:15px}.toast span{font-size:14px;opacity:.85}
+@keyframes in{from{transform:translateY(-10px);opacity:0}to{transform:none;opacity:1}}
+footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-top:24px}
+@media (prefers-reduced-motion:reduce){.toast{animation:none}.lead{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="demo" role="note">
+    <p><b>Demo dashboard.</b> This is what the shop owner sees. It starts empty: chat, book, or take the AI call on the website demo, and watch it arrive here. Everything stays in your browser.</p>
+    <a class="btn ghost" href="index.html">Back to the website demo</a>
+  </div>
+  <header class="top">
+    <div><h1>Thermostead Aircon</h1><div class="sub">Customer requests · ZorDevAI Assistant and AI caller</div></div>
+    <div class="sub" id="month"></div>
+  </header>
+  <section class="stats" aria-label="This month">
+    <div class="stat"><b id="s-chats">0</b><span>Website chats</span></div>
+    <div class="stat"><b id="s-leads">0</b><span>Requests</span></div>
+    <div class="stat"><b id="s-calls">0</b><span>AI calls</span></div>
+    <div class="stat"><b id="s-booked">0</b><span>Booked</span></div>
+    <div class="stat"><b id="s-done">0</b><span>Done</span></div>
+  </section>
+  <p class="muted small">Numbers for this month.</p>
+
+  <section class="card" id="alerts">
+    <h2>Instant alerts</h2>
+    <p>Get a notification on this phone or computer the moment a customer sends a request, so you can follow up first.</p>
+    <p id="alert-status" class="muted" role="status"></p>
+    <div class="actions">
+      <button type="button" id="alert-on">Turn on alerts on this device</button>
+      <button type="button" class="ghost" id="alert-test">Send a test alert</button>
+    </div>
+    <p class="muted small">Demo tip: turn alerts on, keep this tab open, then book a visit on the website demo in another tab. On a computer you get a real notification; on phones this demo shows the alert inside the page.</p>
+  </section>
+
+  <section class="card"><h2 id="open-title">To follow up</h2><div id="open"></div></section>
+  <section class="card"><h2>Google reviews</h2><p class="muted">When a job is done, mark it Done and tap "Ask for a Google review". You get ready messages in English, Tagalog and Bisaya with your shop's review link.</p></section>
+  <section class="card"><h2 id="closed-title">Finished</h2><div id="closed"></div></section>
+
+  <footer>
+    <button type="button" class="ghost" id="reset">Reset demo</button>
+    <a href="index.html#zordevai">What is this, and how much?</a>
+    <span>Made by ZorDevAI</span>
+  </footer>
+</div>
+<div id="toasts" aria-live="assertive"></div>
+<script>
+(function () {
+  "use strict";
+  var REQUESTS = "zd_demo_requests", CHATS = "zd_demo_chats", SEEN = "zd_demo_seen", SEEDED = "zd_demo_seeded", ALERTS = "zd_demo_alerts", CHAT = "zd_demo_chat", PROGRESS = "zd_demo_progress";
+  var STATUS = [["new", "New"], ["contacted", "Contacted"], ["booked", "Booked"], ["done", "Done"], ["lost", "Lost"]];
+  var SOURCE = { chat: "AI chat", form: "Leave my number", site: "Booking form" };
+  var CALL = { booked: "Booked", handoff: "Booked · wants a person", callback: "Call back later", dnc: "Said no · do not call", noanswer: "No answer · retry once in 15 to 30 min", ended: "Ended early" };
+  var LANG = { en: "English", tl: "Tagalog", ceb: "Bisaya" };
+
+  function read(key, fallback) { try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } }
+  function write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
+  function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+  // The demo starts empty so a visitor sees their own request arrive. Older versions added sample requests; drop those.
+  function load() {
+    var list = read(REQUESTS, []);
+    var own = list.filter(function (r) { return !r.sample; });
+    if (own.length !== list.length) write(REQUESTS, own);
+    return own;
+  }
+  function save(list) { write(REQUESTS, list); }
+
+  function ago(t) {
+    var m = Math.round((Date.now() - t) / 60000);
+    if (m < 1) return "just now";
+    if (m < 60) return m + " min ago";
+    var h = Math.round(m / 60);
+    if (h < 24) return h + " hr ago";
+    return Math.round(h / 24) + " days ago";
+  }
+  function tel(n) { return String(n).replace(/[^\d+]/g, ""); }
+  function mmss(s) { return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+
+  // ---- alerts ----
+  var statusEl = document.getElementById("alert-status"), onBtn = document.getElementById("alert-on");
+  var canNotify = "Notification" in window;
+  function alertsOn() { return read(ALERTS, false) && canNotify && Notification.permission === "granted"; }
+  function refreshAlerts() {
+    if (!canNotify) { onBtn.hidden = true; statusEl.textContent = "This browser can't show notifications, so the demo shows alerts inside the page."; return; }
+    if (Notification.permission === "denied") { onBtn.hidden = true; statusEl.textContent = "Notifications are blocked for this site, so the demo shows alerts inside the page."; return; }
+    onBtn.hidden = alertsOn();
+    statusEl.textContent = alertsOn() ? "Alerts are ON for this device." : "Alerts are off for this device.";
+  }
+  onBtn.addEventListener("click", function () {
+    Notification.requestPermission().then(function (p) {
+      write(ALERTS, p === "granted");
+      refreshAlerts();
+      if (p === "granted") statusEl.textContent = "Alerts are ON. Tap \"Send a test alert\" to try it.";
+    });
+  });
+  document.getElementById("alert-test").addEventListener("click", function () {
+    notify("Test alert for Thermostead", "Alerts work! New customer requests will show up like this.");
+  });
+
+  function toast(title, body) {
+    var box = document.createElement("div");
+    box.className = "toast";
+    box.innerHTML = "<b>" + esc(title) + "</b><span>" + esc(body) + "</span>";
+    document.getElementById("toasts").appendChild(box);
+    setTimeout(function () { box.remove(); }, 6000);
+  }
+  function notify(title, body) {
+    toast(title, body);
+    if (!alertsOn()) return;
+    try { new Notification(title, { body: body, tag: "zd-demo-" + title }); } catch (e) { /* phones need a service worker; the in-page alert already showed */ }
+  }
+  // A new request alerts once; a finished AI call alerts once more with its result.
+  function announceNew(list) {
+    var seen = read(SEEN, []), fresh = [];
+    list.forEach(function (r) {
+      if (seen.indexOf(r.id) === -1) {
+        fresh.push(r.id); seen.push(r.id);
+        notify("New request from " + r.name.split(" ")[0], [r.service || "Service not given", r.area].filter(Boolean).join(" · "));
+      }
+      if (r.call && seen.indexOf(r.id + ":call:" + r.call.at) === -1) {
+        if (fresh.indexOf(r.id) === -1) fresh.push(r.id);
+        seen.push(r.id + ":call:" + r.call.at);
+        notify("AI call with " + r.name.split(" ")[0], CALL[r.call.result] + (r.call.when ? " · " + r.call.when : ""));
+      }
+    });
+    write(SEEN, seen.slice(-200));
+    return fresh;
+  }
+
+  // ---- requests ----
+  function reviewMessages(r) {
+    var first = r.name.split(/\s+/)[0], link = "[your Google review link]";
+    return [
+      ["English", "Hi " + first + "! Thank you for choosing Thermostead. If you're happy with our service, would you leave us a quick Google review? It helps us a lot: " + link],
+      ["Tagalog", "Hi " + first + "! Salamat sa pagpili sa Thermostead. Kung nagustuhan ninyo ang serbisyo namin, puwede po ba kayong mag-iwan ng maikling Google review? Malaking tulong po ito sa amin: " + link],
+      ["Bisaya", "Hi " + first + "! Salamat sa pagpili sa Thermostead. Kung nalipay mo sa among serbisyo, pwede ka mobilin og mubo nga review sa Google? Dako kaayo ni nga tabang sa amo: " + link],
+    ];
+  }
+  function callBox(r) {
+    if (!r.call) return r.source === "site" ? '<div class="callbox">AI caller: ringing the customer now…</div>' : "";
+    var c = r.call, lines = (c.transcript || []).map(function (t) { return "<li><span>" + (t.who === "ai" ? "AI" : esc(r.name.split(" ")[0])) + ":</span> " + esc(t.text) + "</li>"; }).join("");
+    return '<div class="callbox"><b>AI call:</b> ' + esc(CALL[c.result] || c.result) +
+      (c.when ? " · " + esc(c.when) : "") + (c.units ? " · " + esc(c.units) : "") +
+      " · " + esc(LANG[c.lang] || "") + (c.seconds ? " · " + mmss(c.seconds) : "") +
+      (lines ? "<details><summary>Read the call</summary><ol>" + lines + "</ol></details>" : "") + "</div>";
+  }
+  function card(r, fresh) {
+    var opts = STATUS.map(function (s) { return '<option value="' + s[0] + '"' + (s[0] === r.status ? " selected" : "") + ">" + s[1] + "</option>"; }).join("");
+    var review = "";
+    if (r.status === "done") {
+      review = r.reviewOpen
+        ? '<div class="review">' + reviewMessages(r).map(function (m, i) {
+            return '<div class="msg"><label for="msg-' + r.id + "-" + i + '">' + m[0] + '</label><textarea id="msg-' + r.id + "-" + i + '" readonly>' + esc(m[1]) + '</textarea>' +
+              '<div class="actions" style="margin-top:6px"><a class="btn" href="sms:' + tel(r.mobile) + "?&body=" + encodeURIComponent(m[1]) + '">Send by text</a>' +
+              '<button type="button" class="ghost" data-copy="msg-' + r.id + "-" + i + '">Copy message</button></div></div>';
+          }).join("") +
+          '<p class="muted small">Ask every finished customer the same way. Google doesn\'t allow asking only the happy ones.</p>' +
+          '<div class="actions"><button type="button" data-sent="' + r.id + '">I sent it</button></div></div>'
+        : '<button type="button" class="ghost" data-review="' + r.id + '">' + (r.reviewAsked ? "Review asked ✓" : "Ask for a Google review") + "</button>";
+    }
+    return '<div class="lead' + (fresh ? " flash" : "") + '" id="lead-' + esc(r.id) + '">' +
+      '<div class="head"><div><span class="name">' + esc(r.name) + "</span> " +
+      (fresh ? '<span class="pill fresh">Just in</span> ' : "") +
+      '<span class="pill ' + esc(r.status) + '">' + STATUS.filter(function (s) { return s[0] === r.status; })[0][1] + "</span> " +
+      '<span class="pill src">' + (SOURCE[r.source] || "Form") + "</span>" +
+      (r.call ? ' <span class="pill ai">AI call</span>' : "") + (r.dnc ? ' <span class="pill dnc">Do not call</span>' : "") + "</div>" +
+      '<div class="meta">' + ago(r.createdAt) + "</div></div>" +
+      '<div class="row"><b>' + esc(r.service || "Service not given") + "</b>" + (r.area ? " · " + esc(r.area) : "") + "</div>" +
+      (r.details ? '<div class="row muted">' + esc(r.details) + "</div>" : "") +
+      callBox(r) +
+      '<div class="row actions"><a class="btn" href="tel:' + tel(r.mobile) + '">Call ' + esc(r.mobile) + "</a>" +
+      '<a class="btn ghost" href="sms:' + tel(r.mobile) + '">Text</a>' +
+      '<select aria-label="Status for ' + esc(r.name) + '" data-status="' + esc(r.id) + '">' + opts + "</select>" +
+      '<button type="button" class="ghost" data-save="' + esc(r.id) + '">Save</button>' + review + "</div></div>";
+  }
+
+  function render(freshIds) {
+    freshIds = freshIds || [];
+    var list = load().sort(function (a, b) { return b.createdAt - a.createdAt; });
+    var open = list.filter(function (r) { return r.status === "new" || r.status === "contacted" || r.status === "booked"; });
+    var closed = list.filter(function (r) { return r.status === "done" || r.status === "lost"; });
+    document.getElementById("open-title").textContent = "To follow up (" + open.length + ")";
+    document.getElementById("closed-title").textContent = "Finished (" + closed.length + ")";
+    document.getElementById("open").innerHTML = open.length ? open.map(function (r) { return card(r, freshIds.indexOf(r.id) !== -1); }).join("") : '<p class="muted">No requests yet. Go to the <a href="index.html">website demo</a>, chat with the assistant or book a visit, and your request shows up here.</p>';
+    document.getElementById("closed").innerHTML = closed.length ? closed.map(function (r) { return card(r, false); }).join("") : '<p class="muted">Nothing here yet.</p>';
+    document.getElementById("s-chats").textContent = read(CHATS, 0);
+    document.getElementById("s-leads").textContent = list.length;
+    document.getElementById("s-calls").textContent = list.filter(function (r) { return r.call; }).length;
+    document.getElementById("s-booked").textContent = list.filter(function (r) { return r.status === "booked" || r.status === "done"; }).length;
+    document.getElementById("s-done").textContent = list.filter(function (r) { return r.status === "done"; }).length;
+  }
+
+  function update(id, change) {
+    var list = load();
+    list.forEach(function (r) { if (r.id === id) change(r); });
+    save(list);
+    render();
+    var el = document.getElementById("lead-" + id);
+    if (el) el.scrollIntoView({ block: "nearest" });
+  }
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("button");
+    if (!t) return;
+    if (t.dataset.save) {
+      var sel = document.querySelector('select[data-status="' + t.dataset.save + '"]');
+      update(t.dataset.save, function (r) { r.status = sel.value; });
+    } else if (t.dataset.review) {
+      update(t.dataset.review, function (r) { r.reviewOpen = !r.reviewOpen; });
+    } else if (t.dataset.sent) {
+      update(t.dataset.sent, function (r) { r.reviewAsked = true; r.reviewOpen = false; });
+    } else if (t.dataset.copy) {
+      var area = document.getElementById(t.dataset.copy);
+      var done = function () { var o = t.textContent; t.textContent = "Copied!"; setTimeout(function () { t.textContent = o; }, 1500); };
+      if (navigator.clipboard) navigator.clipboard.writeText(area.value).then(done, function () { area.select(); });
+      else area.select();
+    }
+  });
+  document.getElementById("reset").addEventListener("click", function () {
+    [REQUESTS, CHATS, SEEN, SEEDED, CHAT, PROGRESS].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+    render();
+    toast("Demo reset", "All requests and numbers are back to zero.");
+  });
+
+  // A request or a finished call from the website demo in another tab arrives here.
+  window.addEventListener("storage", function (e) {
+    if (e.key !== REQUESTS) return;
+    render(announceNew(load()));
+  });
+
+  var p = read(PROGRESS, {}); if (!p.dash) { p.dash = true; write(PROGRESS, p); }
+  document.getElementById("month").textContent = new Date().toLocaleDateString("en-PH", { month: "long", year: "numeric" });
+  refreshAlerts();
+  render(announceNew(load()));
+})();
+</script>
+</body>
+</html>
