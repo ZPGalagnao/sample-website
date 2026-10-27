@@ -14,7 +14,7 @@
     accent: "#B9521F",
     accentInk: "#FFFFFF",
     greeting: "Hi! 👋 Ako si Tess, ang virtual assistant ng Thermostead Aircon. I can answer questions about cleaning, repair, and installation, or book a visit for you. Ano pong maitutulong ko?",
-    quickReplies: ["Hindi lumalamig ang aircon", "Magkano ang cleaning?", "Book a cleaning", "Tawagan n'yo ako"],
+    quickReplies: ["Hindi lumalamig ang aircon", "Magkano ang cleaning?", "Book a cleaning", "Saan kayo?"],
     services: ["Aircon cleaning", "Repair (not cooling, leaking, noise)", "New aircon or installation", "Freon check", "Not sure yet"],
     dashboard: "dashboard.html",
   };
@@ -29,7 +29,7 @@
   var MOBILE = /(\+?63|0)\s?9\d{2}[\s-]?\d{3}[\s-]?\d{4}/;
   var ASK = " Gusto n'yo pong mag-book? I-send lang ang pangalan, mobile number, at barangay.";
   var TOPICS = [
-    { words: /tawag|call me|tawgi|call back|callback/i, topic: null, call: true, reply: "Sige po! I-send lang ang pangalan, mobile number, at barangay (halimbawa: Juan Dela Cruz, 0917 123 4567, Lanang), at tatawagan kayo ng AI assistant namin within a minute." },
+    { words: /tawag|call me|tawgi|call back|callback/i, topic: null, reply: "Sige po! I-send lang ang pangalan, mobile number, at barangay (halimbawa: Juan Dela Cruz, 0917 123 4567, Lanang), at tatawagan kayo ng team namin para i-confirm ang oras." },
     { words: /price|cost|how much|fee|rate|magkano|pila|presyo|bayad/i, topic: "Aircon cleaning", reply: "Demo prices po: window-type cleaning ₱700, split-type cleaning ₱1,200 per unit. Ang check-up ay ₱500, at ibabawas ito kung itutuloy ang repair." + ASK },
     { words: /leak|tulo|tumutulo|nagtulo|water/i, topic: "Repair (not cooling, leaking, noise)", reply: "Kapag tumutulo ang tubig, kadalasan barado ang drain o madumi ang filter. Mabilis lang itong ayusin." + ASK },
     { words: /not cool|not cold|warm air|broken|noise|ingay|error|repair|\b(sira|guba|ayaw|mainit|init)\b|lumalamig|dili mobugnaw/i, topic: "Repair (not cooling, leaking, noise)", reply: "Naku, sorry to hear that! Madalas, dumi o kulang na freon ang dahilan. Titingnan ng technician ang buong unit at bibigyan kayo ng isang presyo bago magsimula." + ASK },
@@ -58,10 +58,9 @@
   function scriptedReply(text, state) {
     var details = parseDetails(text);
     if (details) {
-      var item = store.saveRequest({ name: details.name, mobile: details.mobile, area: details.area, service: state.topic || "Not sure yet", details: state.lastQuestion || "", lang: "tl", source: "chat" });
+      store.saveRequest({ name: details.name, mobile: details.mobile, area: details.area, service: state.topic || "Not sure yet", details: state.lastQuestion || "", source: "chat" });
       state.topic = null;
-      state.lastLead = item && item.id ? { id: item.id, name: item.name, mobile: item.mobile, area: item.area || "Davao", service: item.service } : null;
-      return { text: "Salamat, " + details.name.split(" ")[0] + "! Naka-save na po ang request ninyo.\n\n(Demo: sa totoong system, may alert agad sa phone ng owner. Open the owner dashboard)", offerCall: !!state.lastLead };
+      return { text: "Salamat, " + details.name.split(" ")[0] + "! Naka-save na po ang request ninyo, at tatawagan kayo ng team para i-confirm ang oras.\n\n(Demo: sa totoong system, may alert agad sa phone ng owner. Open the owner dashboard)" };
     }
     for (var i = 0; i < TOPICS.length; i++) {
       if (TOPICS[i].words.test(text)) {
@@ -71,14 +70,6 @@
       }
     }
     return { text: FALLBACK };
-  }
-
-  // Chat topics are free text; the AI caller needs one of the booking form's issues.
-  function issueFor(service) {
-    if (/clean/i.test(service)) return "Cleaning";
-    if (/repair|freon/i.test(service)) return "Not cooling";
-    if (/install|new/i.test(service)) return "New aircon or installation";
-    return "Something else";
   }
 
   // ---- UI (same look as the real widget) ----
@@ -206,19 +197,6 @@
       log.scrollTop = log.scrollHeight;
     }
     function quickChips() { chipRow(cfg.quickReplies.map(function (q) { return { label: q, run: function () { ask(q); } }; })); }
-    function callChips() {
-      var lead = state.lastLead;
-      chipRow([
-        { label: "📞 Tawagan ako ngayon", solid: true, run: function () {
-          bubble("me", "Tawagan ako ngayon"); remember("me", "Tawagan ako ngayon");
-          var r = "Sige po! Tatawag ang AI assistant namin sa loob ng ilang segundo. (Demo: lalabas ang tawag dito mismo sa page.)";
-          bubble("bot", r); remember("bot", r);
-          if (window.zdCall) window.zdCall({ name: lead.name, mobile: lead.mobile, area: lead.area, issue: issueFor(lead.service), lang: "tl" }, lead.id);
-          setOpen(false);
-        } },
-        { label: "Okay na, salamat", run: function () { ask("Okay na, salamat"); } },
-      ]);
-    }
 
     bubble("bot", cfg.greeting);
     state.log.forEach(function (m) { bubble(m.role, m.text); });
@@ -252,7 +230,6 @@
         typing.remove();
         var reply = /^okay na/i.test(text) ? { text: "Walang anuman po! Nandito lang ako kung may tanong pa kayo. 😊" } : scriptedReply(text, state);
         bubble("bot", reply.text); remember("bot", reply.text);
-        if (reply.offerCall) callChips();
         busy = false; send.disabled = false; input.focus();
       }, 800);
     }
@@ -270,7 +247,7 @@
       var service = el("select", { name: "service", id: "zd-service" });
       cfg.services.forEach(function (s) { service.appendChild(el("option", { text: s })); });
       var form = el("form", { class: "lead", novalidate: "" }, [
-        el("b", { text: "Leave your number and our assistant will call you." }),
+        el("b", { text: "Leave your number and the team will call you." }),
         el("label", { for: "zd-name", text: "Name" }), el("input", { id: "zd-name", name: "name", autocomplete: "name" }),
         el("label", { for: "zd-mobile", text: "Mobile number" }), el("input", { id: "zd-mobile", name: "mobile", type: "tel", inputmode: "tel", placeholder: "09XX XXX XXXX" }),
         el("label", { for: "zd-area", text: "Barangay or area" }), el("input", { id: "zd-area", name: "area" }),
@@ -287,19 +264,14 @@
         if (!name) { err.textContent = "Please enter your name."; form.elements.name.focus(); return; }
         if (!MOBILE.test(mobile)) { err.textContent = "Please enter a mobile number like 0917 123 4567."; form.elements.mobile.focus(); return; }
         store.progress("chat");
-        var item = store.saveRequest({
+        store.saveRequest({
           name: name, mobile: mobile, area: form.elements.area.value.trim(),
-          service: form.elements.service.value, details: form.elements.details.value.trim(), lang: "tl", source: "form",
+          service: form.elements.service.value, details: form.elements.details.value.trim(), source: "form",
         });
-        state.lastLead = item && item.id ? { id: item.id, name: name, mobile: mobile, area: item.area || "Davao", service: item.service } : null;
         formView.innerHTML = "";
         formView.appendChild(el("div", { style: "padding:16px;display:flex;flex-direction:column;gap:10px" }, [
           el("b", { text: "Thank you! Your request is in." }),
-          el("p", { text: "In the real system, the owner's phone gets an alert right now, and our AI caller rings you within a minute." }),
-          state.lastLead && window.zdCall ? el("button", { class: "primary", type: "button", text: "📞 Hear the AI call me now", onclick: function () {
-            window.zdCall({ name: name, mobile: mobile, area: state.lastLead.area, issue: issueFor(state.lastLead.service), lang: "tl" }, state.lastLead.id);
-            showChat(); setOpen(false);
-          } }) : null,
+          el("p", { text: "In the real system, the owner's phone gets an alert right now, and the team calls you to confirm a time." }),
           el("a", { class: "primary", href: cfg.dashboard, target: "_blank", rel: "noopener", text: "Open the owner dashboard", onclick: function () { store.progress("dash"); } }),
           el("button", { class: "chip", type: "button", text: "Back to chat", onclick: showChat }),
         ]));

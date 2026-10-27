@@ -7,7 +7,7 @@
 <title>Thermostead Requests (Demo)</title>
 <style>
 :root{--bg:#f4f1ec;--card:#fff;--text:#14202A;--muted:#5b6870;--line:#e5e0d6;--brand:#B9521F;--brand-ink:#fff;
---green:#e5f6ec;--green-ink:#1d7a45;--yellow:#fff4d6;--yellow-ink:#8a5a00;--red:#fde8e8;--red-ink:#b42318;--grey:#eef1f3;--grey-ink:#4a5568;--demo:#14202A;--demo-ink:#F4F6F5;--ai:#e8f1f8;--ai-ink:#2d5a78}
+--green:#e5f6ec;--green-ink:#1d7a45;--yellow:#fff4d6;--yellow-ink:#8a5a00;--red:#fde8e8;--red-ink:#b42318;--grey:#eef1f3;--grey-ink:#4a5568;--demo:#14202A;--demo-ink:#F4F6F5}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -31,7 +31,6 @@ header.top .sub{color:var(--muted);font-size:13px}
 .pill.urgent,.pill.dnc{background:var(--red);color:var(--red-ink)}
 .pill.new,.pill.lost,.pill.src{background:var(--grey);color:var(--grey-ink)}
 .pill.fresh{background:var(--brand);color:#fff}
-.pill.ai{background:var(--ai);color:var(--ai-ink)}
 .muted{color:var(--muted)}.small{font-size:13px}
 button,.btn{appearance:none;border:1px solid var(--brand);background:var(--brand);color:var(--brand-ink);border-radius:10px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;min-height:40px}
 button.ghost,.btn.ghost{background:transparent;color:var(--brand)}
@@ -43,13 +42,6 @@ textarea{width:100%;min-height:84px}
 .lead .name{font-weight:700;font-size:16px}
 .lead .meta{color:var(--muted);font-size:13px}
 .lead .row{margin-top:6px}
-.callbox{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--ai);color:var(--ai-ink)}
-.callbox b{color:var(--text)}
-.callbox details{margin-top:6px}
-.callbox summary{cursor:pointer;font-weight:600}
-.callbox ol{margin:8px 0 0;padding-left:18px;color:var(--text)}
-.callbox li{margin:4px 0}
-.callbox li span{font-weight:600;color:var(--ai-ink)}
 .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .review{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px;display:grid;gap:12px}
 .review .msg label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
@@ -63,17 +55,16 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
 <body>
 <div class="wrap">
   <div class="demo" role="note">
-    <p><b>Demo dashboard.</b> This is what the shop owner sees. It starts empty: chat, book, or take the AI call on the website demo, and watch it arrive here. Everything stays in your browser.</p>
+    <p><b>Demo dashboard.</b> This is what the shop owner sees. It starts empty: chat or book a visit on the website demo, and watch it arrive here. Everything stays in your browser.</p>
     <a class="btn ghost" href="index.html">Back to the website demo</a>
   </div>
   <header class="top">
-    <div><h1>Thermostead Aircon</h1><div class="sub">Customer requests · ZorDevAI Assistant and AI caller</div></div>
+    <div><h1>Thermostead Aircon</h1><div class="sub">Customer requests · ZorDevAI Assistant</div></div>
     <div class="sub" id="month"></div>
   </header>
   <section class="stats" aria-label="This month">
     <div class="stat"><b id="s-chats">0</b><span>Website chats</span></div>
     <div class="stat"><b id="s-leads">0</b><span>Requests</span></div>
-    <div class="stat"><b id="s-calls">0</b><span>AI calls</span></div>
     <div class="stat"><b id="s-booked">0</b><span>Booked</span></div>
     <div class="stat"><b id="s-done">0</b><span>Done</span></div>
   </section>
@@ -87,7 +78,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
       <button type="button" id="alert-on">Turn on alerts on this device</button>
       <button type="button" class="ghost" id="alert-test">Send a test alert</button>
     </div>
-    <p class="muted small">Demo tip: turn alerts on, keep this tab open, then book a visit on the website demo in another tab. On a computer you get a real notification; on phones this demo shows the alert inside the page.</p>
+    <p class="muted small">Demo tip: turn alerts on, keep this tab open, then chat or book a visit on the website demo in another tab. On a computer you get a real notification; on phones this demo shows the alert inside the page.</p>
   </section>
 
   <section class="card"><h2 id="open-title">To follow up</h2><div id="open"></div></section>
@@ -107,8 +98,6 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
   var REQUESTS = "zd_demo_requests", CHATS = "zd_demo_chats", SEEN = "zd_demo_seen", SEEDED = "zd_demo_seeded", ALERTS = "zd_demo_alerts", CHAT = "zd_demo_chat", PROGRESS = "zd_demo_progress";
   var STATUS = [["new", "New"], ["contacted", "Contacted"], ["booked", "Booked"], ["done", "Done"], ["lost", "Lost"]];
   var SOURCE = { chat: "AI chat", form: "Leave my number", site: "Booking form" };
-  var CALL = { booked: "Booked", handoff: "Booked · wants a person", callback: "Call back later", dnc: "Said no · do not call", noanswer: "No answer · retry once in 15 to 30 min", ended: "Ended early" };
-  var LANG = { en: "English", tl: "Tagalog", ceb: "Bisaya" };
 
   function read(key, fallback) { try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } }
   function write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
@@ -132,7 +121,6 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
     return Math.round(h / 24) + " days ago";
   }
   function tel(n) { return String(n).replace(/[^\d+]/g, ""); }
-  function mmss(s) { return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
 
   // ---- alerts ----
   var statusEl = document.getElementById("alert-status"), onBtn = document.getElementById("alert-on");
@@ -167,19 +155,13 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
     if (!alertsOn()) return;
     try { new Notification(title, { body: body, tag: "zd-demo-" + title }); } catch (e) { /* phones need a service worker; the in-page alert already showed */ }
   }
-  // A new request alerts once; a finished AI call alerts once more with its result.
+  // Each new request alerts once.
   function announceNew(list) {
     var seen = read(SEEN, []), fresh = [];
     list.forEach(function (r) {
-      if (seen.indexOf(r.id) === -1) {
-        fresh.push(r.id); seen.push(r.id);
-        notify("New request from " + r.name.split(" ")[0], [r.service || "Service not given", r.area].filter(Boolean).join(" · "));
-      }
-      if (r.call && seen.indexOf(r.id + ":call:" + r.call.at) === -1) {
-        if (fresh.indexOf(r.id) === -1) fresh.push(r.id);
-        seen.push(r.id + ":call:" + r.call.at);
-        notify("AI call with " + r.name.split(" ")[0], CALL[r.call.result] + (r.call.when ? " · " + r.call.when : ""));
-      }
+      if (seen.indexOf(r.id) !== -1) return;
+      fresh.push(r.id); seen.push(r.id);
+      notify("New request from " + r.name.split(" ")[0], [r.service || "Service not given", r.area].filter(Boolean).join(" · "));
     });
     write(SEEN, seen.slice(-200));
     return fresh;
@@ -193,14 +175,6 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
       ["Tagalog", "Hi " + first + "! Salamat sa pagpili sa Thermostead. Kung nagustuhan ninyo ang serbisyo namin, puwede po ba kayong mag-iwan ng maikling Google review? Malaking tulong po ito sa amin: " + link],
       ["Bisaya", "Hi " + first + "! Salamat sa pagpili sa Thermostead. Kung nalipay mo sa among serbisyo, pwede ka mobilin og mubo nga review sa Google? Dako kaayo ni nga tabang sa amo: " + link],
     ];
-  }
-  function callBox(r) {
-    if (!r.call) return r.source === "site" ? '<div class="callbox">AI caller: ringing the customer now…</div>' : "";
-    var c = r.call, lines = (c.transcript || []).map(function (t) { return "<li><span>" + (t.who === "ai" ? "AI" : esc(r.name.split(" ")[0])) + ":</span> " + esc(t.text) + "</li>"; }).join("");
-    return '<div class="callbox"><b>AI call:</b> ' + esc(CALL[c.result] || c.result) +
-      (c.when ? " · " + esc(c.when) : "") + (c.units ? " · " + esc(c.units) : "") +
-      " · " + esc(LANG[c.lang] || "") + (c.seconds ? " · " + mmss(c.seconds) : "") +
-      (lines ? "<details><summary>Read the call</summary><ol>" + lines + "</ol></details>" : "") + "</div>";
   }
   function card(r, fresh) {
     var opts = STATUS.map(function (s) { return '<option value="' + s[0] + '"' + (s[0] === r.status ? " selected" : "") + ">" + s[1] + "</option>"; }).join("");
@@ -220,12 +194,10 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
       '<div class="head"><div><span class="name">' + esc(r.name) + "</span> " +
       (fresh ? '<span class="pill fresh">Just in</span> ' : "") +
       '<span class="pill ' + esc(r.status) + '">' + STATUS.filter(function (s) { return s[0] === r.status; })[0][1] + "</span> " +
-      '<span class="pill src">' + (SOURCE[r.source] || "Form") + "</span>" +
-      (r.call ? ' <span class="pill ai">AI call</span>' : "") + (r.dnc ? ' <span class="pill dnc">Do not call</span>' : "") + "</div>" +
+      '<span class="pill src">' + (SOURCE[r.source] || "Form") + "</span></div>" +
       '<div class="meta">' + ago(r.createdAt) + "</div></div>" +
       '<div class="row"><b>' + esc(r.service || "Service not given") + "</b>" + (r.area ? " · " + esc(r.area) : "") + "</div>" +
       (r.details ? '<div class="row muted">' + esc(r.details) + "</div>" : "") +
-      callBox(r) +
       '<div class="row actions"><a class="btn" href="tel:' + tel(r.mobile) + '">Call ' + esc(r.mobile) + "</a>" +
       '<a class="btn ghost" href="sms:' + tel(r.mobile) + '">Text</a>' +
       '<select aria-label="Status for ' + esc(r.name) + '" data-status="' + esc(r.id) + '">' + opts + "</select>" +
@@ -243,7 +215,6 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
     document.getElementById("closed").innerHTML = closed.length ? closed.map(function (r) { return card(r, false); }).join("") : '<p class="muted">Nothing here yet.</p>';
     document.getElementById("s-chats").textContent = read(CHATS, 0);
     document.getElementById("s-leads").textContent = list.length;
-    document.getElementById("s-calls").textContent = list.filter(function (r) { return r.call; }).length;
     document.getElementById("s-booked").textContent = list.filter(function (r) { return r.status === "booked" || r.status === "done"; }).length;
     document.getElementById("s-done").textContent = list.filter(function (r) { return r.status === "done"; }).length;
   }
@@ -280,7 +251,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
     toast("Demo reset", "All requests and numbers are back to zero.");
   });
 
-  // A request or a finished call from the website demo in another tab arrives here.
+  // A request from the website demo in another tab arrives here.
   window.addEventListener("storage", function (e) {
     if (e.key !== REQUESTS) return;
     render(announceNew(load()));

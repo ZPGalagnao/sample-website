@@ -10,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23E8EDED'/%3E%3Cpath d='M10.5 8.5 16 3.8l5.5 4.7A11 11 0 1 1 10.5 8.5z' fill='none' stroke='%2314202A' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M16 18v-7' stroke='%23B9521F' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='18' r='2.4' fill='%2314202A'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Thermostead Aircon · Steady comfort. Straight answers.">
-<meta property="og:description" content="Aircon cleaning, repair, and installation in Davao City. A ZorDevAI demo with an AI chat assistant and an AI caller.">
+<meta property="og:description" content="Aircon cleaning, repair, and installation in Davao City. A ZorDevAI demo website with an AI chat assistant.">
 <!-- DEPLOY STEP: these point at the GitHub Pages sample; update both if the site moves to its own domain -->
 <meta property="og:url" content="https://zpgalagnao.github.io/sample-website/thermostead/">
 <meta property="og:image" content="https://zpgalagnao.github.io/sample-website/thermostead/assets/og.jpg">
@@ -378,8 +378,6 @@ details[open] .ans{animation:ansIn .55s var(--ease-out)}
 .field input::placeholder,.field textarea::placeholder{color:#8FA3AE}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent-light);box-shadow:0 0 0 3px rgba(240,180,140,.28)}
 .field [aria-invalid="true"]{border-color:#F0B48C}
-.field label.consent{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;color:#C9D5DB;font:400 .98rem/1.5 'Figtree',system-ui,sans-serif;letter-spacing:0;text-transform:none;cursor:pointer}
-.consent input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--accent-light);cursor:pointer}
 .err{min-height:1.2em;font-size:.88rem;color:#F0B48C}
 .form-actions{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:4px}
 .form-note{font-size:.88rem;color:#8FA3AE;text-align:center}
@@ -394,6 +392,7 @@ details[open] .ans{animation:ansIn .55s var(--ease-out)}
 .success path{fill:none;stroke:#F4F6F5;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .s-h{max-width:26ch;margin:20px auto 0;font:700 clamp(1.6rem,3vw,2.2rem)/1.2 'Bricolage Grotesque',system-ui,sans-serif;letter-spacing:-.02em;color:#F4F6F5}
 .s-p{max-width:48ch;margin:14px auto 0;color:#A9BAC3}
+.s-p a{color:#F4F6F5;font-weight:600}
 @media (max-width:600px){.form{grid-template-columns:1fr}}
 
 /* Footer */
@@ -582,7 +581,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
         <ol class="steps reveal">
           <li class="r-item" style="--i:0">
             <span class="illus" aria-hidden="true"><svg viewBox="0 0 84 84"><rect x="12" y="18" width="60" height="52" rx="8"/><path d="M12 32h60M28 11v13M56 11v13"/><circle cx="24" cy="44" r="1.6"/><circle cx="32" cy="44" r="1.6"/><circle cx="24" cy="56" r="1.6"/><circle cx="32" cy="56" r="1.6"/><rect class="acc-fill" x="40" y="40" width="22" height="20" rx="4"/></svg></span>
-            <p class="step-n">Step 1</p><h3>Book a time.</h3><p>Online, by chat, or by phone. Our assistant calls you back within a minute to set a two-hour window.</p>
+            <p class="step-n">Step 1</p><h3>Book a time.</h3><p>Online, by chat, or by phone. Pick a two-hour window that works for you.</p>
           </li>
           <li class="r-item" style="--i:1">
             <span class="illus" aria-hidden="true"><svg viewBox="0 0 84 84"><rect x="16" y="14" width="40" height="56" rx="6"/><path d="M28 14v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/><path d="M24 30h24M24 40h18M24 50h10"/><path class="acc-fill" d="M46 52h16l8 8-8 8H46z"/><circle cx="52" cy="60" r="2" class="acc"/></svg></span>
@@ -626,12 +625,12 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
     <div class="wrap">
       <div class="ask-card">
         <div>
-          <p class="kicker">Day or night</p>
-          <h2 id="ask-h">Ask us anything. Get a call in a minute.</h2>
-          <p class="lede">Our virtual assistant answers right away in English, Tagalog, or Bisaya, and books your visit. Leave your number and it calls you back within a minute. A real person confirms every schedule.</p>
+          <p class="kicker">Always on</p>
+          <h2 id="ask-h">Ask us anything, day or night.</h2>
+          <p class="lede">Our virtual assistant answers right away in English, Tagalog, or Bisaya, and books your visit while you chat. A real person confirms every schedule.</p>
           <div class="cta-row">
             <button class="btn btn-primary" type="button" data-open-chat>Chat with us</button>
-            <a class="btn btn-ghost" href="#book">Get a call back</a>
+            <a class="btn btn-ghost" href="#book">Book a visit</a>
           </div>
         </div>
         <div class="thread" aria-hidden="true">
@@ -659,7 +658,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
         <details><summary>When can you come?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Most bookings get a visit the same day or the next morning. You get a two-hour window and a text when the technician is on the way.</p></div></details>
         <details><summary>Do you work on my brand?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Yes. We service all major brands of window-type, split-type, and floor-mounted aircons.</p></div></details>
         <details><summary>How often should I have my aircon cleaned?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Every six months for most homes. Every three months if it runs all day, or for stores and offices. A clean unit cools faster and uses less electricity.</p></div></details>
-        <details><summary>Who answers when I message at night?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Our virtual assistant answers right away, any time. It can book your visit, and if you leave your number it calls you within a minute. A person from our team confirms every schedule.</p></div></details>
+        <details><summary>Who answers when I message at night?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Our virtual assistant answers right away, any time, and can book your visit right in the chat. A person from our team confirms every schedule.</p></div></details>
         <details><summary>Is the work guaranteed?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Yes. Repairs come with a written warranty on parts and labor. New installs come with the manufacturer’s warranty plus ours.</p></div></details>
       </div>
     </div>
@@ -667,7 +666,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
 
   <section class="sec book" id="book" aria-labelledby="book-h">
     <div class="wrap">
-      <header class="sec-head center"><h2 id="book-h">Let’s get your home cool and steady.</h2><p class="lede">Tell us what’s going on. Our assistant calls you within a minute to set a time.</p></header>
+      <header class="sec-head center"><h2 id="book-h">Let’s get your home cool and steady.</h2><p class="lede">Tell us what’s going on. We’ll call you back to set a time.</p></header>
       <form class="form" id="book-form" novalidate>
         <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required><span class="err" aria-live="polite"></span></div>
         <div class="field"><label for="f-phone">Mobile number</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="09XX XXX XXXX" required><span class="err" aria-live="polite"></span></div>
@@ -682,17 +681,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
             <option>New aircon or installation</option>
             <option>Something else</option>
           </select><span class="err" aria-live="polite"></span></div>
-        <div class="field"><label for="f-lang">Language for our call</label>
-          <select id="f-lang" name="lang">
-            <option value="tl" selected>Tagalog</option>
-            <option value="en">English</option>
-            <option value="ceb">Bisaya</option>
-          </select></div>
-        <div class="field"><label for="f-notes">Anything else? (optional)</label><textarea id="f-notes" name="notes" rows="3"></textarea></div>
-        <div class="field full">
-          <label class="consent" for="f-consent"><input id="f-consent" name="consent" type="checkbox" required><span>Thermostead or its AI virtual assistant may call me about this booking. The call may be recorded.</span></label>
-          <span class="err" aria-live="polite"></span>
-        </div>
+        <div class="field full"><label for="f-notes">Anything else? (optional)</label><textarea id="f-notes" name="notes" rows="3"></textarea></div>
         <div class="form-actions">
           <button class="btn btn-primary btn-glow" type="submit">Book my visit</button>
           <p class="form-note">Demo site: what you type stays in this browser and is never sent anywhere.</p>
@@ -735,16 +724,16 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   <div class="wrap">
     <p class="tagline">Behind this demo <b>·</b> ZorDevAI</p>
     <h2 id="zd-h">Want this for your shop?</h2>
-    <p class="lede">This whole page is a working demo by ZorDevAI. Thermostead is made up, but everything you just tried can run for a real business, with your own prices, photos, and number.</p>
+    <p class="lede">This whole page is a working demo by ZorDevAI. Thermostead is made up, but this website and its AI assistant can run for a real business, with your own prices, photos, and number.</p>
     <ul class="parts">
       <li><span class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></span><h3>Website</h3><p>A fast site like this one, built around your real services and prices. Looks right on any phone.</p></li>
-      <li><span class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></svg></span><h3>AI chat</h3><p>Answers customers day and night in English, Tagalog, or Bisaya, and books their visit.</p></li>
-      <li><span class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg></span><h3>AI caller</h3><p>Calls every person who fills your form or your Facebook ad within a minute, and books them. Only people who asked.</p></li>
-      <li><span class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Ads and dashboard</h3><p>Facebook ads bring new inquiries. Every lead lands in one dashboard with alerts, plus a weekly report.</p></li>
+      <li><span class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></svg></span><h3>AI assistant</h3><p>Answers customers day and night in English, Tagalog, or Bisaya, and books their visit right in the chat.</p></li>
+      <li><span class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Owner dashboard</h3><p>Every chat and booking in one place, with an alert on your phone the moment a customer asks.</p></li>
+      <li><span class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></span><h3>More Google reviews</h3><p>When a job is done, send a ready thank-you message in English, Tagalog, or Bisaya with your review link.</p></li>
     </ul>
     <div class="plans">
       <div class="plan"><h3>Website</h3><p class="amt">from ₱10,000 <small>one-time</small></p><p>Your own site, ready for the AI chat when you want it.</p></div>
-      <div class="plan main"><h3>AI Telemarketer</h3><p class="amt">from ₱5,000 <small>setup, then from ₱5,000 a month</small></p><p>Ads, AI caller, AI chat, owner dashboard, and a weekly report. Ad spend is paid by you directly to Meta, and call minutes at cost.</p></div>
+      <div class="plan main"><h3>AI Assistant</h3><p class="amt">from ₱1,500 <small>a month</small></p><p>The chat assistant, the owner dashboard with alerts, and review requests. Add it to a new website or to the one you already have.</p></div>
     </div>
     <div class="zd-cta">
       <a class="btn btn-primary" id="zd-contact" href="#" hidden>Talk to Zoren</a>
@@ -1146,30 +1135,35 @@ RM.addEventListener('change', e => {
   applyHeroMode();
 });
 
-/* ---------- Booking form. On this demo it stays in the browser; the demo layer adds the AI call. ---------- */
+/* ---------- Booking form. On this demo it stays in the browser, where the demo dashboard reads it. ---------- */
 const form = $('#book-form'), success = $('#book-success');
 const MOBILE = /^(\+?63|0)\s?9\d{2}[\s-]?\d{3}[\s-]?\d{4}$/;
-const msgs = { name: 'Please add your name.', phone: 'Please add a mobile number like 0917 123 4567.', area: 'Please add your barangay or area.', issue: 'Please pick what’s going on.', consent: 'Please tick this so our assistant can call you.' };
+const msgs = { name: 'Please add your name.', phone: 'Please add a mobile number like 0917 123 4567.', area: 'Please add your barangay or area.', issue: 'Please pick what’s going on.' };
 form.addEventListener('submit', e => {
   e.preventDefault();
   let first = null;
   for (const f of $$('[required]', form)) {
     const err = $('.err', f.closest('.field'));
-    const ok = f.type === 'checkbox' ? f.checked : (f.checkValidity() && f.value.trim() && (f.name !== 'phone' || MOBILE.test(f.value.trim())));
+    const ok = f.checkValidity() && f.value.trim() && (f.name !== 'phone' || MOBILE.test(f.value.trim()));
     if (ok) { err.textContent = ''; f.removeAttribute('aria-invalid'); }
     else { err.textContent = msgs[f.name]; f.setAttribute('aria-invalid', 'true'); first = first || f; }
   }
   if (first) { first.focus(); return; }
   const f = form.elements;
-  const booking = { name: f.name.value.trim(), mobile: f.phone.value.trim(), area: f.area.value.trim(), issue: f.issue.value, lang: f.lang.value, notes: f.notes.value.trim() };
-  const first_ = booking.name.split(/\s+/)[0];
-  const calls = typeof window.zdBooked === 'function';
-  $('.s-h', success).textContent = calls ? `Salamat, ${first_}! Our assistant will call you in about a minute.` : `Got it, ${first_}. We’ll call you soon to set a time.`;
-  $('.s-p', success).textContent = calls ? 'Keep this page open. The demo call rings right here in your browser.' : '';
+  const booking = { name: f.name.value.trim(), mobile: f.phone.value.trim(), area: f.area.value.trim(), issue: f.issue.value, notes: f.notes.value.trim() };
+  const demo = typeof window.zdBooked === 'function';
+  $('.s-h', success).textContent = `Salamat, ${booking.name.split(/\s+/)[0]}! We’ll call you soon to set a time.`;
+  const sp = $('.s-p', success);
+  sp.textContent = '';
+  if (demo) {
+    const a = document.createElement('a');
+    a.href = 'dashboard.html'; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'See this request in the owner dashboard';
+    sp.append('Demo: in the real system the owner gets an alert right now. ', a);
+  }
   form.hidden = true;
   success.hidden = false;
   success.focus();
-  if (calls) window.zdBooked(booking);
+  if (demo) window.zdBooked(booking);
 });
 
 /* ---------- Start ---------- */
