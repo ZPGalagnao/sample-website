@@ -414,7 +414,7 @@
   window.zdCall = function (b, leadId) { primeAudio(); setTimeout(function () { startCall(b, leadId); }, 1800); };
 
   // The ZorDevAI contact button stays hidden until a real link is set here.
-  var ZORDEVAI_CONTACT = "";
+  var ZORDEVAI_CONTACT = "https://m.me/61595403575723";
   function boot() {
     buildGuide();
     var c = document.getElementById("zd-contact");
