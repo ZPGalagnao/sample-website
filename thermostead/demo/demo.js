@@ -104,7 +104,7 @@
       el("div", { class: "zdg-head" }, [el("b", { text: "ZorDevAI demo" }), el("button", { class: "zdg-x", type: "button", "aria-label": "Close the demo guide", text: "×", onclick: function () { setOpen(false, true); } })]),
       el("p", { text: "Thermostead is a sample aircon shop. Try what its customers and its owner would see:" }),
       el("ol", null, [
-        step("chat", 1, "Type or talk to the AI assistant", "Try “Magkano ang cleaning?”, typed or out loud", "button", { type: "button", onclick: function () { if (window.zdOpenChat) window.zdOpenChat(); setOpen(false, true); } }),
+        step("chat", 1, "Chat with the AI assistant", "Try “Magkano ang cleaning?”", "button", { type: "button", onclick: function () { if (window.zdOpenChat) window.zdOpenChat(); setOpen(false, true); } }),
         step("book", 2, "Book a visit at an open time", "Pick a time in the chat; it lands in the owner dashboard", "button", { type: "button", onclick: goBook }),
         step("dash", 3, "Open the owner dashboard", "See every chat and booking", "a", { href: "dashboard.html", target: "_blank", rel: "noopener", onclick: function () { progress("dash"); } }),
       ]),
