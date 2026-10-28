@@ -49,6 +49,16 @@ textarea{width:100%;min-height:84px}
 .toast b{font-size:15px}.toast span{font-size:14px;opacity:.85}
 @keyframes in{from{transform:translateY(-10px);opacity:0}to{transform:none;opacity:1}}
 footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-top:24px}
+.day{font-size:13px;margin:14px 0 4px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.day:first-child{margin-top:0}
+.bookings{list-style:none;margin:0;padding:0}
+.bookings li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.bookings li a:first-child{color:var(--text);text-decoration:none;min-width:0}
+.bookings li b{color:var(--brand)}
+.sched{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:8px 16px;margin:0}
+.sched dt{color:var(--muted);font-size:13px}
+.sched dd{margin:0;font-weight:600}
+@media (max-width:520px){.sched{grid-template-columns:1fr;gap:2px}.sched dd{margin-bottom:8px}}
 @media (prefers-reduced-motion:reduce){.toast{animation:none}.lead{transition:none}}
 </style>
 </head>
@@ -81,8 +91,19 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
     <p class="muted small">Demo tip: turn alerts on, keep this tab open, then chat or book a visit on the website demo in another tab. On a computer you get a real notification; on phones this demo shows the alert inside the page.</p>
   </section>
 
+  <section class="card"><h2 id="up-title">Upcoming bookings</h2><div id="upcoming"></div></section>
   <section class="card"><h2 id="open-title">To follow up</h2><div id="open"></div></section>
   <section class="card"><h2>Google reviews</h2><p class="muted">When a job is done, mark it Done and tap "Ask for a Google review". You get ready messages in English, Tagalog and Bisaya with your shop's review link.</p></section>
+  <section class="card">
+    <h2>Booking schedule</h2>
+    <dl class="sched">
+      <dt>Working days</dt><dd>Monday to Saturday</dd>
+      <dt>Visit windows</dt><dd>8:00–10:00 AM, 10:00 AM–12:00 PM, 1:00–3:00 PM, 3:00–5:00 PM</dd>
+      <dt>Jobs per window</dt><dd>1 team</dd>
+      <dt>Booking range</dt><dd>Up to 14 days ahead, at least 2 hours from now</dd>
+    </dl>
+    <p class="muted small">In the real dashboard you change these yourself: days, times, how many teams, and days off. A booked time can't be booked twice. To cancel a booking, set it to Lost and its time opens again.</p>
+  </section>
   <section class="card"><h2 id="closed-title">Finished</h2><div id="closed"></div></section>
 
   <footer>
@@ -97,7 +118,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
   "use strict";
   var REQUESTS = "zd_demo_requests", CHATS = "zd_demo_chats", SEEN = "zd_demo_seen", SEEDED = "zd_demo_seeded", ALERTS = "zd_demo_alerts", CHAT = "zd_demo_chat", PROGRESS = "zd_demo_progress";
   var STATUS = [["new", "New"], ["contacted", "Contacted"], ["booked", "Booked"], ["done", "Done"], ["lost", "Lost"]];
-  var SOURCE = { chat: "AI chat", form: "Leave my number", site: "Booking form" };
+  var SOURCE = { chat: "AI chat", form: "Assistant form", site: "Website form" };
 
   function read(key, fallback) { try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } }
   function write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
@@ -161,7 +182,8 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
     list.forEach(function (r) {
       if (seen.indexOf(r.id) !== -1) return;
       fresh.push(r.id); seen.push(r.id);
-      notify("New request from " + r.name.split(" ")[0], [r.service || "Service not given", r.area].filter(Boolean).join(" · "));
+      notify((r.slot ? "New booking from " : "New request from ") + r.name.split(" ")[0],
+        [r.slot ? r.slot.label : "", r.service || "Service not given", r.area].filter(Boolean).join(" · "));
     });
     write(SEEN, seen.slice(-200));
     return fresh;
@@ -196,6 +218,7 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
       '<span class="pill ' + esc(r.status) + '">' + STATUS.filter(function (s) { return s[0] === r.status; })[0][1] + "</span> " +
       '<span class="pill src">' + (SOURCE[r.source] || "Form") + "</span></div>" +
       '<div class="meta">' + ago(r.createdAt) + "</div></div>" +
+      (r.slot ? '<div class="row"><b>📅 Booked for ' + esc(r.slot.label) + "</b></div>" : "") +
       '<div class="row"><b>' + esc(r.service || "Service not given") + "</b>" + (r.area ? " · " + esc(r.area) : "") + "</div>" +
       (r.details ? '<div class="row muted">' + esc(r.details) + "</div>" : "") +
       '<div class="row actions"><a class="btn" href="tel:' + tel(r.mobile) + '">Call ' + esc(r.mobile) + "</a>" +
@@ -209,6 +232,19 @@ footer{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;ma
     var list = load().sort(function (a, b) { return b.createdAt - a.createdAt; });
     var open = list.filter(function (r) { return r.status === "new" || r.status === "contacted" || r.status === "booked"; });
     var closed = list.filter(function (r) { return r.status === "done" || r.status === "lost"; });
+    // Upcoming bookings by day, in time order. Lost and Done ones drop off.
+    var upcoming = list.filter(function (r) { return r.slot && open.indexOf(r) !== -1; })
+      .sort(function (a, b) { return a.slot.code < b.slot.code ? -1 : 1; });
+    var day = "";
+    document.getElementById("up-title").textContent = "Upcoming bookings (" + upcoming.length + ")";
+    document.getElementById("upcoming").innerHTML = upcoming.length
+      ? upcoming.map(function (r) {
+          var head = r.slot.day !== day ? (day ? "</ul>" : "") + '<h3 class="day">' + esc(r.slot.day) + '</h3><ul class="bookings">' : "";
+          day = r.slot.day;
+          return head + '<li><a href="#lead-' + esc(r.id) + '"><b>' + esc(r.slot.window) + "</b> · " + esc(r.name) + " · " + esc(r.service || "Service not given") +
+            (r.area ? " · " + esc(r.area) : "") + '</a><a class="btn ghost" href="tel:' + tel(r.mobile) + '">Call</a></li>';
+        }).join("") + "</ul>"
+      : '<p class="muted">No bookings yet. On the <a href="index.html">website demo</a>, book a visit in the chat and pick a time.</p>';
     document.getElementById("open-title").textContent = "To follow up (" + open.length + ")";
     document.getElementById("closed-title").textContent = "Finished (" + closed.length + ")";
     document.getElementById("open").innerHTML = open.length ? open.map(function (r) { return card(r, freshIds.indexOf(r.id) !== -1); }).join("") : '<p class="muted">No requests yet. Go to the <a href="index.html">website demo</a>, chat with the assistant or book a visit, and your request shows up here.</p>';
