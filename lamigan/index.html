@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>LAMIGAN Aircon & HVAC · Sample website by ZorDevAI</title>
+<meta name="description" content="A sample aircon website with an AI assistant that books customers, made by ZorDevAI. LAMIGAN is a made-up company.">
+<meta name="theme-color" content="#0B1520">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1520'/%3E%3Cpath d='M14 24h36M14 32h28M14 40h36' stroke='%233FD0E8' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0B1520;
+    --ink-2: #102030;
+    --steel: #172B3C;
+    --line-dark: #24405A;
+    --mist: #9FB4C6;
+    --frost: #E9F3F9;
+    --paper: #F5F8FB;
+    --white: #FFFFFF;
+    --text: #0E1C29;
+    --muted: #51657A;
+    --line: #DCE5EE;
+    --cyan: #3FD0E8;
+    --cyan-deep: #0F8FAA;
+    --amber: #FFB547;
+    --radius: 20px;
+    --gutter: 16px;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --head: "Barlow Condensed", "Arial Narrow", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: "Barlow", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg, canvas { display: block; max-width: 100%; }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  .wrap { width: min(1180px, 100% - 2 * var(--gutter)); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--head); font-weight: 800; line-height: .98; letter-spacing: .005em; margin: 0; text-transform: uppercase; }
+  .mono { font-family: var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Says plainly this is a sample made for the owner, not their live site */
+  .preview-bar { background: #050B11; color: #B7C8D6; font-size: 13px; text-align: center; padding: 7px var(--gutter); }
+  .preview-bar b { color: var(--cyan); font-weight: 600; }
+
+  /* Header */
+  .top { position: sticky; top: 0; z-index: 40; background: rgba(11,21,32,.86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(159,180,198,.14); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--white); min-width: 0; }
+  .brand-mark { width: 34px; height: 34px; flex: none; }
+  .brand b { display: block; font-family: var(--head); font-size: 25px; font-weight: 800; letter-spacing: .14em; line-height: 1; }
+  .brand small { display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: .2em; color: var(--mist); margin-top: 4px; white-space: nowrap; }
+  .top nav { display: none; gap: 30px; font-size: 15px; font-weight: 500; }
+  .top nav a { color: #C6D4E0; text-decoration: none; }
+  .top nav a:hover { color: var(--white); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    font: 600 16px/1 "Barlow", sans-serif; letter-spacing: .01em;
+    padding: 16px 22px; border-radius: 12px; border: 1.5px solid transparent; background: none;
+    text-decoration: none; cursor: pointer; white-space: nowrap; transition: transform .15s ease, background .2s ease, border-color .2s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn svg { width: 19px; height: 19px; flex: none; }
+  .btn-cyan { background: var(--cyan); color: var(--ink); }
+  .btn-cyan:hover { background: #6FDDEE; }
+  .btn-ghost { border-color: rgba(198,212,224,.38); color: var(--white); }
+  .btn-ghost:hover { background: rgba(255,255,255,.07); border-color: rgba(198,212,224,.6); }
+  .btn-ink { background: var(--ink); color: var(--white); }
+  .btn-ink:hover { background: var(--steel); }
+  .btn-sm { padding: 11px 15px; font-size: 15px; border-radius: 10px; }
+  :focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+
+  /* Hero */
+  .hero { position: relative; background: var(--ink); color: var(--white); overflow: hidden; isolation: isolate; }
+  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(11,21,32,.25) 0%, rgba(11,21,32,0) 30%, rgba(11,21,32,.65) 100%),
+      linear-gradient(90deg, rgba(11,21,32,.92) 0%, rgba(11,21,32,.55) 55%, rgba(11,21,32,.2) 100%);
+  }
+  .hero .wrap { display: grid; gap: 34px; padding: 54px 0 46px; }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; color: var(--cyan); }
+  .kicker::before { content: ""; width: 26px; height: 2px; background: var(--cyan); }
+  .hero h1 { font-size: clamp(54px, 15vw, 112px); margin: 16px 0 18px; }
+  .hero h1 span { display: block; color: transparent; -webkit-text-stroke: 1.5px rgba(233,243,249,.85); }
+  .lead { font-size: 19px; color: #C9D7E3; max-width: 32em; margin: 0 0 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .proof { display: flex; flex-wrap: wrap; gap: 10px 24px; list-style: none; padding: 0; margin: 30px 0 0; font-size: 15px; color: #B8C9D7; }
+  .proof li { display: flex; align-items: center; gap: 8px; }
+  .proof svg { width: 17px; height: 17px; color: var(--cyan); flex: none; }
+  .proof .stars { color: var(--amber); letter-spacing: 2px; font-size: 14px; }
+
+  .gauge {
+    align-self: end; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px;
+    background: rgba(16,32,48,.62); border: 1px solid rgba(159,180,198,.18); border-radius: var(--radius);
+    padding: 22px 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  .gauge-side { min-width: 0; }
+  .gauge-side .mono { display: block; font-size: 10.5px; color: var(--mist); }
+  .gauge-num { font-family: var(--head); font-weight: 800; font-size: clamp(58px, 16vw, 92px); line-height: .9; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .gauge-num sup { font-size: .42em; vertical-align: top; margin-left: 2px; position: relative; top: .25em; }
+  .hot { color: var(--amber); }
+  .cold { color: var(--cyan); }
+  .gauge-arrow { width: 44px; color: var(--mist); }
+  .gauge-note { grid-column: 1 / -1; margin: 6px 0 0; font-size: 13.5px; color: var(--mist); border-top: 1px solid rgba(159,180,198,.16); padding-top: 12px; }
+
+  /* Review strip */
+  .quote { background: var(--ink-2); color: var(--white); border-top: 1px solid rgba(159,180,198,.12); }
+  .quote .wrap { display: grid; gap: 18px; padding: 34px 0; align-items: center; }
+  .quote blockquote { margin: 0; font-family: var(--head); font-weight: 700; font-size: clamp(26px, 6vw, 38px); line-height: 1.1; text-transform: none; letter-spacing: .005em; }
+  .quote blockquote::before { content: "\201C"; color: var(--cyan); margin-right: 4px; }
+  .quote blockquote::after { content: "\201D"; color: var(--cyan); margin-left: 2px; }
+  .quote-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 14.5px; color: var(--mist); }
+  .quote-meta b { color: var(--amber); font-weight: 600; letter-spacing: 2px; }
+  .tagpill { border: 1px solid var(--line-dark); border-radius: 999px; padding: 4px 12px; color: #C9D7E3; }
+
+  /* Sections */
+  section.block { padding: 72px 0; }
+  .eyebrow { font-size: 12px; color: var(--cyan-deep); margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ""; width: 22px; height: 2px; background: currentColor; }
+  .head { max-width: 680px; margin-bottom: 38px; }
+  .head h2 { font-size: clamp(40px, 9vw, 64px); color: var(--text); }
+  .head p { color: var(--muted); margin: 16px 0 0; font-size: 18px; }
+
+  /* Services */
+  .services { display: grid; gap: 16px; }
+  .svc {
+    background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px 24px;
+    display: flex; flex-direction: column; position: relative; overflow: hidden;
+  }
+  .svc-art { width: 100%; height: 132px; color: var(--ink); margin-bottom: 18px; background: var(--frost); border-radius: 14px; padding: 14px; }
+  .svc-art svg { width: 100%; height: 100%; }
+  .svc .mono { font-size: 11px; color: var(--cyan-deep); }
+  .svc h3 { font-size: 34px; margin: 6px 0 10px; }
+  .svc p { margin: 0 0 16px; color: var(--muted); }
+  .svc ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .svc li { padding: 10px 0 10px 28px; border-bottom: 1px solid var(--line); position: relative; font-weight: 500; }
+  .svc li:last-child { border-bottom: 0; }
+  .svc li::before { content: ""; position: absolute; left: 2px; top: 19px; width: 14px; height: 2px; background: var(--cyan-deep); box-shadow: 0 -5px 0 var(--cyan), 0 5px 0 var(--cyan); opacity: .9; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; padding: 0; list-style: none; }
+  .chips li { background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 14.5px; font-weight: 500; }
+
+  /* Sizing guide */
+  .sizer-sec { background: var(--ink); color: var(--white); }
+  .sizer-sec .head h2 { color: var(--white); }
+  .sizer-sec .head p { color: #B8C9D7; }
+  .sizer-sec .eyebrow { color: var(--cyan); }
+  .sizer { display: grid; gap: 18px; }
+  .sizer-panel { background: var(--ink-2); border: 1px solid var(--line-dark); border-radius: var(--radius); padding: 24px; }
+  .field { margin-bottom: 24px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-label { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; font-weight: 600; }
+  .field-label output { font-family: var(--mono); color: var(--cyan); font-size: 15px; }
+  input[type=range] { width: 100%; appearance: none; -webkit-appearance: none; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--cyan) var(--fill, 30%), var(--line-dark) var(--fill, 30%)); outline-offset: 6px; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: var(--white); border: 5px solid var(--cyan); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--white); border: 5px solid var(--cyan); cursor: pointer; }
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .seg.two { grid-template-columns: 1fr 1fr; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg label { display: block; text-align: center; border: 1.5px solid var(--line-dark); border-radius: 12px; padding: 12px 8px; font-weight: 600; font-size: 15px; cursor: pointer; line-height: 1.25; color: #C9D7E3; }
+  .seg input:checked + label { border-color: var(--cyan); color: var(--white); background: rgba(63,208,232,.1); }
+  .seg input:focus-visible + label { outline: 3px solid var(--cyan); outline-offset: 2px; }
+  .result { background: linear-gradient(160deg, #0F2A3A, #0B1A27); border: 1px solid rgba(63,208,232,.35); border-radius: var(--radius); padding: 26px 24px; display: flex; flex-direction: column; }
+  .result .mono { font-size: 11px; color: var(--mist); }
+  .result-hp { font-family: var(--head); font-weight: 800; font-size: clamp(72px, 20vw, 120px); line-height: .9; color: var(--cyan); margin: 10px 0 8px; font-variant-numeric: tabular-nums; }
+  .result-hp small { font-size: .36em; color: var(--white); margin-left: 6px; letter-spacing: .04em; }
+  .result p { color: #C9D7E3; margin: 0 0 20px; }
+  .result .fine { font-size: 13.5px; color: var(--mist); margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line-dark); margin-bottom: 0; }
+
+  /* Process */
+  .steps { display: grid; gap: 14px; counter-reset: step; list-style: none; margin: 0; padding: 0; }
+  .steps li { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; counter-increment: step; position: relative; }
+  .steps li::before { content: "0" counter(step); font-family: var(--mono); font-size: 13px; color: var(--cyan-deep); display: block; margin-bottom: 18px; letter-spacing: .1em; }
+  .steps li::after { content: ""; position: absolute; top: 33px; left: 58px; right: 24px; height: 1px; background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px); }
+  .steps h3 { font-size: 28px; margin-bottom: 8px; }
+  .steps p { margin: 0; color: var(--muted); }
+
+  /* Assistant showcase */
+  .ai-sec { background: var(--frost); }
+  .ai-grid { display: grid; gap: 34px; align-items: center; }
+  .ai-points { list-style: none; padding: 0; margin: 26px 0 30px; display: grid; gap: 14px; }
+  .ai-points li { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+  .ai-points .ic { width: 40px; height: 40px; border-radius: 12px; background: var(--ink); color: var(--cyan); display: grid; place-items: center; }
+  .ai-points .ic svg { width: 21px; height: 21px; }
+  .ai-points b { display: block; font-size: 18px; }
+  .ai-points span { color: var(--muted); }
+  .phone {
+    width: min(360px, 100%); margin-inline: auto; background: var(--ink); border-radius: 38px; padding: 12px;
+    box-shadow: 0 40px 80px -30px rgba(11,21,32,.55), 0 0 0 1px rgba(11,21,32,.1);
+  }
+  .phone-screen { background: var(--white); border-radius: 28px; overflow: hidden; }
+  .phone-head { display: flex; align-items: center; gap: 10px; padding: 16px 16px 12px; border-bottom: 1px solid var(--line); }
+  .phone-head .av { width: 36px; height: 36px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; }
+  .phone-head .av svg { width: 20px; height: 20px; }
+  .phone-head b { display: block; font-size: 15px; line-height: 1.2; }
+  .phone-head span { font-size: 12.5px; color: var(--muted); }
+  .phone-head span::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #2BC48A; margin-right: 6px; vertical-align: 1px; }
+  .chat { padding: 16px 14px 18px; display: flex; flex-direction: column; gap: 10px; min-height: 360px; }
+  .msg { max-width: 84%; padding: 10px 13px; border-radius: 16px; font-size: 14.5px; line-height: 1.45; opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; }
+  .msg.show { opacity: 1; transform: none; }
+  .msg.bot { background: #EEF3F7; align-self: flex-start; border-bottom-left-radius: 5px; }
+  .msg.me { background: var(--ink); color: var(--white); align-self: flex-end; border-bottom-right-radius: 5px; }
+  .msg-chips { display: flex; flex-wrap: wrap; gap: 6px; opacity: 0; transition: opacity .45s ease; }
+  .msg-chips.show { opacity: 1; }
+  .msg-chips span { border: 1.5px solid var(--cyan-deep); color: var(--cyan-deep); border-radius: 999px; padding: 6px 11px; font-size: 13px; font-weight: 600; }
+  .msg-chips span.picked { background: var(--cyan-deep); color: var(--white); }
+  .booked { align-self: center; font-size: 12.5px; font-family: var(--mono); letter-spacing: .04em; color: #11795A; background: #E3F6EE; border-radius: 999px; padding: 6px 12px; opacity: 0; transition: opacity .45s ease; }
+  .booked.show { opacity: 1; }
+
+  /* Areas + FAQ */
+  .faq-grid { display: grid; gap: 34px; }
+  .faq details { background: var(--white); border: 1px solid var(--line); border-radius: 16px; margin-bottom: 10px; }
+  .faq summary { list-style: none; cursor: pointer; padding: 20px 56px 20px 22px; font-weight: 600; font-size: 18px; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: ""; position: absolute; right: 22px; top: 50%; width: 12px; height: 12px; border-right: 2px solid var(--cyan-deep); border-bottom: 2px solid var(--cyan-deep); transform: translateY(-70%) rotate(45deg); transition: transform .2s ease; }
+  .faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .faq details p { margin: 0; padding: 0 22px 20px; color: var(--muted); }
+  .area-card { background: var(--ink); color: var(--white); border-radius: var(--radius); padding: 28px 24px; position: relative; overflow: hidden; }
+  .area-card h3 { font-size: 38px; margin: 10px 0 12px; }
+  .area-card p { color: #C9D7E3; margin: 0 0 22px; }
+  .area-card .mono { font-size: 11px; color: var(--cyan); }
+  .area-card svg.rings { position: absolute; right: -60px; bottom: -60px; width: 240px; height: 240px; color: rgba(63,208,232,.18); }
+
+  /* Contact band */
+  .contact { background: var(--ink); color: var(--white); position: relative; overflow: hidden; }
+  .contact .wrap { padding: 76px 0; display: grid; gap: 30px; }
+  .contact h2 { font-size: clamp(46px, 11vw, 88px); }
+  .contact h2 em { font-style: normal; color: var(--cyan); }
+  .contact-grid { display: grid; gap: 12px; }
+  .cinfo { border: 1px solid var(--line-dark); border-radius: 16px; padding: 20px; background: rgba(16,32,48,.6); }
+  .cinfo .mono { font-size: 11px; color: var(--mist); display: block; margin-bottom: 6px; }
+  .cinfo a.big { font-family: var(--head); font-weight: 800; font-size: 34px; text-decoration: none; letter-spacing: .02em; }
+  .cinfo p { margin: 0; color: #C9D7E3; }
+
+  footer { background: #050B11; color: var(--mist); font-size: 14px; padding: 34px 0 120px; }
+  footer .wrap { display: grid; gap: 14px; }
+  footer .brand b { font-size: 22px; }
+  footer p { margin: 0; }
+
+  /* Phone call bar, leaves room on the right for the chat bubble */
+  .callbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    padding: 10px 84px calc(10px + env(safe-area-inset-bottom)) var(--gutter);
+    background: rgba(11,21,32,.94); border-top: 1px solid rgba(159,180,198,.16); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .callbar .btn { padding: 14px 8px; }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (min-width: 720px) {
+    :root { --gutter: 28px; }
+    .services { grid-template-columns: repeat(2, 1fr); }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: repeat(3, 1fr); }
+    .quote .wrap { grid-template-columns: 1fr auto; }
+  }
+  @media (min-width: 1000px) {
+    .top nav { display: flex; }
+    .hero .wrap { grid-template-columns: 1.25fr .75fr; padding: 96px 0 84px; gap: 56px; min-height: 640px; }
+    .services { grid-template-columns: repeat(3, 1fr); }
+    .sizer { grid-template-columns: 1.1fr .9fr; }
+    .steps { grid-template-columns: repeat(4, 1fr); }
+    .ai-grid { grid-template-columns: 1fr .9fr; gap: 64px; }
+    .faq-grid { grid-template-columns: 1.3fr .7fr; gap: 48px; align-items: start; }
+    .contact .wrap { grid-template-columns: 1fr 1fr; align-items: end; padding: 104px 0; }
+    .contact-grid { grid-template-columns: 1fr; }
+    section.block { padding: 104px 0; }
+    .callbar { display: none; }
+    footer { padding-bottom: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .msg, .msg-chips, .booked { transition: none; opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-bar"><b>Sample website</b> by ZorDevAI. LAMIGAN is a made-up aircon company, here to show what we build. <a href="../samples/" style="color:#fff">See all samples</a></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="LAMIGAN Aircon and HVAC, home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#172B3C"/><path d="M9 14h22M9 20h16M9 26h22" stroke="#3FD0E8" stroke-width="3" stroke-linecap="round"/><circle cx="30" cy="20" r="2.4" fill="#FFB547"/></svg>
+      <span><b>LAMIGAN</b><small>AIRCON &amp; HVAC</small></span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#sizing">Sizing guide</a>
+      <a href="#process">How we work</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="btn btn-cyan btn-sm" type="button" data-chat>Book a survey</button>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" aria-labelledby="hero-title">
+  <canvas id="air" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="kicker mono">Metro Manila · Aircon &amp; HVAC</span>
+      <h1 id="hero-title">Built for <span>Manila heat.</span></h1>
+      <p class="lead">Aircon cleaning, repair, installation and maintenance for homes, stores and offices. Tell us what's wrong any time, even at night, and get a visit booked in a minute.</p>
+      <div class="actions">
+        <button class="btn btn-cyan" type="button" data-chat>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>
+          Book a site survey
+        </button>
+        <a class="btn btn-ghost" href="#sizing">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+          What size do I need?
+        </a>
+      </div>
+      <ul class="proof">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg>Books any time, even at night</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg>Mon to Sat, 8 AM to 6 PM</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>Homes, stores and offices</li>
+      </ul>
+    </div>
+    <div class="gauge" role="img" aria-label="A Manila afternoon can reach 34 degrees outside. A well-sized system keeps the room at 22 degrees.">
+      <div class="gauge-side">
+        <span class="mono">Outside, Manila</span>
+        <div class="gauge-num hot">34<sup>°C</sup></div>
+      </div>
+      <svg class="gauge-arrow" viewBox="0 0 44 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h38M32 4l8 8-8 8"/></svg>
+      <div class="gauge-side">
+        <span class="mono">Inside</span>
+        <div class="gauge-num cold"><span id="inside">34</span><sup>°C</sup></div>
+      </div>
+      <p class="gauge-note">The right unit, sized for the room and installed clean, keeps it cool all afternoon without wasting power.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quote" aria-label="Our promises">
+  <div class="wrap">
+    <blockquote>Price first, work second. No surprises on the bill.</blockquote>
+    <div class="quote-meta">
+      <span class="tagpill">On time, or we call first</span>
+      <span class="tagpill">Clean finish, every job</span>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="services" aria-labelledby="services-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow mono">What we handle</p>
+      <h2 id="services-title">One team, from one room to a whole plant.</h2>
+      <p>Tell us what you need cooled. We survey the space, recommend the right system and keep it running.</p>
+    </div>
+    <div class="services">
+      <article class="svc reveal">
+        <div class="svc-art" aria-hidden="true">
+          <svg viewBox="0 0 280 104" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 92V46l58-32 58 32v46" /><path d="M10 54 82 14l72 40" /><path d="M64 92V66h36v26" />
+            <rect x="170" y="22" width="92" height="26" rx="6" /><path d="M178 40h76" />
+            <path d="M184 58c6 6 6 14 0 20M206 58c6 6 6 14 0 20M228 58c6 6 6 14 0 20M250 58c6 6 6 14 0 20" stroke="#0F8FAA" />
+            <path d="M6 92h268" />
+          </svg>
+        </div>
+        <span class="mono">For homes</span>
+        <h3>Residential</h3>
+        <p>Bedrooms, living rooms and whole houses.</p>
+        <ul>
+          <li>Split-type and window aircon installation</li>
+          <li>Cleaning and check-ups</li>
+          <li>Repair: not cooling, leaking, noisy</li>
+          <li>Moving a unit to a new spot</li>
+        </ul>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-art" aria-hidden="true">
+          <svg viewBox="0 0 280 104" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 18h244" /><rect x="100" y="18" width="80" height="22" rx="4" /><rect x="128" y="24" width="24" height="10" rx="2" />
+            <path d="M104 46l-14 16M176 46l14 16M140 46v18" stroke="#0F8FAA" />
+            <path d="M30 92V60h48v32M202 92V60h48v32" /><path d="M30 72h48M202 72h48" />
+            <rect x="104" y="72" width="72" height="20" rx="3" /><path d="M6 92h268" />
+          </svg>
+        </div>
+        <span class="mono">For businesses</span>
+        <h3>Commercial</h3>
+        <p>Offices, stores, clinics and restaurants.</p>
+        <ul>
+          <li>Ceiling cassette and floor-mounted units</li>
+          <li>Ducted systems for larger spaces</li>
+          <li>Scheduled preventive maintenance</li>
+          <li>Fast repair to keep you open</li>
+        </ul>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-art" aria-hidden="true">
+          <svg viewBox="0 0 280 104" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 92V50l40-22v22l40-22v22l40-22v64" /><path d="M150 92V38h20v54" />
+            <circle cx="222" cy="52" r="26" /><circle cx="222" cy="52" r="4" />
+            <path d="M222 48c0-10 6-16 14-18M226 52c10 0 16 6 18 14M222 56c0 10-6 16-14 18M218 52c-10 0-16-6-18-14" stroke="#0F8FAA" />
+            <path d="M94 68h56M94 76h56" /><path d="M6 92h268" />
+          </svg>
+        </div>
+        <span class="mono">For industry</span>
+        <h3>Industrial</h3>
+        <p>Factories, warehouses and production areas.</p>
+        <ul>
+          <li>Ventilation and exhaust systems</li>
+          <li>Ductwork for large spaces</li>
+          <li>High-capacity cooling</li>
+          <li>Maintenance contracts</li>
+        </ul>
+      </article>
+    </div>
+    <ul class="chips reveal" aria-label="All services">
+      <li>Installation</li><li>Cleaning</li><li>Repair</li><li>Relocation</li><li>Preventive maintenance</li><li>Ductwork</li><li>Ventilation</li><li>Site survey and quote</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block sizer-sec" id="sizing" aria-labelledby="sizing-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow mono">Sizing guide</p>
+      <h2 id="sizing-title">What size aircon does your room need?</h2>
+      <p>Too small and it never gets cold. Too big and you pay for power you don't use. Get a quick estimate, then we confirm it on site.</p>
+    </div>
+    <div class="sizer reveal">
+      <form class="sizer-panel" id="sizer" onsubmit="return false">
+        <div class="field">
+          <div class="field-label"><label for="area">Room size</label><output id="area-out" for="area">16 m²</output></div>
+          <input type="range" id="area" min="6" max="60" step="1" value="16">
+        </div>
+        <fieldset class="field" style="border:0;padding:0;margin:0 0 24px">
+          <legend class="field-label" style="padding:0">What is the room for?</legend>
+          <div class="seg">
+            <input type="radio" name="use" id="use-bed" value="1" checked><label for="use-bed">Bedroom</label>
+            <input type="radio" name="use" id="use-office" value="1.1"><label for="use-office">Office</label>
+            <input type="radio" name="use" id="use-store" value="1.25"><label for="use-store">Store or eatery</label>
+          </div>
+        </fieldset>
+        <fieldset class="field" style="border:0;padding:0;margin:0">
+          <legend class="field-label" style="padding:0">Does it get afternoon sun?</legend>
+          <div class="seg two">
+            <input type="radio" name="sun" id="sun-no" value="1" checked><label for="sun-no">Mostly shaded</label>
+            <input type="radio" name="sun" id="sun-yes" value="1.15"><label for="sun-yes">Yes, it gets hot</label>
+          </div>
+        </fieldset>
+      </form>
+      <div class="result" aria-live="polite">
+        <span class="mono">Recommended size</span>
+        <div class="result-hp" id="hp">1.5<small>HP</small></div>
+        <p id="hp-note">A good fit for a 16 m² bedroom with little afternoon sun.</p>
+        <button class="btn btn-cyan" type="button" data-chat>Book a site survey to confirm</button>
+        <p class="fine">A rough guide only. Ceiling height, windows, people and equipment all change the real load, so we measure before we recommend.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="process" aria-labelledby="process-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow mono">How we work</p>
+      <h2 id="process-title">Four steps. No guesswork.</h2>
+    </div>
+    <ol class="steps">
+      <li class="reveal"><h3>Message or call</h3><p>Tell us what's wrong or what you're planning. Our assistant answers any time and books your survey.</p></li>
+      <li class="reveal"><h3>Site survey</h3><p>We check the space, the existing units and the wiring before we suggest anything.</p></li>
+      <li class="reveal"><h3>Clear quote</h3><p>You get the price before any work starts, so there are no surprises.</p></li>
+      <li class="reveal"><h3>Install and upkeep</h3><p>Clean installation, a final test, then maintenance to keep it running for years.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block ai-sec" aria-labelledby="ai-title">
+  <div class="wrap ai-grid">
+    <div class="reveal">
+      <p class="eyebrow mono">Book any time</p>
+      <h2 id="ai-title" style="font-size:clamp(40px,9vw,64px)">Message us at 9 PM. Get booked at 9 PM.</h2>
+      <ul class="ai-points">
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg></span><div><b>Answers day and night</b><span>Even after 5 PM, on weekends and holidays.</span></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg></span><div><b>Speaks your language</b><span>Tagalog, English, Kapampangan or Ilocano.</span></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8 14l2.5 2.5L16 12"/></svg></span><div><b>Books real open times</b><span>Only times our team is actually free, so your visit is set.</span></div></li>
+      </ul>
+      <button class="btn btn-ink" type="button" data-chat>Try it now</button>
+    </div>
+    <div class="phone reveal" aria-label="Example chat with the LAMIGAN assistant">
+      <div class="phone-screen">
+        <div class="phone-head">
+          <span class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M9 14h22M9 20h16M9 26h22" stroke="#3FD0E8" stroke-width="3" stroke-linecap="round"/></svg></span>
+          <div><b>LAMIGAN Assistant</b><span>Online now</span></div>
+        </div>
+        <div class="chat" id="demo-chat">
+          <div class="msg me">Hi, hindi na lumalamig yung aircon sa office namin 😓</div>
+          <div class="msg bot">Naku, mahirap 'yan lalo na ngayong mainit. May bakante kami bukas ng umaga. Alin ang mas okay sa inyo?</div>
+          <div class="msg-chips"><span>Bukas 8–10 AM</span><span class="pick">Bukas 10–12 NN</span><span>Huwebes 1–3 PM</span></div>
+          <div class="msg me">Bukas 10–12 NN</div>
+          <div class="msg bot">Sige po, naka-hold na 'yan. Ano po ang pangalan ninyo?</div>
+          <div class="booked">✓ Booked · Tomorrow, 10 AM–12 NN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq" aria-labelledby="faq-title">
+  <div class="wrap faq-grid">
+    <div>
+      <div class="head reveal" style="margin-bottom:28px">
+        <p class="eyebrow mono">Questions</p>
+        <h2 id="faq-title">Good to know.</h2>
+      </div>
+      <div class="faq reveal">
+        <details>
+          <summary>How often should our aircon be cleaned?</summary>
+          <p>For most homes, every 3 to 6 months. Offices, stores and units that run all day need it more often. A clean unit cools faster and uses less power.</p>
+        </details>
+        <details>
+          <summary>It's running but not cold. What can I check?</summary>
+          <p>Make sure it's on Cool, not Fan, and look at the filter. A thick layer of dust can stop it from cooling. If it's still warm after that, book a visit and we'll find the cause.</p>
+        </details>
+        <details>
+          <summary>How much is a cleaning?</summary>
+          <p>Window-type from ₱600 and split-type from ₱900, depending on the size. These are sample prices for this demo; a real shop shows its own.</p>
+        </details>
+        <details>
+          <summary>How do I book a visit?</summary>
+          <p>Chat with our assistant on this page any time, even late at night. It shows the times our team is free and books you in on the spot.</p>
+        </details>
+      </div>
+    </div>
+    <aside class="area-card reveal">
+      <svg class="rings" viewBox="0 0 240 240" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="120" cy="120" r="30"/><circle cx="120" cy="120" r="60"/><circle cx="120" cy="120" r="90"/><circle cx="120" cy="120" r="118"/></svg>
+      <span class="mono">Made by ZorDevAI</span>
+      <h3>Want this for your shop?</h3>
+      <p>Your own website like this one, with an AI assistant that answers and books your customers day and night. ₱2,000 setup and ₱1,000 a month.</p>
+      <a class="btn btn-cyan btn-sm" href="../pricing/">See prices</a>
+      <a class="btn btn-ghost btn-sm" href="https://m.me/61595403575723" target="_blank" rel="noopener" style="margin-top:10px">Message ZorDevAI</a>
+    </aside>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow mono" style="color:var(--cyan)">Contact</p>
+      <h2 id="contact-title">Ready for a <em>cooler</em> space?</h2>
+      <div class="actions" style="margin-top:28px">
+        <button class="btn btn-cyan" type="button" data-chat>Book a visit</button>
+        <a class="btn btn-ghost" href="#sizing">Size guide</a>
+      </div>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="cinfo"><span class="mono">Phone</span><p class="big" style="font-family:var(--head);font-weight:800;font-size:34px;margin:0">0900 000 0420</p><p>A sample number. A real shop puts its own here.</p></div>
+      <div class="cinfo"><span class="mono">Hours</span><p>Mon to Sat, 8 AM to 6 PM. Our assistant answers and books any time.</p></div>
+      <div class="cinfo"><span class="mono">Location</span><p>Metro Manila. LAMIGAN is a sample business, so there's no real shop to visit.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#172B3C"/><path d="M9 14h22M9 20h16M9 26h22" stroke="#3FD0E8" stroke-width="3" stroke-linecap="round"/><circle cx="30" cy="20" r="2.4" fill="#FFB547"/></svg>
+      <span><b>LAMIGAN</b><small>AIRCON &amp; HVAC</small></span>
+    </a>
+    <p>LAMIGAN is a made-up company. ZorDevAI built this sample to show the websites and AI assistant we make for real shops. Prices, phone number and details here are samples.</p>
+    <p><a href="../samples/">See all samples</a> · <a href="../pricing/">Prices</a> · <a href="https://m.me/61595403575723" target="_blank" rel="noopener">Message ZorDevAI</a></p>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="btn btn-ghost" href="#sizing">Size guide</a>
+  <button class="btn btn-cyan" type="button" data-chat>Book</button>
+</div>
+
+<script src="https://zordevai-assistant.zordevai-assistant.workers.dev/widget.js" data-client="lamigan-sample" defer></script>
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // "Book" buttons open the assistant. Until it loads, they show the example chat instead.
+  document.querySelectorAll("[data-chat]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (window.zdOpenChat) window.zdOpenChat();
+      else document.querySelector(".ai-sec").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+    });
+  });
+
+  // Hero airflow: warm air drifts in from the left, passes the louvers, and leaves cool.
+  var canvas = document.getElementById("air");
+  var ctx = canvas.getContext("2d");
+  var W = 0, H = 0, dpr = 1, louver = 0, parts = [], running = false;
+  function size() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    louver = W < 1000 ? W * 0.5 : W * 0.6;
+    var n = Math.round(Math.min(220, Math.max(70, W * H / 7000)));
+    parts = [];
+    for (var i = 0; i < n; i++) parts.push(spawn(Math.random() * W));
+    ctx.fillStyle = "#0B1520"; ctx.fillRect(0, 0, W, H);
+  }
+  function spawn(x) {
+    var p = { x: x, y0: Math.random() * H, v: 0.6 + Math.random() * 0.9, ph: Math.random() * 6.28, a: 6 + Math.random() * 16 };
+    p.y = p.py = p.y0 + Math.sin(x * 0.011 + p.ph) * p.a;
+    p.px = x;
+    return p;
+  }
+  function drawLouvers() {
+    ctx.strokeStyle = "rgba(159,180,198,0.10)"; ctx.lineWidth = 1;
+    for (var y = H * 0.12; y < H * 0.9; y += 18) {
+      ctx.beginPath(); ctx.moveTo(louver - 10, y); ctx.lineTo(louver + 10, y + 7); ctx.stroke();
+    }
+  }
+  function step() {
+    ctx.fillStyle = "rgba(11,21,32,0.09)"; ctx.fillRect(0, 0, W, H);
+    drawLouvers();
+    ctx.lineWidth = 1.6;
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      var past = p.x > louver;
+      var calm = past ? Math.max(0.15, 1 - (p.x - louver) / 160) : 1;
+      p.px = p.x; p.py = p.y;
+      p.x += p.v * (past ? 1.7 : 1);
+      p.y = p.y0 + Math.sin(p.x * 0.011 + p.ph) * p.a * calm;
+      ctx.strokeStyle = past ? "rgba(63,208,232," + (0.8 * (0.5 + p.v / 3)) + ")" : "rgba(255,181,71," + (0.45 * (0.5 + p.v / 3)) + ")";
+      ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+      if (p.x > W + 10) parts[i] = spawn(-10);
+    }
+  }
+  function loop() { if (!running) return; step(); requestAnimationFrame(loop); }
+  size();
+  if (reduce) { for (var k = 0; k < 260; k++) step(); }
+  else {
+    new IntersectionObserver(function (es) {
+      var vis = es[0].isIntersecting;
+      if (vis && !running) { running = true; requestAnimationFrame(loop); }
+      if (!vis) running = false;
+    }).observe(canvas);
+  }
+  var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { size(); if (reduce) for (var k = 0; k < 260; k++) step(); }, 150); });
+
+  // Inside temperature counts down from 34 to 22.
+  var inside = document.getElementById("inside");
+  if (reduce) inside.textContent = "22";
+  else {
+    var t = 34, timer = setInterval(function () { t -= 1; inside.textContent = t; if (t <= 22) clearInterval(timer); }, 90);
+  }
+
+  // Sizing guide: about 600 BTU/h per square metre for a shaded bedroom in a hot climate,
+  // more for offices, stores and sunny rooms, then the nearest common unit size up.
+  var sizes = [[7000, "0.75"], [9000, "1"], [12000, "1.5"], [18000, "2"], [24000, "2.5"], [28000, "3"]];
+  var area = document.getElementById("area"), out = document.getElementById("area-out");
+  var hp = document.getElementById("hp"), note = document.getElementById("hp-note");
+  var names = { "1": "bedroom", "1.1": "office", "1.25": "store or eatery" };
+  function calc() {
+    var a = +area.value;
+    var use = document.querySelector("input[name=use]:checked").value;
+    var sun = document.querySelector("input[name=sun]:checked").value;
+    var need = a * 600 * +use * +sun;
+    out.textContent = a + " m²";
+    area.style.setProperty("--fill", ((a - 6) / 54 * 100) + "%");
+    var pick = null;
+    for (var i = 0; i < sizes.length; i++) { if (sizes[i][0] >= need) { pick = sizes[i][1]; break; } }
+    var where = "a " + a + " m² " + names[use] + (sun === "1" ? " with little afternoon sun." : " that gets the afternoon sun.");
+    if (pick) { hp.innerHTML = pick + "<small>HP</small>"; note.textContent = "A good fit for " + where; }
+    else { hp.innerHTML = "3+<small>HP</small>"; note.textContent = "For " + where + " This usually needs two units or a ducted system. Let us survey it."; }
+  }
+  document.getElementById("sizer").addEventListener("input", calc);
+  calc();
+
+  // Reveal sections as they scroll in, and play the example chat once.
+  var chat = document.getElementById("demo-chat");
+  var chatItems = chat.querySelectorAll(".msg, .msg-chips, .booked");
+  function playChat() {
+    chatItems.forEach(function (el, i) {
+      setTimeout(function () {
+        el.classList.add("show");
+        if (el.textContent.indexOf("Bukas 10–12 NN") === 0 && el.classList.contains("me")) {
+          var pick = chat.querySelector(".pick"); if (pick) pick.classList.add("picked");
+        }
+      }, reduce ? 0 : 500 + i * 900);
+    });
+  }
+  if (!("IntersectionObserver" in window) || reduce) {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+    playChat();
+  } else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("in");
+        if (e.target.classList.contains("phone")) playChat();
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

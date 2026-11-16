@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample Websites · ZorDevAI</title>
+<meta name="description" content="Sample websites with an AI assistant that answers and books customers, made by ZorDevAI. Open one and try the chat.">
+<meta name="theme-color" content="#0A0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#0A0E14;--card:#121924;--card-2:#172130;--line:rgba(255,255,255,.09);--ink:#F2F4F7;--muted:#A3ACB9;--accent:#F59E0B;--on:#1A1206;--ok:#34D399}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 500px at 85% -10%,rgba(245,158,11,.14),transparent 60%),radial-gradient(700px 400px at -10% 30%,rgba(59,130,246,.08),transparent 60%)}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:10px}
+.wrap{width:min(1120px,100% - 32px);margin-inline:auto;padding:28px 0 64px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Sora",sans-serif;font-weight:700;font-size:20px;text-decoration:none}
+.brand i{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#FCD34D,#F59E0B 60%,#EA580C);display:grid;place-items:center;color:var(--on);font-style:normal;font-size:15px}
+.top-links{display:flex;gap:18px;font-size:14px;font-weight:600;color:var(--muted)}
+.top-links a{text-decoration:none}
+.top-links a:hover{color:var(--ink)}
+h1{font-family:"Sora",sans-serif;font-weight:600;font-size:clamp(34px,6vw,62px);line-height:1.05;letter-spacing:-.03em;margin:56px 0 0;max-width:16ch;text-wrap:balance}
+h1 span{color:var(--accent)}
+h2{font-family:"Sora",sans-serif;font-weight:600;letter-spacing:-.02em;margin:0}
+.lead{color:var(--muted);font-size:18px;max-width:56ch;margin:18px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chips a,.chips span{padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--muted);font-size:14px;font-weight:600;text-decoration:none}
+.chips b{color:var(--ink)}
+.chips a:hover{border-color:var(--accent);color:var(--ink)}
+.grid{display:grid;gap:22px;margin-top:44px}
+.sample{display:flex;flex-direction:column;border-radius:24px;background:var(--card);border:1px solid var(--line);overflow:hidden;transition:border-color .2s,transform .2s}
+.sample:hover{border-color:rgba(245,158,11,.5)}
+.shot{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:var(--card-2);border-bottom:1px solid var(--line)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform .5s ease}
+.sample:hover .shot img{transform:scale(1.03)}
+.tag{position:absolute;top:14px;left:14px;padding:5px 11px;border-radius:999px;background:rgba(10,14,20,.82);border:1px solid var(--line);font-size:12px;font-weight:800;letter-spacing:.04em;backdrop-filter:blur(6px)}
+.tag.new{background:var(--accent);color:var(--on);border-color:transparent}
+.body{display:flex;flex-direction:column;gap:12px;padding:24px 24px 26px;flex:1}
+.kind{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.body h2{font-size:24px}
+.body p{margin:0;color:var(--muted)}
+.feat{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px;font-size:15px}
+.feat li{position:relative;padding-left:24px}
+.feat li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+.try{margin-top:4px;padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.04);border:1px dashed var(--line);font-size:14px;color:var(--muted)}
+.try b{color:var(--ink)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border-radius:999px;font-weight:800;font-size:15px;text-decoration:none;border:1px solid var(--line);transition:background .2s,border-color .2s}
+.btn.solid{background:var(--accent);color:var(--on);border-color:transparent}
+.btn.solid:hover{background:#FBBF24}
+.btn:not(.solid):hover{border-color:var(--accent)}
+.every{margin-top:64px;padding:30px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
+.every h2{font-size:clamp(22px,3.2vw,30px)}
+.every-grid{display:grid;gap:16px;margin-top:22px}
+.every-grid div{padding:18px;border-radius:16px;background:var(--card-2);border:1px solid var(--line)}
+.every-grid b{display:block;font-family:"Sora",sans-serif;font-size:16px;margin-bottom:4px}
+.every-grid span{color:var(--muted);font-size:14.5px}
+.final{margin-top:64px;padding:44px 26px;border-radius:28px;text-align:center;background:radial-gradient(600px 300px at 50% 0%,rgba(245,158,11,.18),transparent 70%),var(--card);border:1px solid var(--line)}
+.final h2{font-size:clamp(26px,4vw,40px)}
+.final p{color:var(--muted);margin:12px auto 0;max-width:52ch}
+.final .actions{justify-content:center;margin-top:22px}
+footer{margin-top:40px;color:var(--muted);font-size:13.5px;text-align:center}
+@media (min-width:860px){.grid{grid-template-columns:1fr 1fr}.sample.wide{grid-column:1/-1;flex-direction:row}.sample.wide .shot{flex:1.15;aspect-ratio:auto;min-height:100%;border-bottom:0;border-right:1px solid var(--line)}.sample.wide .body{flex:1;padding:32px}.every-grid{grid-template-columns:repeat(4,1fr)}}
+@media (prefers-reduced-motion:reduce){.shot img,.sample{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="../pricing/"><i>Z</i>ZorDevAI</a>
+    <nav class="top-links" aria-label="ZorDevAI"><a href="../pricing/">Prices</a><a href="https://m.me/61595403575723" target="_blank" rel="noopener">Message us</a></nav>
+  </header>
+
+  <h1>Sample websites with an <span>AI assistant.</span></h1>
+  <p class="lead">Open a sample on your phone and use it the way your customers would: ask a question, check a price, book a visit. Every business here is a made-up sample. Yours gets your own name, photos, prices and schedule.</p>
+  <div class="chips">
+    <a href="../pricing/">Website + AI <b>₱2,000</b> setup + <b>₱1,000</b> a month</a>
+    <span>Tagalog, English, Bisaya and more</span>
+  </div>
+
+  <section class="grid" aria-label="Samples">
+    <article class="sample wide">
+      <a class="shot" href="../lamigan/" aria-label="Open the LAMIGAN sample">
+        <img src="img/lamigan.jpg" alt="LAMIGAN sample website: Built for Manila heat, with a 34 to 22 degree gauge" loading="eager" width="1200" height="750">
+        <span class="tag new">NEW</span>
+      </a>
+      <div class="body">
+        <span class="kind">Aircon shop · Philippines</span>
+        <h2>LAMIGAN Aircon &amp; HVAC</h2>
+        <p>A bold, modern site for a local aircon shop, with moving airflow in the header and an assistant that books in Tagalog.</p>
+        <ul class="feat">
+          <li>Size guide: customers find the right HP for their room</li>
+          <li>AI chat that answers and books open times, day and night</li>
+          <li>Services for homes, stores and offices</li>
+          <li>Looks great on phones, with Book buttons always in reach</li>
+        </ul>
+        <p class="try"><b>Try:</b> move the room-size slider, then scroll to the chat that books a visit in Tagalog.</p>
+        <div class="actions"><a class="btn solid" href="../lamigan/">Open sample</a></div>
+      </div>
+    </article>
+
+    <article class="sample">
+      <a class="shot" href="https://vantage-climate.zordevai-assistant.workers.dev" target="_blank" rel="noopener" aria-label="Open the Vantage Climate sample">
+        <img src="img/vantage.jpg" alt="Vantage Climate sample website: See it first, over a house at dusk" loading="lazy" width="1200" height="750">
+        <span class="tag">FOR THE US</span>
+      </a>
+      <div class="body">
+        <span class="kind">Heating and air · United States</span>
+        <h2>Vantage Climate</h2>
+        <p>A premium site with a cinematic video header, made for American heating and cooling companies.</p>
+        <ul class="feat">
+          <li>Real AI chat in English or Spanish</li>
+          <li>Books into the team's real open times</li>
+          <li>Owner dashboard and instant phone alerts</li>
+        </ul>
+        <p class="try"><b>Try:</b> tap the chat bubble and type "my AC stopped cooling."</p>
+        <div class="actions"><a class="btn solid" href="https://vantage-climate.zordevai-assistant.workers.dev" target="_blank" rel="noopener">Open sample</a></div>
+      </div>
+    </article>
+
+    <article class="sample">
+      <a class="shot" href="../thermostead/" aria-label="Open the Thermostead sample">
+        <img src="img/thermostead.jpg" alt="Thermostead sample website: Too hot to sleep. Still waiting on a callback." loading="lazy" width="1200" height="750">
+        <span class="tag">GUIDED DEMO</span>
+      </a>
+      <div class="body">
+        <span class="kind">Aircon shop · Philippines</span>
+        <h2>Thermostead Aircon</h2>
+        <p>A warm, calm design for an aircon shop, with a guide that walks you through the chat, the booking and the owner's view.</p>
+        <ul class="feat">
+          <li>Demo guide with three things to try</li>
+          <li>Chat and booking an open time</li>
+          <li>The owner dashboard</li>
+        </ul>
+        <div class="actions"><a class="btn solid" href="../thermostead/">Open sample</a></div>
+      </div>
+    </article>
+
+    <article class="sample wide">
+      <a class="shot" href="../ai-assistant/" aria-label="See how the ZorDevAI Assistant works">
+        <img src="img/assistant.jpg" alt="ZorDevAI Assistant page: An AI assistant that answers your customers and books them for you" loading="lazy" width="1200" height="750">
+        <span class="tag">HOW IT WORKS</span>
+      </a>
+      <div class="body">
+        <span class="kind">Step by step</span>
+        <h2>The ZorDevAI Assistant</h2>
+        <p>Everything your customers see and everything you get as the owner, explained one step at a time.</p>
+        <ul class="feat">
+          <li>The chat bubble, the booking and the website form</li>
+          <li>The phone alert you get for each new request</li>
+          <li>Your dashboard and the Google review messages</li>
+        </ul>
+        <div class="actions"><a class="btn solid" href="../ai-assistant/">See how it works</a><a class="btn" href="../ai-assistant/demo/">Interactive demo</a></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="every" aria-labelledby="every-h">
+    <h2 id="every-h">What every website + AI comes with</h2>
+    <div class="every-grid">
+      <div><b>A website for phones</b><span>Your services, prices and photos, with Call and Messenger buttons.</span></div>
+      <div><b>AI chat, 24/7</b><span>Answers your customers in their language, even at night.</span></div>
+      <div><b>Real bookings</b><span>Only times your team is free, so visits never clash.</span></div>
+      <div><b>Your dashboard</b><span>Every request in one place, with an alert on your phone.</span></div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="final-h">
+    <h2 id="final-h">Want one for your shop?</h2>
+    <p>Send us your shop's name, services and a few photos. We'll show you a sample with your own name before you decide.</p>
+    <div class="actions">
+      <a class="btn solid" href="https://m.me/61595403575723" target="_blank" rel="noopener">Message ZorDevAI</a>
+      <a class="btn" href="../pricing/">See prices</a>
+    </div>
+  </section>
+
+  <footer>Zoren P. Galagnao · ZorDevAI · Web Developer · Davao City. Every business on this page is a made-up sample.</footer>
+</div>
+</body>
+</html>
