@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>KISLAP Dental Studio · Sample website by ZorDevAI</title>
+<meta name="description" content="A sample dental clinic website with an AI assistant that answers patients and books appointments, made by ZorDevAI. KISLAP is a made-up clinic.">
+<meta name="theme-color" content="#FBF7F1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315302A'/%3E%3Cpath d='M32 12l4 14 14 4-14 4-4 14-4-14-14-4 14-4z' fill='%23F3B97C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #FBF7F1;
+    --paper: #FFFFFF;
+    --sage: #E4EDE7;
+    --sage-2: #CFE0D5;
+    --ink: #15302A;
+    --ink-2: #284A41;
+    --muted: #5E716B;
+    --line: #E6E0D6;
+    --coral: #E26A4A;
+    --coral-deep: #C4532F;
+    --gold: #F3B97C;
+    --radius: 22px;
+    --gutter: 16px;
+    --serif: "Fraunces", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; font-family: "DM Sans", system-ui, sans-serif; font-size: 17px; line-height: 1.6; color: var(--ink); background: var(--ivory); -webkit-font-smoothing: antialiased; }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  .wrap { width: min(1160px, 100% - 2 * var(--gutter)); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.05; letter-spacing: -0.015em; margin: 0; }
+  :focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; border-radius: 8px; }
+
+  .sample-bar { background: var(--ink); color: #D5E2DC; font-size: 13px; text-align: center; padding: 7px var(--gutter); }
+  .sample-bar b { color: var(--gold); font-weight: 600; }
+  .sample-bar a { color: #fff; }
+
+  .top { position: sticky; top: 0; z-index: 40; background: rgba(251,247,241,.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 66px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+  .brand-mark { width: 38px; height: 38px; flex: none; }
+  .brand b { display: block; font-family: var(--serif); font-size: 23px; font-weight: 700; letter-spacing: .06em; line-height: 1; }
+  .brand small { display: block; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-top: 3px; white-space: nowrap; }
+  .top nav { display: none; gap: 28px; font-size: 15px; font-weight: 500; }
+  .top nav a { text-decoration: none; color: var(--ink-2); }
+  .top nav a:hover { color: var(--coral-deep); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; font: 600 16px/1 "DM Sans", sans-serif; padding: 16px 24px; border-radius: 999px; border: 1.5px solid transparent; background: none; text-decoration: none; cursor: pointer; white-space: nowrap; transition: transform .15s ease, background .2s ease, border-color .2s ease; }
+  .btn:active { transform: translateY(1px); }
+  .btn svg { width: 19px; height: 19px; flex: none; }
+  .btn-coral { background: var(--coral); color: #fff; }
+  .btn-coral:hover { background: var(--coral-deep); }
+  .btn-line { border-color: var(--sage-2); color: var(--ink); background: var(--paper); }
+  .btn-line:hover { border-color: var(--ink-2); }
+  .btn-ink { background: var(--ink); color: #fff; }
+  .btn-ink:hover { background: var(--ink-2); }
+  .btn-sm { padding: 11px 17px; font-size: 15px; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; }
+  .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; filter: blur(10px); pointer-events: none; z-index: -1; }
+  .hero::before { width: 540px; height: 540px; right: -160px; top: -120px; background: radial-gradient(circle, rgba(207,224,213,.95), rgba(207,224,213,0) 70%); }
+  .hero::after { width: 420px; height: 420px; left: -180px; bottom: -160px; background: radial-gradient(circle, rgba(243,185,124,.35), rgba(243,185,124,0) 70%); }
+  .hero .wrap { display: grid; gap: 40px; padding: 48px 0 56px; position: relative; z-index: 0; }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--coral-deep); }
+  .kicker svg { width: 16px; height: 16px; }
+  .hero h1 { font-size: clamp(44px, 11vw, 82px); margin: 16px 0 18px; }
+  .hero h1 em { font-style: italic; color: var(--coral); font-weight: 500; }
+  .lead { font-size: 19px; color: var(--ink-2); max-width: 31em; margin: 0 0 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .proof { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 28px 0 0; }
+  .proof li { display: flex; align-items: center; gap: 8px; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-size: 14.5px; font-weight: 500; }
+  .proof svg { width: 16px; height: 16px; color: var(--coral); flex: none; }
+
+  .chatcard { position: relative; width: min(400px, 100%); margin-inline: auto; background: var(--paper); border-radius: 28px; border: 1px solid var(--line); box-shadow: 0 30px 70px -35px rgba(21,48,42,.45); overflow: hidden; }
+  .chat-head { display: flex; align-items: center; gap: 11px; padding: 16px 18px 13px; border-bottom: 1px solid var(--line); }
+  .chat-head .av { width: 38px; height: 38px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; flex: none; }
+  .chat-head .av svg { width: 20px; height: 20px; }
+  .chat-head b { display: block; font-size: 15.5px; line-height: 1.2; }
+  .chat-head span { font-size: 12.5px; color: var(--muted); }
+  .chat-head span::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #2BB37C; margin-right: 6px; vertical-align: 1px; }
+  .chat { padding: 16px 16px 20px; display: flex; flex-direction: column; gap: 10px; min-height: 340px; background: linear-gradient(180deg, #fff, #FBF8F3); }
+  .msg { max-width: 85%; padding: 10px 14px; border-radius: 18px; font-size: 14.5px; line-height: 1.45; opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; }
+  .msg.show { opacity: 1; transform: none; }
+  .msg.bot { background: var(--sage); align-self: flex-start; border-bottom-left-radius: 6px; }
+  .msg.me { background: var(--ink); color: #fff; align-self: flex-end; border-bottom-right-radius: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; opacity: 0; transition: opacity .45s ease; }
+  .chips.show { opacity: 1; }
+  .chips span { border: 1.5px solid var(--coral); color: var(--coral-deep); border-radius: 999px; padding: 6px 11px; font-size: 13px; font-weight: 600; background: #fff; }
+  .chips span.picked { background: var(--coral); color: #fff; }
+  .booked { align-self: center; font-size: 12.5px; font-weight: 600; color: #127452; background: #E2F5EC; border-radius: 999px; padding: 6px 12px; opacity: 0; transition: opacity .45s ease; }
+  .booked.show { opacity: 1; }
+  .float { position: absolute; z-index: 2; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 9px 12px; font-size: 13px; font-weight: 600; box-shadow: 0 14px 30px -18px rgba(21,48,42,.4); display: none; }
+  .float small { display: block; color: var(--muted); font-weight: 500; font-size: 11.5px; }
+
+  /* Promise strip */
+  .promise { background: var(--ink); color: #fff; }
+  .promise .wrap { display: grid; gap: 18px; padding: 30px 0; }
+  .promise .wrap > div { display: grid; grid-template-columns: 42px 1fr; gap: 14px; align-items: center; }
+  .promise .ic { width: 42px; height: 42px; border-radius: 13px; background: rgba(243,185,124,.15); color: var(--gold); display: grid; place-items: center; }
+  .promise .ic svg { width: 21px; height: 21px; }
+  .promise b { display: block; font-family: var(--serif); font-size: 19px; font-weight: 600; }
+  .promise span { color: #BFD1C9; font-size: 15px; }
+
+  section.block { padding: 72px 0; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--coral-deep); margin: 0 0 12px; }
+  .head { max-width: 660px; margin-bottom: 36px; }
+  .head h2 { font-size: clamp(36px, 8vw, 56px); }
+  .head h2 em { font-style: italic; font-weight: 500; color: var(--coral); }
+  .head p { color: var(--muted); margin: 16px 0 0; font-size: 18px; }
+
+  /* Services */
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .svc { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 20px 18px; }
+  .svc .ic { width: 46px; height: 46px; border-radius: 14px; background: var(--sage); color: var(--ink); display: grid; place-items: center; margin-bottom: 14px; }
+  .svc .ic svg { width: 24px; height: 24px; }
+  .svc h3 { font-size: 21px; margin-bottom: 4px; }
+  .svc p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
+
+  /* Treatment guide */
+  .guide-sec { background: var(--sage); }
+  .guide { display: grid; gap: 16px; }
+  .picker { display: flex; flex-wrap: wrap; gap: 8px; }
+  .picker button { border: 1.5px solid var(--sage-2); background: var(--paper); border-radius: 999px; padding: 11px 16px; font-weight: 600; font-size: 15px; cursor: pointer; }
+  .picker button[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .guide-card { background: var(--paper); border-radius: var(--radius); padding: 26px 24px; border: 1px solid var(--line); }
+  .guide-card h3 { font-size: clamp(30px, 7vw, 42px); }
+  .guide-card > p { color: var(--muted); margin: 10px 0 20px; }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 22px; }
+  .facts div { background: var(--ivory); border-radius: 16px; padding: 14px 12px; }
+  .facts span { display: block; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .facts b { display: block; font-family: var(--serif); font-size: 22px; margin-top: 4px; line-height: 1.15; }
+  .fine { font-size: 13.5px; color: var(--muted); margin: 14px 0 0; }
+
+  /* Prices */
+  .prices { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .prices div { display: flex; justify-content: space-between; gap: 16px; padding: 17px 22px; border-bottom: 1px solid var(--line); }
+  .prices div:last-child { border-bottom: 0; }
+  .prices span { font-weight: 500; }
+  .prices b { font-family: var(--serif); font-weight: 600; white-space: nowrap; }
+  .sample-note { display: inline-block; margin-top: 14px; font-size: 13.5px; color: var(--muted); background: #F4EFE6; border-radius: 999px; padding: 6px 12px; }
+
+  /* Steps */
+  .steps { display: grid; gap: 14px; list-style: none; padding: 0; margin: 0; counter-reset: s; }
+  .steps li { counter-increment: s; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--coral); color: #fff; font-family: var(--serif); font-size: 21px; font-weight: 600; margin-bottom: 14px; }
+  .steps h3 { font-size: 23px; margin-bottom: 6px; }
+  .steps p { margin: 0; color: var(--muted); }
+
+  /* FAQ */
+  .faq-grid { display: grid; gap: 30px; }
+  .faq details { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; margin-bottom: 10px; }
+  .faq summary { list-style: none; cursor: pointer; padding: 19px 54px 19px 22px; font-weight: 600; font-size: 17.5px; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: 22px; top: 50%; transform: translateY(-50%); font-family: var(--serif); font-size: 26px; color: var(--coral); }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { margin: 0; padding: 0 22px 20px; color: var(--muted); }
+  .zcard { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 28px 24px; }
+  .zcard .eyebrow { color: var(--gold); }
+  .zcard h3 { font-size: 32px; margin-bottom: 10px; }
+  .zcard p { color: #C6D6CF; margin: 0 0 20px; }
+  .zcard .actions { gap: 10px; }
+  .zcard .btn-line { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
+
+  /* Contact */
+  .contact .wrap { display: grid; gap: 14px; }
+  .cgrid { display: grid; gap: 12px; }
+  .cinfo { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+  .cinfo span { display: block; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .cinfo b { font-family: var(--serif); font-size: 26px; font-weight: 600; }
+  .cinfo p { margin: 4px 0 0; color: var(--muted); }
+
+  footer { background: var(--ink); color: #BFD1C9; font-size: 14px; padding: 34px 0 120px; margin-top: 72px; }
+  footer .wrap { display: grid; gap: 12px; }
+  footer .brand b { color: #fff; }
+  footer .brand small { color: #9DB3AA; }
+  footer p { margin: 0; }
+
+  .callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 84px calc(10px + env(safe-area-inset-bottom)) var(--gutter); background: rgba(251,247,241,.96); border-top: 1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .callbar .btn { padding: 14px 8px; }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (min-width: 720px) {
+    :root { --gutter: 28px; }
+    .svc-grid { grid-template-columns: repeat(4, 1fr); }
+    .promise .wrap { grid-template-columns: repeat(3, 1fr); }
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .cgrid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 1000px) {
+    .top nav { display: flex; }
+    .hero .wrap { grid-template-columns: 1.15fr .85fr; align-items: center; padding: 84px 0 90px; gap: 56px; }
+    .float { display: block; }
+    .guide { grid-template-columns: .9fr 1.1fr; align-items: start; }
+    .faq-grid { grid-template-columns: 1.35fr .65fr; gap: 44px; align-items: start; }
+    .prices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+    section.block { padding: 100px 0; }
+    .callbar { display: none; }
+    footer { padding-bottom: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .msg, .chips, .booked { transition: none; opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sample-bar"><b>Sample website</b> by ZorDevAI. KISLAP is a made-up dental clinic, here to show what we build. <a href="../samples/">See all samples</a></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="KISLAP Dental Studio, home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#15302A"/><path d="M20 8l2.6 9.4L32 20l-9.4 2.6L20 32l-2.6-9.4L8 20l9.4-2.6z" fill="#F3B97C"/></svg>
+      <span><b>KISLAP</b><small>Dental Studio</small></span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#guide">Treatment guide</a>
+      <a href="#prices">Prices</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="btn btn-coral btn-sm" type="button" data-chat>Book now</button>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div>
+      <span class="kicker"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>Davao City · Family dental clinic</span>
+      <h1 id="hero-title">Gentle dental care, <em>booked in a minute.</em></h1>
+      <p class="lead">Cleanings, fillings, braces and more, for the whole family. Ask us anything or book your visit any time, even at 11 PM. No waiting for a reply.</p>
+      <div class="actions">
+        <button class="btn btn-coral" type="button" data-chat>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>
+          Book an appointment
+        </button>
+        <a class="btn btn-line" href="#prices">See prices</a>
+      </div>
+      <ul class="proof">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg>Books any time, even at night</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg>Mon to Sat, 9 AM to 6 PM</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg>Kids welcome</li>
+      </ul>
+    </div>
+
+    <div style="position:relative">
+      <div class="float" style="left:-40px;top:-26px">Cleaning<small>from ₱800 (sample)</small></div>
+      <div class="float" style="right:-24px;bottom:-24px">Reply in seconds<small>English, Tagalog, Bisaya</small></div>
+      <div class="chatcard reveal in" aria-label="Example chat with the KISLAP assistant">
+        <div class="chat-head">
+          <span class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6l3 10.5L33.5 20 23 23l-3 11-3-11L6.5 20 17 16.5z" fill="#F3B97C"/></svg></span>
+          <div><b>KISLAP Assistant</b><span>Online now</span></div>
+        </div>
+        <div class="chat" id="demo-chat">
+          <div class="msg me">Pila ang cleaning? Naa moy bakante ugma? 🦷</div>
+          <div class="msg bot">Ang cleaning nagsugod sa ₱800, depende sa kahugaw sa ngipon. Naa mi bakante ugma. Asa nimo gusto?</div>
+          <div class="chips"><span>Ugma 10 AM</span><span class="pick">Ugma 2 PM</span><span>Huwebes 9 AM</span></div>
+          <div class="msg me">Ugma 2 PM</div>
+          <div class="msg bot">Sige! Unsa imong pangalan para sa appointment?</div>
+          <div class="booked">✓ Booked · Tomorrow, 2:00 PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="promise" aria-label="Our promises">
+  <div class="wrap">
+    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M17 7.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2 2.7 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"/></svg></span><div><b>Price first</b><span>You know the cost before we start.</span></div></div>
+    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg></span><div><b>Gentle, always</b><span>We go slow and explain every step.</span></div></div>
+    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg></span><div><b>On time</b><span>Your slot is yours. No long waits.</span></div></div>
+  </div>
+</section>
+
+<section class="block" id="services" aria-labelledby="services-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">What we do</p>
+      <h2 id="services-title">Everything for a <em>healthy smile.</em></h2>
+      <p>From your child's first check-up to braces and a brighter smile.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 4 2 5 2.6 9.5.3 2.4 1 4 2.2 4 1.5 0 1.6-5 4.2-5s2.7 5 4.2 5c1.2 0 1.9-1.6 2.2-4C19 12.5 21 11.5 21 7.5 21 5 19.5 3 17 3c-2 0-3 1.2-5 1.2S9 3 7 3z"/></svg></div><h3>Cleaning</h3><p>Check-up, cleaning and polish.</p></article>
+      <article class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9 12h6M12 9v6"/></svg></div><h3>Fillings</h3><p>Tooth-colored, same visit.</p></article>
+      <article class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/><rect x="6" y="6" width="3" height="12" rx="1"/><rect x="11" y="6" width="3" height="12" rx="1"/><rect x="16" y="6" width="3" height="12" rx="1"/></svg></div><h3>Braces</h3><p>Monthly payment plans.</p></article>
+      <article class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2 6.4L20.5 10 14 11.8 12 18l-2-6.2L3.5 10 10 8.4z"/></svg></div><h3>Whitening</h3><p>A brighter smile in one visit.</p></article>
+      <article class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l-1 7h-6z"/><path d="M9 11c-.5 4-1 9 1 9s1-4 2-4 0 4 2 4 1.5-5 1-9"/></svg></div><h3>Extraction</h3><p>Including wisdom teeth.</p></article>
+      <article class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14c3-2 6-2 9 0s6 2 9 0"/><path d="M5 14v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"/></svg></div><h3>Dentures</h3><p>Partial and full sets.</p></article>
+      <article class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/></svg></div><h3>Root canal</h3><p>Save the tooth, end the pain.</p></article>
+      <article class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 21c1-4 4-6 7-6s6 2 7 6"/></svg></div><h3>Kids</h3><p>Patient, playful, no fear.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="block guide-sec" id="guide" aria-labelledby="guide-title">
+  <div class="wrap guide">
+    <div class="head reveal" style="margin-bottom:0">
+      <p class="eyebrow">Treatment guide</p>
+      <h2 id="guide-title">What to <em>expect.</em></h2>
+      <p>Pick a treatment to see how long it takes, how many visits, and the starting price.</p>
+      <div class="picker" role="group" aria-label="Pick a treatment" style="margin-top:22px" id="picker"></div>
+    </div>
+    <div class="guide-card reveal" aria-live="polite">
+      <h3 id="g-name">Cleaning</h3>
+      <p id="g-desc"></p>
+      <div class="facts">
+        <div><span>Time</span><b id="g-time"></b></div>
+        <div><span>Visits</span><b id="g-visits"></b></div>
+        <div><span>From</span><b id="g-price"></b></div>
+      </div>
+      <button class="btn btn-coral" type="button" data-chat id="g-book">Book a cleaning</button>
+      <p class="fine">Sample prices for this demo. The dentist confirms the final price after checking.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="prices" aria-labelledby="prices-title">
+  <div class="wrap prices-grid">
+    <div class="head reveal">
+      <p class="eyebrow">Prices</p>
+      <h2 id="prices-title">Clear prices, <em>no surprises.</em></h2>
+      <p>Know what to expect before you sit in the chair. We'll always tell you the price first.</p>
+      <span class="sample-note">Sample prices for this demo</span>
+    </div>
+    <div class="prices reveal">
+      <div><span>Consultation</span><b>₱500</b></div>
+      <div><span>Cleaning</span><b>from ₱800</b></div>
+      <div><span>Filling, per tooth</span><b>from ₱900</b></div>
+      <div><span>Extraction</span><b>from ₱900</b></div>
+      <div><span>Root canal</span><b>from ₱7,000</b></div>
+      <div><span>Whitening</span><b>from ₱9,000</b></div>
+      <div><span>Braces</span><b>from ₱40,000</b></div>
+      <div><span>Dentures</span><b>from ₱6,000</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top:0" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-title">Booked before you <em>forget.</em></h2>
+    </div>
+    <ol class="steps">
+      <li class="reveal"><h3>Message us any time</h3><p>Our assistant answers right away, in English, Tagalog or Bisaya, even late at night.</p></li>
+      <li class="reveal"><h3>Pick your time</h3><p>It shows the slots our dentists are free and books the one you pick.</p></li>
+      <li class="reveal"><h3>Come in, smile</h3><p>The clinic sees your booking right away and confirms it before your visit.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="faq" style="padding-top:0" aria-labelledby="faq-title">
+  <div class="wrap faq-grid">
+    <div>
+      <div class="head reveal" style="margin-bottom:26px">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-title">Good to <em>know.</em></h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary>Masakit ba ang cleaning?</summary><p>Most people feel only light pressure. If your gums are sensitive, tell us and we'll go slower and use a numbing gel.</p></details>
+        <details><summary>Pwede bang hulugan ang braces?</summary><p>Yes. In this sample, braces start with a down payment, then a monthly adjustment fee. The dentist explains the plan at your consultation.</p></details>
+        <details><summary>Do you accept HMO?</summary><p>Some HMO cards are accepted for check-ups and cleaning. Message us with your card and we'll check it for you.</p></details>
+        <details><summary>Pwede ba ang bata?</summary><p>Yes. We see kids from age 2. We keep the first visit short and fun so they're not afraid.</p></details>
+        <details><summary>What if my tooth hurts badly right now?</summary><p>Message us and we'll fit you in at the soonest open slot. If you have a high fever with a swollen face, or bleeding that won't stop, go to the nearest emergency room.</p></details>
+      </div>
+    </div>
+    <aside class="zcard reveal">
+      <p class="eyebrow">Made by ZorDevAI</p>
+      <h3>Want this for your clinic?</h3>
+      <p>Your own website like this, with an AI assistant that answers patients and books appointments day and night. ₱2,000 setup and ₱1,000 a month.</p>
+      <div class="actions">
+        <a class="btn btn-coral btn-sm" href="../pricing/">See prices</a>
+        <a class="btn btn-line btn-sm" href="https://m.me/61595403575723" target="_blank" rel="noopener">Message ZorDevAI</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="head reveal" style="margin-bottom:10px">
+      <p class="eyebrow">Visit us</p>
+      <h2 id="contact-title">Your smile, <em>our care.</em></h2>
+    </div>
+    <div class="cgrid reveal">
+      <div class="cinfo"><span>Phone</span><b>0900 000 0516</b><p>A sample number. A real clinic puts its own here.</p></div>
+      <div class="cinfo"><span>Hours</span><b>Mon to Sat</b><p>9 AM to 6 PM. Our assistant answers and books any time.</p></div>
+      <div class="cinfo"><span>Location</span><b>Davao City</b><p>KISLAP is a sample clinic, so there's no real clinic to visit.</p></div>
+    </div>
+    <div class="actions reveal" style="margin-top:8px"><button class="btn btn-coral" type="button" data-chat>Book an appointment</button></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#284A41"/><path d="M20 8l2.6 9.4L32 20l-9.4 2.6L20 32l-2.6-9.4L8 20l9.4-2.6z" fill="#F3B97C"/></svg>
+      <span><b>KISLAP</b><small>Dental Studio</small></span>
+    </a>
+    <p>KISLAP is a made-up dental clinic. ZorDevAI built this sample to show the websites and AI assistant we make for real clinics. Prices, phone number and details here are samples.</p>
+    <p><a href="../samples/">See all samples</a> · <a href="../pricing/">Prices</a> · <a href="https://m.me/61595403575723" target="_blank" rel="noopener">Message ZorDevAI</a></p>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="btn btn-line" href="#prices">Prices</a>
+  <button class="btn btn-coral" type="button" data-chat>Book</button>
+</div>
+
+<script src="https://zordevai-assistant.zordevai-assistant.workers.dev/widget.js" data-client="kislap-dental-sample" defer></script>
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Book buttons open the assistant. Until it loads, they show the example chat.
+  document.querySelectorAll("[data-chat]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (window.zdOpenChat) window.zdOpenChat();
+      else { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); playChat(); }
+    });
+  });
+
+  // Treatment guide (sample prices).
+  var T = [
+    ["Cleaning", "A check-up, cleaning and polish to remove tartar and stains. Most people come every six months.", "45 min", "1", "₱800"],
+    ["Filling", "A tooth-colored filling for a cavity, done in the same visit. Usually painless with a little anesthesia.", "30–60 min", "1", "₱900"],
+    ["Extraction", "Removing a tooth that can't be saved, with anesthesia. Wisdom teeth may take longer.", "30–45 min", "1", "₱900"],
+    ["Root canal", "Cleans the inside of a painful tooth so you can keep it. Usually finished with a crown.", "1 hour", "2–3", "₱7,000"],
+    ["Braces", "Straightens teeth over time. A consultation first, then monthly adjustments.", "1 hour", "Monthly", "₱40,000"],
+    ["Whitening", "Brightens your smile by several shades in a single visit.", "1 hour", "1", "₱9,000"]
+  ];
+  var picker = document.getElementById("picker");
+  function show(i) {
+    var t = T[i];
+    document.getElementById("g-name").textContent = t[0];
+    document.getElementById("g-desc").textContent = t[1];
+    document.getElementById("g-time").textContent = t[2];
+    document.getElementById("g-visits").textContent = t[3];
+    document.getElementById("g-price").textContent = t[4];
+    document.getElementById("g-book").textContent = t[0] === "Braces" ? "Book a braces consultation" : "Book a " + t[0].toLowerCase();
+    picker.querySelectorAll("button").forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+  }
+  T.forEach(function (t, i) {
+    var b = document.createElement("button");
+    b.type = "button"; b.textContent = t[0];
+    b.addEventListener("click", function () { show(i); });
+    picker.appendChild(b);
+  });
+  show(0);
+
+  // Example chat plays once.
+  var played = false;
+  function playChat() {
+    if (played) return; played = true;
+    var chat = document.getElementById("demo-chat");
+    chat.querySelectorAll(".msg, .chips, .booked").forEach(function (el, i) {
+      setTimeout(function () {
+        el.classList.add("show");
+        if (el.classList.contains("me") && el.textContent.indexOf("Ugma 2 PM") === 0) {
+          var p = chat.querySelector(".pick"); if (p) p.classList.add("picked");
+        }
+      }, reduce ? 0 : 600 + i * 950);
+    });
+  }
+  playChat();
+
+  if (!("IntersectionObserver" in window) || reduce) {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>
